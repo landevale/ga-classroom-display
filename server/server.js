@@ -1,5 +1,6 @@
 // DEPENDENCIES
 require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const morgan = require("morgan");
@@ -7,7 +8,7 @@ const mongoose = require("mongoose");
 // const bcrypt = require("bcrypt");
 
 // Import
-const usersController = require("./controllers/usersController.js");
+// const usersController = require("./controllers/usersController.js");
 // const User = require("./models/users");
 
 // CONFIGURATION
@@ -17,8 +18,8 @@ const PORT = process.env.PORT ?? 3000;
 // MIDDLEWARE
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(express.static("public"));
-app.use("/users", usersController);
+app.use(express.static("../client/dist"));
+// app.use("/users", usersController);
 // session
 app.set("trust proxy", 1); // trust first proxy
 app.use(
@@ -44,6 +45,14 @@ mongoose.connect(mongoURI);
 db.on("error", (err) => console.log(err.message + " is mongod not running?"));
 db.on("connected", () => console.log("mongo connected: ", mongoURI));
 db.on("disconnected", () => console.log("mongo disconnected"));
+
+app.get("/api/", (req, res) => {
+  res.json({ msg: "Hello World!" });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("..", "client", "dist", "index.html"));
+});
 
 // Listener
 db.once("open", () => {
