@@ -2,29 +2,15 @@ import React from "react";
 import { DateTime } from "luxon";
 
 function CalendarDisplay({ selectedDateState }) {
-  const plusOne = DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-    .plus({ days: 1 })
-    .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
+  const dayDisplayArr = [];
 
-  const plusTwo = DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-    .plus({ days: 2 })
-    .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
-
-  const plusThree = DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-    .plus({ days: 3 })
-    .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
-
-  const plusFour = DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-    .plus({ days: 4 })
-    .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
-
-  const plusFive = DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-    .plus({ days: 5 })
-    .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
-
-  const plusSix = DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-    .plus({ days: 6 })
-    .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
+  for (let i = 0; i < 7; i++) {
+    dayDisplayArr.push(
+      DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
+        .plus({ days: i })
+        .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+    );
+  }
 
   return (
     <table className="table" border="solid">
@@ -41,33 +27,28 @@ function CalendarDisplay({ selectedDateState }) {
         <th scope="col" className="table__cell--header table__cell--align-left">
           Classroom
         </th>
-        <th scope="col" className="table__cell--header">
-          {selectedDateState}
-        </th>
-        <th scope="col" className="table__cell--header">
-          {plusOne}
-        </th>
-
-        <th scope="col" className="table__cell--header">
-          {}
-        </th>
-        <th scope="col" className="table__cell--header">
-          {plusTwo}
-        </th>
-        <th scope="col" className="table__cell--header">
-          {plusThree}
-        </th>
-        <th scope="col" className="table__cell--header">
-          {plusFour}
-        </th>
-        <th scope="col" className="table__cell--header">
-          {plusFive}
-        </th>
-        <th scope="col" className="table__cell--header">
-          {plusSix}
-        </th>
+        {dayDisplayArr.map((ele, i) => (
+          <th scope="col" className="table__cell--header" key={i}>
+            {ele}
+          </th>
+        ))}
       </tr>
-      <tbody className="table__body">Classroom 1</tbody>
+      <tr>
+        <td>Classroom 1</td>
+        <td></td>
+        <td>SEI-40</td>
+        <td>SEI-40</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      {/* <tbody className="table__body">Classroom 2</tbody>
+      <tbody className="table__body">Classroom 3</tbody>
+      <tbody className="table__body">Classroom 4</tbody>
+      <tbody className="table__body">Classroom 5</tbody>
+      <tbody className="table__body">Classroom 6</tbody> */}
     </table>
   );
 }
