@@ -4,7 +4,8 @@ const User = require("./users");
 
 const bookingSchema = new mongoose.Schema(
   {
-    roomUseBy: { type: Schema.ObjectId, ref: User }, // check whether this user= admin or userOfRoom
+    roomUseBy: { type: String, required: true },
+    createdBy: { type: Schema.ObjectId, ref: User }, // check whether this user= admin or userOfRoom
     bookingStart: { Date, required: true },
     bookingEnd: { Date, required: true },
     classRoom: { type: Number },
