@@ -1,13 +1,13 @@
 import React from "react";
 
-function Home() {
+function Bookings() {
   return (
     <>
       <div>
-        <h1>This is Homepage.</h1>
+        <h1>This is Bookings.</h1>
       </div>
     </>
   );
 }
 
-export default Home;
+export default Bookings;

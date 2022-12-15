@@ -68,3 +68,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.navbar a {
+  text-decoration: none;
+}
+.navbar a.active {
+  color: #333;
+  text-decoration: underline;
+}
