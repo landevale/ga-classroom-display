@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const cohortSchema = new mongoose.Schema(
   {
-    code: {
+    courseCode: {
       type: String,
       // uppercase: true,
       unique: true,
@@ -10,7 +10,7 @@ const cohortSchema = new mongoose.Schema(
       index: true,
       trim: true,
     },
-    type: { type: String, required: true }, //PartTime or FullTime
+    courseSchedule: { type: String }, //PartTime or FullTime
     startDate: {
       type: Date,
       required: true,
@@ -23,8 +23,6 @@ const cohortSchema = new mongoose.Schema(
     },
     daysOnCampus: {
       days:
-        //syntax (bring one line down into days and put in every single line)
-        //need advice on whether okay to use boolean
         {
           monday: { type: Boolean, required: true },
           tuesday: { type: Boolean, required: true },
@@ -37,7 +35,8 @@ const cohortSchema = new mongoose.Schema(
     endTime: { type: Number, required: true },
     classRoom: { type: Number },
     weeks: { type: Number, required: true },
-    altSaturdays: { type: Number, required: true }, //0-3;m where, 0=none, 1=odd, 2=even, 3=ALL
+    studentSuccess:{type:String, required:true},
+    altSaturdays: { type: String, required: true }, //none, odd, even, ALL
   },
   { timestamps: true }
 );

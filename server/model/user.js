@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
       match: [/\S+@\S+\.\S+/, "is invalid"],
       index: true,
     },
-    admin: { type: Boolean },
+    admin: { type: Boolean }, //status string
   },
   { timestamps: true }
 );
