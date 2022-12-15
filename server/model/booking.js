@@ -9,8 +9,8 @@ const bookingSchema = new mongoose.Schema(
     bookingEnd: { Date, required: true },
     classRoom: { Number, required: true },
     holiday: { type: Boolean, required: true },
-    cohort: String,
-    purpose: String,
+    cohort: {type:String, required:true},
+    purpose: {type:String, required:true}
   },
   { timestamps: true }
 );
