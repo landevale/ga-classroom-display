@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { DateTime, Interval } from "luxon";
+import PropTypes from "prop-types";
 
 function CalendarDisplay({ selectedDateState }) {
+  // Prop validaton
+  CalendarDisplay.propTypes = {
+    selectedDateState: PropTypes.string,
+  };
+  //Math for pushing into array, "7" consecutive days. Gives, [1,2,3,4,5,6,7] if selected 1st of month
+  const daysToShow = 7;
   // Array to display based on day selected
   const dayDisplayArr = [];
 
-  for (let i = 0; i < 7; i++) {
-    dayDisplayArr.push(
-      DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-        .plus({ days: i })
-        .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
-    );
-  }
+  const selectedDateTableArray = [];
 
   //need to filter by date, then by class. with that info, push data into array with IF-sun logic and map out
   const [bookingsState, setBookingState] = useState([]);
@@ -21,6 +22,7 @@ function CalendarDisplay({ selectedDateState }) {
       .then((response) => response.json())
       .then((data) => setBookingState(data));
   }, []);
+
   //======================================
   //logic to map out 7 cells with key+value for each cell
   //======================
@@ -30,10 +32,12 @@ function CalendarDisplay({ selectedDateState }) {
     "d MMM yyyy"
   ).toISODate();
 
-  //Math for pushing into array, "7" consecutive days. Gives, [1,2,3,4,5,6,7] if selected 1st of month
-  const daysToShow = 7;
-  const selectedDateTableArray = [];
   for (let i = 0; i < daysToShow; i++) {
+    dayDisplayArr.push(
+      DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
+        .plus({ days: i })
+        .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+    );
     selectedDateTableArray.push(
       DateTime.fromISO(selectedDateStateISO).plus({ days: i }).toISODate()
       // .slice(-2)
@@ -41,6 +45,7 @@ function CalendarDisplay({ selectedDateState }) {
   }
 
   console.log("selectedDateTableArray = ", selectedDateTableArray);
+
   //============================
   //Mapping the calendar cells
   //================
@@ -50,15 +55,16 @@ function CalendarDisplay({ selectedDateState }) {
     </td>
   ));
 
+  // Intervals between fetched start and end date
   const startDate = bookingsState;
-  console.log(startDate);
-  console.log(startDate[0]?.bookingStart);
+  //   console.log(startDate);
+  //   console.log(startDate[0]?.bookingStart);
   const startDateDt = DateTime.fromISO(startDate[0]?.bookingStart);
   console.log(startDateDt);
 
   const endDate = bookingsState;
-  console.log(endDate);
-  console.log(endDate[0]?.bookingEnd);
+  //   console.log(endDate);
+  //   console.log(endDate[0]?.bookingEnd);
   const endDateDt = DateTime.fromISO(endDate[0]?.bookingEnd);
   console.log(endDateDt);
 
@@ -67,9 +73,9 @@ function CalendarDisplay({ selectedDateState }) {
     endDateDt.plus({ days: 1 })
   )
     .splitBy({ day: 1 })
-    .map((d) => d.start);
+    .map((d) => `${d.start.year}-${d.start.month}-${d.start.day}`);
 
-  console.log(intervals);
+  console.log("intervals = ", intervals);
 
   return (
     <table className="table" border="solid">
