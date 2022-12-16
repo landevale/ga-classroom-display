@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
 function CalendarDisplay({ selectedDateState }) {
@@ -14,6 +14,13 @@ function CalendarDisplay({ selectedDateState }) {
   }
 
   //need to filter by date, then by class. with that info, push data into array with IF-sun logic and map out
+  const [bookingsState, setBookingState] = useState([]);
+
+  useEffect(() => {
+    fetch("/bookings/")
+      .then((response) => response.json())
+      .then((data) => setBookingState(data));
+  }, []);
 
   return (
     <table className="table" border="solid">
