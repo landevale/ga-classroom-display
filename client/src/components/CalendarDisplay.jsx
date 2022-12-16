@@ -41,7 +41,9 @@ function CalendarDisplay({ selectedDateState }) {
   }
 
   console.log("selectedDateTableArray = ", selectedDateTableArray);
-
+  //============================
+  //Mapping the calendar cells
+  //================
   const classroomSixTableMap = selectedDateTableArray.map((ele) => (
     <td key={`6-${ele}`} value={`6${ele}`}>
       {`6-${ele}`}
