@@ -12,6 +12,10 @@ function CalendarDisplay({ selectedDateState }) {
     );
   }
 
+  //need to filter by date, then by class. with that info, push data into array with IF-sun logic and map out
+
+  
+
   return (
     <table className="table" border="solid">
       <tr className="table__row table__row--header">

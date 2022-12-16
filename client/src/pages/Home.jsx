@@ -23,6 +23,9 @@ function Home() {
     );
     console.log("New date " + newDate);
     setSeletedDateState(newDate);
+    console.log("unparsed newDate", DateTime.fromFormat(e, oldFormat));
+    console.log("e", e)
+    console.log("typeof e", typeof e);
   };
 
   return (
