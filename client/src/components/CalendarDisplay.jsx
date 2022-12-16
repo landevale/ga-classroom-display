@@ -50,7 +50,7 @@ function CalendarDisplay({ selectedDateState }) {
   //Mapping the calendar cells
   //================
   const classroomSixTableMap = selectedDateTableArray.map((ele) => (
-    <td key={`6-${ele}`} value={`6${ele}`}>
+    <td key={`6-${ele}`} id={`6-${ele}`}>
       {`6-${ele}`}
     </td>
   ));
@@ -86,20 +86,24 @@ function CalendarDisplay({ selectedDateState }) {
   console.log("ROWINTERVALS", rowIntervals);
   //for each of the <td> in clasroom6's row, derivedinterval.filter(row6)===true
 
-  const tempArray = [];
-  // useEffect(() => {
-  //   console.log("ROWINTERVALS2", rowIntervals);
-  //   for (let i = 0; i < selectedDateTableArray.length; i++) {
-  //     if (rowIntervals.findIndex((ele) => ele === selectedDateTableArray[i])) {
-  //       tempArray.push("X");
-  //       console.log(ele);
-  //     } else {
-  //       tempArray.push("");
-  //     }
-  //   }
+  console.log("ROWINTERVALS2", intervals[0]);
+  console.log("sdtatypeOF", selectedDateTableArray[0]);
 
-  //   console.log("TEMPARRAY", tempArray);
-  // }, []);
+  const tempArray = [];
+  console.log("totemparray", typeof tempArray);
+  for (let i = 0; i < selectedDateTableArray.length; i++) {
+    if (intervals.indexOf(selectedDateTableArray[i]) !== -1) {
+      tempArray.push(selectedDateTableArray[i]);
+    } else {
+      tempArray.push("");
+    }
+  }
+
+  // for (let i = 0; i < tempArray.length; i++) {
+  //   console.log(document.getElementById(`6-${tempArray[i]}`).innerText)
+  // }
+
+  console.log("TEMPARRAY", tempArray);
 
   return (
     <table className="table" border="solid">
