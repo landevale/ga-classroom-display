@@ -39,3 +39,13 @@ ClearText -> Hashing Algo / Function -> Hash
 Create a new user (same as creating fruit)
 
 Form (inputs) -> POST /users (body as JSON) [Request]> Extract body -> Insert into database -> send User JSON
+
+
+## To-dos:
+1. Seed data (temp, booking.js)
+  1.1.  Test to filter from DB by Date & Class to get Cohort (e.g SEi40)
+  1.2.  Map onto <td> table use [IF-"Sun"] logic to mutate array
+
+2. Login and hash password
+
+3. Write logic to check whether classroom @date/time is booked or not. IF(booked), display booking, ELSE display original cohort details if present
