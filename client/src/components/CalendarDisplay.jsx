@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DateTime } from "luxon";
+import { DateTime, Interval } from "luxon";
 
 function CalendarDisplay({ selectedDateState }) {
   // Array to display based on day selected
@@ -21,6 +21,27 @@ function CalendarDisplay({ selectedDateState }) {
       .then((response) => response.json())
       .then((data) => setBookingState(data));
   }, []);
+
+  const startDate = bookingsState;
+  console.log(startDate);
+  console.log(startDate[0]?.bookingStart);
+  const startDateDt = DateTime.fromISO(startDate[0]?.bookingStart);
+  console.log(startDateDt);
+
+  const endDate = bookingsState;
+  console.log(endDate);
+  console.log(endDate[0]?.bookingEnd);
+  const endDateDt = DateTime.fromISO(endDate[0]?.bookingEnd);
+  console.log(endDateDt);
+
+  const intervals = Interval.fromDateTimes(
+    startDateDt,
+    endDateDt.plus({ days: 1 })
+  )
+    .splitBy({ day: 1 })
+    .map((d) => d.start);
+
+  console.log(intervals);
 
   return (
     <table className="table" border="solid">
