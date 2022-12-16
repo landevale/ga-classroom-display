@@ -27,7 +27,7 @@ app.use("/bookings", bookingsController);
 app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     // cookie: { secure: true },

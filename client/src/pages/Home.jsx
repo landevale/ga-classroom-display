@@ -11,8 +11,8 @@ function Home() {
   );
 
   useEffect(() => {
-    console.log(typeof selectedDateState);
-    console.log(selectedDateState);
+    // console.log(typeof selectedDateState);
+    // console.log(selectedDateState);
     // console.log(DateTime.selectedDateState.plus({ days: 30 }));
   }, [selectedDateState]);
 
@@ -21,11 +21,11 @@ function Home() {
     const newDate = DateTime.fromFormat(e, oldFormat).toLocaleString(
       DateTime.DATE_MED_WITH_WEEKDAY
     );
-    console.log("New date " + newDate);
+    // console.log("New date " + newDate);
     setSeletedDateState(newDate);
-    console.log("unparsed newDate", DateTime.fromFormat(e, oldFormat));
-    console.log("e", e)
-    console.log("typeof e", typeof e);
+    // console.log("unparsed newDate", DateTime.fromFormat(e, oldFormat));
+    // console.log("e", e);
+    // console.log("typeof e", typeof e);
   };
 
   return (
