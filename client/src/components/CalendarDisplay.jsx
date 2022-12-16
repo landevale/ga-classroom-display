@@ -15,8 +15,6 @@ function CalendarDisplay({ selectedDateState }) {
 
   //need to filter by date, then by class. with that info, push data into array with IF-sun logic and map out
 
-  
-
   return (
     <table className="table" border="solid">
       <tr className="table__row table__row--header">
@@ -91,6 +89,17 @@ function CalendarDisplay({ selectedDateState }) {
         <td></td>
         <td></td>
         <td>DSIFX-09</td>
+      </tr>
+
+      <tr>
+        <td>Classroom 6</td>
+        <td style={{ backgroundColor: "grey" }}></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
 
       {/* <tbody className="table__body">Classroom 2</tbody>

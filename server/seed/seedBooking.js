@@ -1,10 +1,11 @@
-const Booking = require("../model/booking");
+const Booking = require("../models/booking");
 
 const seed = async (req, res) => {
   const seedBookings = [
     {
       roomUseBy: "SEi40",
       //user ref removed
+      createdBy: "Kerin",
       bookingStart: "2022-12-25",
       bookingEnd: "2022-12-30",
       classRoom: 4,
@@ -15,6 +16,7 @@ const seed = async (req, res) => {
     {
       roomUseBy: "SEi41",
       //user ref removed
+      createdBy: "Kerin",
       bookingStart: "2022-12-25",
       bookingEnd: "2022-12-30",
       classRoom: 5,
@@ -25,6 +27,7 @@ const seed = async (req, res) => {
     {
       roomUseBy: "New Year Eve Party",
       //user ref removed
+      createdBy: "Kerin",
       bookingStart: "2022-12-31",
       bookingEnd: "2022-12-31",
       classRoom: 2,

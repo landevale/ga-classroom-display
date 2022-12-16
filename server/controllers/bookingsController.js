@@ -1,6 +1,19 @@
 const express = require("express");
 const router = express.Router();
-// const User = require("../models/user");
+const Booking = require("../models/booking");
+const seed = require("../seed/seedBooking");
+
+router.get("/seed", seed);
+
+router.get("/", async (req, res) => {
+  //? return [ list of bookings]
+  try {
+    const bookings = await Booking.find().exec();
+    res.json(bookings);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
 
 // router.get("/seed", async (req, res) => {
 //   const users = [
@@ -16,17 +29,6 @@ const router = express.Router();
 //     res.json(newUsers);
 //   } catch (error) {
 //     res.status(500).json(error);
-//   }
-// });
-
-// router.get("/", async (req, res) => {
-//   try {
-//     const users = await User.find({}).exec();
-//     console.log(users);
-//     res.json(users);
-//   } catch (error) {
-//     res.status(500).json(error);
-//     console.log(error);
 //   }
 // });
 

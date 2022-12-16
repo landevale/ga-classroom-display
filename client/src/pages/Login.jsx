@@ -33,12 +33,11 @@ function Login() {
         <fieldset>
           <legend>LOG IN</legend>
           <label>
-            Username:
-            <input name="username" />
+            Username: <input name="username" />
           </label>
+          {"   "}
           <label>
-            Password:
-            <input name="password" />
+            Password: <input name="password" />
           </label>
           <button onClick={handleLogin}>Log In</button>
         </fieldset>

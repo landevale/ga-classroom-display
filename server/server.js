@@ -8,8 +8,10 @@ const mongoose = require("mongoose");
 // const bcrypt = require("bcrypt");
 
 // Import
+const bookingsController = require("./controllers/bookingsController.js");
+// const Booking = require("./models/booking");
 // const usersController = require("./controllers/usersController.js");
-// const User = require("./models/users");
+// const User = require("./models/user");
 
 // CONFIGURATION
 const app = express();
@@ -19,6 +21,7 @@ const PORT = process.env.PORT ?? 3000;
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("../client/dist"));
+app.use("/bookings", bookingsController);
 // app.use("/users", usersController);
 // session
 app.set("trust proxy", 1); // trust first proxy
