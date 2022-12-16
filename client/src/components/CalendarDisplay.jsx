@@ -57,7 +57,7 @@ function CalendarDisplay({ selectedDateState }) {
 
   // Intervals between fetched start and end date
   const startDate = bookingsState;
-  //   console.log(startDate);
+  // console.log(startDate);
   //   console.log(startDate[0]?.bookingStart);
   const startDateDt = DateTime.fromISO(startDate[0]?.bookingStart);
   console.log(startDateDt);
@@ -76,6 +76,30 @@ function CalendarDisplay({ selectedDateState }) {
     .map((d) => `${d.start.year}-${d.start.month}-${d.start.day}`);
 
   console.log("intervals = ", intervals);
+
+  const rowIntervals = Interval.fromDateTimes(
+    startDateDt,
+    endDateDt.plus({ days: 1 })
+  )
+    .splitBy({ day: 1 })
+    .map((d) => `6-${d.start.year}-${d.start.month}-${d.start.day}`);
+  console.log("ROWINTERVALS", rowIntervals);
+  //for each of the <td> in clasroom6's row, derivedinterval.filter(row6)===true
+
+  const tempArray = [];
+  // useEffect(() => {
+  //   console.log("ROWINTERVALS2", rowIntervals);
+  //   for (let i = 0; i < selectedDateTableArray.length; i++) {
+  //     if (rowIntervals.findIndex((ele) => ele === selectedDateTableArray[i])) {
+  //       tempArray.push("X");
+  //       console.log(ele);
+  //     } else {
+  //       tempArray.push("");
+  //     }
+  //   }
+
+  //   console.log("TEMPARRAY", tempArray);
+  // }, []);
 
   return (
     <table className="table" border="solid">
