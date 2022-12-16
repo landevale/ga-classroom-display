@@ -21,6 +21,32 @@ function CalendarDisplay({ selectedDateState }) {
       .then((response) => response.json())
       .then((data) => setBookingState(data));
   }, []);
+  //======================================
+  //logic to map out 7 cells with key+value for each cell
+  //======================
+  //selectedDateStateISO will give an ISO (e.g 25 Dec 2022, becomes 2022-12-25)
+  const selectedDateStateISO = DateTime.fromFormat(
+    selectedDateState.slice(5),
+    "d MMM yyyy"
+  ).toISODate();
+
+  //Math for pushing into array, "7" consecutive days. Gives, [1,2,3,4,5,6,7] if selected 1st of month
+  const daysToShow = 7;
+  const selectedDateTableArray = [];
+  for (let i = 0; i < daysToShow; i++) {
+    selectedDateTableArray.push(
+      DateTime.fromISO(selectedDateStateISO).plus({ days: i }).toISODate()
+      // .slice(-2)
+    );
+  }
+
+  console.log("selectedDateTableArray = ", selectedDateTableArray);
+
+  const classroomSixTableMap = selectedDateTableArray.map((ele) => (
+    <td key={`6-${ele}`} value={`6${ele}`}>
+      {`6-${ele}`}
+    </td>
+  ));
 
   return (
     <table className="table" border="solid">
@@ -100,21 +126,10 @@ function CalendarDisplay({ selectedDateState }) {
 
       <tr>
         <td>Classroom 6</td>
-        <td style={{ backgroundColor: "grey" }}></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        {classroomSixTableMap}
       </tr>
-
-      {/* <tbody className="table__body">Classroom 2</tbody>
-      <tbody className="table__body">Classroom 3</tbody>
-      <tbody className="table__body">Classroom 4</tbody>
-      <tbody className="table__body">Classroom 5</tbody>
-      <tbody className="table__body">Classroom 6</tbody> */}
     </table>
   );
 }
+
 export default CalendarDisplay;
