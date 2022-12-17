@@ -91,13 +91,26 @@ function CalendarDisplay({ selectedDateState }) {
 
   const tempArray = [];
   console.log("totemparray", typeof tempArray);
+
+  // Split Date format to only show Day
+  const dayFromDayDisplayArr = (i) => dayDisplayArr[i].split(",");
+  console.log(dayFromDayDisplayArr(0)[0]);
+  // Added that if Day === Sun should push Sun into Array and use CSS to grey out td
   for (let i = 0; i < selectedDateTableArray.length; i++) {
-    if (intervals.indexOf(selectedDateTableArray[i]) !== -1) {
-      tempArray.push(selectedDateTableArray[i]);
+    if (dayFromDayDisplayArr(i)[0] === "Sun") {
+      tempArray.push("SUN");
+    } else if (intervals.indexOf(selectedDateTableArray[i]) !== -1) {
+      tempArray.push(bookingsState[0].roomUseBy);
     } else {
       tempArray.push("");
     }
   }
+
+  const classroomFiveTableMap = tempArray.map((ele, i) => (
+    <td key={i} id={ele} className={ele}>
+      {ele}
+    </td>
+  ));
 
 
   console.log(document.getElementById('6-2022-12-16').innerHTML);
@@ -174,13 +187,7 @@ function CalendarDisplay({ selectedDateState }) {
 
       <tr>
         <td>Classroom 5</td>
-        <td style={{ backgroundColor: "grey" }}></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>DSIFX-09</td>
+        {classroomFiveTableMap}
       </tr>
 
       <tr>
