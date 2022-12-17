@@ -18,6 +18,8 @@ function CourseRegForm() {
       friday: false,
     },
   });
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [classRoom, setClassRoom] = useState("");
   const [msg, setMsg] = useState("");
 
@@ -122,6 +124,30 @@ function CourseRegForm() {
             placeHolder="Days on Campus"
             dayOptions={dayOptions}
             onChange={(value) => console.log(value)}
+          />
+          <br />
+          <br />
+          <label htmlFor="startTime">Start Time: </label>
+
+          <input
+            type="time"
+            id="startTime"
+            name="startTime"
+            min="09:00"
+            max="18:00"
+            required
+          />
+          <br />
+
+          <label htmlFor="endTime">End Time: </label>
+
+          <input
+            type="time"
+            id="endTime"
+            name="endTime"
+            min="09:00"
+            max="18:00"
+            required
           />
           <br />
           <br />
