@@ -7,21 +7,101 @@ function CalendarDisplay({ selectedDateState }) {
   CalendarDisplay.propTypes = {
     selectedDateState: PropTypes.string,
   };
-  //Math for pushing into array, "7" consecutive days. Gives, [1,2,3,4,5,6,7] if selected 1st of month
-  const daysToShow = 7;
+
+  //==============================
+  //Fetching Data json and set state for Data into sookingState
+  const [bookingsState, setBookingsState] = useState([]);
+  useEffect(() => {
+    fetch("/bookings/")
+      .then((response) => response.json())
+      .then((data) => setBookingsState(data));
+    // .then((res) => res.text()) // convert to plain text
+    // .then((text) => console.log(text));
+  }, []);
+
+  console.log("BOOKINGSSTATE", bookingsState);
+  // useEffect(() => {
+  //   const fetchBookings = async () => {
+  //     const response = await fetch(`/bookings`);
+  //     const data = await response.json();
+  //     setBookingsState(data);
+  //     console.log(bookingsState)
+  //   };
+  //   fetchBookings();
+  // }, []);
+
+  // console.log("selectedDateState", selectedDateState);
+  // console.log("typeof selectedDateState", typeof selectedDateState);
+
+  //Changing selectedDateState to working ISO date
+  const selectedISODate = DateTime.fromFormat(
+    selectedDateState.slice(5),
+    "d MMM yyyy"
+  ).toISO();
+  console.log("selectedISODate", selectedISODate);
+  // console.log("typeof selectedISODate", typeof selectedISODate);
+
+  //===========================================================
+  const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE
+  //===========================================================
   // Array to display based on day selected
   const dayDisplayArr = [];
 
   const selectedDateTableArray = [];
 
   //need to filter by date, then by class. with that info, push data into array with IF-sun logic and map out
-  const [bookingsState, setBookingState] = useState([]);
 
-  useEffect(() => {
-    fetch("/bookings/")
-      .then((response) => response.json())
-      .then((data) => setBookingState(data));
-  }, []);
+  //==========================================
+  // Logic for creating empty array (to be appended later) then mapped onto table
+
+  //===========================================================
+  const numberOfClassRooms = 6; //EDIT Number of Classrooms HERE
+  //===========================================================
+  const occupiedBy = [];
+  for (let i = 0; i < numberOfClassRooms; i++) {
+    occupiedBy.push([]);
+    for (let j = 0; j < daysToShow; j++) {
+      occupiedBy[i].push("");
+    }
+  }
+
+  //==========================================
+  // Logic for looping through ALL bookings (change to looping throuogh all cohort later=> and then looping through bookings to overwrite)
+  // useEffect(() => {
+  for (let i = 0; i < bookingsState.length; i++) {
+    let currDate = "";
+    let currBookingStartDate = "";
+    let currBookingEndDate = "";
+    for (let j = 0; j < daysToShow; j++) {
+      currDate = new Date(selectedDateState);
+
+      console.log("SELECTEDISODATE2", selectedISODate);
+      currDate = new Date(
+        DateTime.fromISO(selectedISODate).plus({ days: j }).toISO()
+      );
+      // currDate = currDate.setDate(currDate.getDate() + j);
+      // currDate = currDate.setDate(Date(selectedISODate));
+      console.log("CURRDATE", currDate);
+      // console.log(
+      //   "CURRDATEISO",
+      //   new Date(DateTime.fromISO(selectedISODate).plus({ days: 1 }).toISO())
+      // );
+      currBookingStartDate = new Date(bookingsState[i].bookingStart);
+      currBookingEndDate = new Date(bookingsState[i].bookingEnd);
+      // console.log(typeof currBookingEndDate)
+      console.log(
+        "ALLDATES",
+        currBookingStartDate,
+        currBookingEndDate,
+        currDate
+      );
+      if (currBookingStartDate <= currDate && currBookingEndDate >= currDate)
+        occupiedBy[i][j] = bookingsState[i].roomUseBy;
+    }
+  }
+  console.log("OCCUPIEDBY", occupiedBy);
+  //   // console.log(bookingsState);
+  // }, []);
 
   //======================================
   //logic to map out 7 cells with key+value for each cell
@@ -44,7 +124,7 @@ function CalendarDisplay({ selectedDateState }) {
     );
   }
 
-  console.log("selectedDateTableArray = ", selectedDateTableArray);
+  // console.log("selectedDateTableArray = ", selectedDateTableArray);
 
   //============================
   //Mapping the calendar cells
@@ -60,13 +140,13 @@ function CalendarDisplay({ selectedDateState }) {
   // console.log(startDate);
   //   console.log(startDate[0]?.bookingStart);
   const startDateDt = DateTime.fromISO(startDate[0]?.bookingStart);
-  console.log(startDateDt);
+  // console.log(startDateDt);
 
   const endDate = bookingsState;
   //   console.log(endDate);
   //   console.log(endDate[0]?.bookingEnd);
   const endDateDt = DateTime.fromISO(endDate[0]?.bookingEnd);
-  console.log(endDateDt);
+  // console.log(endDateDt);
 
   const intervals = Interval.fromDateTimes(
     startDateDt,
@@ -75,7 +155,7 @@ function CalendarDisplay({ selectedDateState }) {
     .splitBy({ day: 1 })
     .map((d) => `${d.start.year}-${d.start.month}-${d.start.day}`);
 
-  console.log("intervals = ", intervals);
+  // console.log("intervals = ", intervals);
 
   const rowIntervals = Interval.fromDateTimes(
     startDateDt,
@@ -83,14 +163,14 @@ function CalendarDisplay({ selectedDateState }) {
   )
     .splitBy({ day: 1 })
     .map((d) => `6-${d.start.year}-${d.start.month}-${d.start.day}`);
-  console.log("ROWINTERVALS", rowIntervals);
+  // console.log("ROWINTERVALS", rowIntervals);
   //for each of the <td> in clasroom6's row, derivedinterval.filter(row6)===true
 
-  console.log("ROWINTERVALS2", intervals[0]);
-  console.log("sdtatypeOF", selectedDateTableArray[0]);
+  // console.log("ROWINTERVALS2", intervals[0]);
+  // console.log("sdtatypeOF", selectedDateTableArray[0]);
 
   const tempArray = [];
-  console.log("totemparray", typeof tempArray);
+  // console.log("totemparray", typeof tempArray);
 
   // Split Date format to only show Day
   const dayFromDayDisplayArr = (i) => dayDisplayArr[i].split(",");
@@ -112,88 +192,90 @@ function CalendarDisplay({ selectedDateState }) {
     </td>
   ));
 
+  useEffect(() => {
+    // const testGetClassRoomSix = document.getElementById("6-2022-12-18");
 
-  // console.log(document.getElementById('6-2022-12-16').innerHTML);
-  // for (let i = 0; i < tempArray.length; i++) {
-  //   console.log(document.getElementById(`6-${tempArray[i]}`).innerText)
-  // }
+    // console.log("GETCLASSROOM6-18Dec =", testGetClassRoomSix);
+    // testGetClassRoomSix.innerHTML = "TESTGEbyId"
+
+    for (let i = 0; i < daysToShow; i++) {
+      [i];
+    }
+  }, []);
 
   console.log("TEMPARRAY", tempArray);
 
   return (
     <table className="table" border="solid">
-      <tr className="table__row table__row--header">
-        <th
-          scope="colgroup"
-          colSpan="15"
-          className="table__cell--header table__cell--level table__cell--align-left"
-        >
-          Timetable
-        </th>
-      </tr>
-      <tr className="table__row table__row--subheader">
-        <th scope="col" className="table__cell--header table__cell--align-left">
-          Classroom
-        </th>
-        {dayDisplayArr.map((ele, i) => (
-          <th scope="col" className="table__cell--header" key={i}>
-            {ele}
+      <tbody>
+        <tr className="table__row table__row--header">
+          <th
+            scope="colgroup"
+            colSpan="15"
+            className="table__cell--header table__cell--level table__cell--align-left"
+          >
+            Timetable
           </th>
-        ))}
-      </tr>
-      <tr>
-        <td>Classroom 1</td>
-        <td style={{ backgroundColor: "grey" }}></td>
-        <td>SEI-40</td>
-        <td>SEI-40</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+        </tr>
+        <tr className="table__row table__row--subheader">
+          <th
+            scope="col"
+            className="table__cell--header table__cell--align-left"
+          >
+            Classroom
+          </th>
+          {dayDisplayArr.map((ele, i) => (
+            <th scope="col" className="table__cell--header" key={i}>
+              {ele}
+            </th>
+          ))}
+        </tr>
+        <tr>
+          <td>Classroom 1</td>
+          {occupiedBy[0].map((ele, i) => (
+            <td key={`${ele}+${i}`}>{ele}</td>
+          ))}
+        </tr>
 
-      <tr>
-        <td>Classroom 2</td>
-        <td style={{ backgroundColor: "grey" }}></td>
-        <td></td>
-        <td></td>
-        <td>UXDI41</td>
-        <td>UXDI41</td>
-        <td></td>
-        <td></td>
-      </tr>
+        <tr>
+          <td>Classroom 2</td>
+          {occupiedBy[1].map((ele, i) => (
+            <td key={`${ele}+${i}`}>{ele}</td>
+          ))}
+        </tr>
 
-      <tr>
-        <td>Classroom 3</td>
-        <td style={{ backgroundColor: "grey" }}></td>
-        <td>SEI-41</td>
-        <td>SEI-41</td>
-        <td>SEI-41</td>
-        <td>SEI-41</td>
-        <td></td>
-        <td></td>
-      </tr>
+        <tr>
+          <td>Classroom 3</td>
+          <td style={{ backgroundColor: "grey" }}></td>
+          <td>SEI-41</td>
+          <td>SEI-41</td>
+          <td>SEI-41</td>
+          <td>SEI-41</td>
+          <td></td>
+          <td></td>
+        </tr>
 
-      <tr>
-        <td>Classroom 4</td>
-        <td style={{ backgroundColor: "grey" }}></td>
-        <td>DSI-34</td>
-        <td>DSI-34</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+        <tr>
+          <td>Classroom 4</td>
+          <td style={{ backgroundColor: "grey" }}></td>
+          <td>DSI-34</td>
+          <td>DSI-34</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
 
-      <tr>
-        <td>Classroom 5</td>
-        {classroomFiveTableMap}
-      </tr>
+        <tr>
+          <td>Classroom 5</td>
+          {classroomFiveTableMap}
+        </tr>
 
-      <tr>
-        <td>Classroom 6</td>
-        {classroomSixTableMap}
-      </tr>
+        <tr>
+          <td>Classroom 6</td>
+          {classroomSixTableMap}
+        </tr>
+      </tbody>
     </table>
   );
 }
