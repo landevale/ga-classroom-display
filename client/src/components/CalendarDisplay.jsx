@@ -15,23 +15,9 @@ function CalendarDisplay({ selectedDateState }) {
     fetch("/bookings/")
       .then((response) => response.json())
       .then((data) => setBookingsState(data));
-    // .then((res) => res.text()) // convert to plain text
-    // .then((text) => console.log(text));
   }, []);
 
   console.log("BOOKINGSSTATE", bookingsState);
-  // useEffect(() => {
-  //   const fetchBookings = async () => {
-  //     const response = await fetch(`/bookings`);
-  //     const data = await response.json();
-  //     setBookingsState(data);
-  //     console.log(bookingsState)
-  //   };
-  //   fetchBookings();
-  // }, []);
-
-  // console.log("selectedDateState", selectedDateState);
-  // console.log("typeof selectedDateState", typeof selectedDateState);
 
   //Changing selectedDateState to working ISO date
   const selectedISODate = DateTime.fromFormat(
@@ -39,7 +25,6 @@ function CalendarDisplay({ selectedDateState }) {
     "d MMM yyyy"
   ).toISO();
   console.log("selectedISODate", selectedISODate);
-  // console.log("typeof selectedISODate", typeof selectedISODate);
 
   //===========================================================
   const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE
@@ -67,42 +52,32 @@ function CalendarDisplay({ selectedDateState }) {
 
   //==========================================
   // Logic for looping through ALL bookings (change to looping throuogh all cohort later=> and then looping through bookings to overwrite)
-  // useEffect(() => {
   for (let i = 0; i < bookingsState.length; i++) {
     let currDate = "";
     let currBookingStartDate = "";
     let currBookingEndDate = "";
     for (let j = 0; j < daysToShow; j++) {
       currDate = new Date(selectedDateState);
-
-      console.log("SELECTEDISODATE2", selectedISODate);
+      // console.log("SELECTEDISODATE2", selectedISODate);
       currDate = new Date(
         DateTime.fromISO(selectedISODate).plus({ days: j }).toISO()
       );
-      // currDate = currDate.setDate(currDate.getDate() + j);
-      // currDate = currDate.setDate(Date(selectedISODate));
-      console.log("CURRDATE", currDate);
-      // console.log(
-      //   "CURRDATEISO",
-      //   new Date(DateTime.fromISO(selectedISODate).plus({ days: 1 }).toISO())
-      // );
+      // console.log("CURRDATE", currDate);
       currBookingStartDate = new Date(bookingsState[i].bookingStart);
       currBookingEndDate = new Date(bookingsState[i].bookingEnd);
       // console.log(typeof currBookingEndDate)
-      console.log(
-        "ALLDATES",
-        currBookingStartDate,
-        currBookingEndDate,
-        currDate
-      );
+      // console.log(
+      //   "ALLDATES",
+      //   currBookingStartDate,
+      //   currBookingEndDate,
+      //   currDate
+      // );
       if (currBookingStartDate <= currDate && currBookingEndDate >= currDate)
         occupiedBy[bookingsState[i].classRoom - 1][j] =
           bookingsState[i].roomUseBy;
     }
   }
   console.log("OCCUPIEDBY", occupiedBy);
-  //   // console.log(bookingsState);
-  // }, []);
 
   //======================================
   //logic to map out 7 cells with key+value for each cell
@@ -130,11 +105,11 @@ function CalendarDisplay({ selectedDateState }) {
   //============================
   //Mapping the calendar cells
   //================
-  const classroomSixTableMap = selectedDateTableArray.map((ele) => (
-    <td key={`6-${ele}`} id={`6-${ele}`}>
-      {`6-${ele}`}
-    </td>
-  ));
+  // const classroomSixTableMap = selectedDateTableArray.map((ele) => (
+  //   <td key={`6-${ele}`} id={`6-${ele}`}>
+  //     {`6-${ele}`}
+  //   </td>
+  // ));
 
   // Intervals between fetched start and end date
   const startDate = bookingsState;
