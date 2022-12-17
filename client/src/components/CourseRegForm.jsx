@@ -101,6 +101,16 @@ function CourseRegForm() {
           <label>
             Start Date:{" "}
             <input
+              //==================
+              //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
+              onChange={(e) =>
+                console.log(
+                  DateTime.fromISO(e.target.value).toLocaleString(
+                    DateTime.DATETIME_FULL
+                    //====================
+                  )
+                )
+              }
               type="date"
               id="start"
               min={DateTime.now().toFormat("yyyy-MM-dd")}

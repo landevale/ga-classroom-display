@@ -96,7 +96,8 @@ function CalendarDisplay({ selectedDateState }) {
         currDate
       );
       if (currBookingStartDate <= currDate && currBookingEndDate >= currDate)
-        occupiedBy[i][j] = bookingsState[i].roomUseBy;
+        occupiedBy[bookingsState[i].classRoom - 1][j] =
+          bookingsState[i].roomUseBy;
     }
   }
   console.log("OCCUPIEDBY", occupiedBy);
@@ -246,24 +247,16 @@ function CalendarDisplay({ selectedDateState }) {
 
         <tr>
           <td>Classroom 3</td>
-          <td style={{ backgroundColor: "grey" }}></td>
-          <td>SEI-41</td>
-          <td>SEI-41</td>
-          <td>SEI-41</td>
-          <td>SEI-41</td>
-          <td></td>
-          <td></td>
+          {occupiedBy[2].map((ele, i) => (
+            <td key={`${ele}+${i}`}>{ele}</td>
+          ))}
         </tr>
 
         <tr>
           <td>Classroom 4</td>
-          <td style={{ backgroundColor: "grey" }}></td>
-          <td>DSI-34</td>
-          <td>DSI-34</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          {occupiedBy[3].map((ele, i) => (
+            <td key={`${ele}+${i}`}>{ele}</td>
+          ))}
         </tr>
 
         <tr>
@@ -273,7 +266,9 @@ function CalendarDisplay({ selectedDateState }) {
 
         <tr>
           <td>Classroom 6</td>
-          {classroomSixTableMap}
+          {occupiedBy[5].map((ele, i) => (
+            <td key={`${ele}+${i}`}>{ele}</td>
+          ))}
         </tr>
       </tbody>
     </table>
