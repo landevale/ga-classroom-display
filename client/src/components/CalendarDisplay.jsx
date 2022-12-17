@@ -99,6 +99,8 @@ function CalendarDisplay({ selectedDateState }) {
     }
   }
 
+
+  console.log(document.getElementById('6-2022-12-16').innerHTML);
   // for (let i = 0; i < tempArray.length; i++) {
   //   console.log(document.getElementById(`6-${tempArray[i]}`).innerText)
   // }
