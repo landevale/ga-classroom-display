@@ -188,6 +188,7 @@ function CourseRegForm() {
             min="09:00"
             max="18:00"
             required
+            onChange={(e) => setStartTime(e.target.value)}
           />
           <br />
 
@@ -200,6 +201,7 @@ function CourseRegForm() {
             min="09:00"
             max="18:00"
             required
+            onChange={(e) => setEndTime(e.target.value)}
           />
           <br />
           <br />
