@@ -78,16 +78,52 @@ function CalendarDisplay({ selectedDateState }) {
           bookingsState[i].roomUseBy;
     }
   }
+
+  //=============================
+  //Overwriting with Sundays
+  const selectedDateStateISO = DateTime.fromFormat(
+    selectedDateState.slice(5),
+    "d MMM yyyy"
+  ).toISODate();
+
+  const weekDayArray = [];
+  const sundayArray = [];
+  for (let i = 0; i < daysToShow; i++) {
+    weekDayArray.push(
+      DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
+        .plus({ days: i })
+        .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+        .slice(0, 3)
+    );
+    // sundayArray.push(
+    //   DateTime.fromISO(selectedDateStateISO)
+    //     .plus({ days: i })
+    //     .toISODate()
+    //     .slice(-2)
+    // );
+  }
+  console.log("weekDayARRAY=", weekDayArray);
+  // console.log("sundayARRAY=", sundayArray);
+  // for (let i = 0; i < selectedDateTableArray.length; i++) {
+  //   if (dayFromDayDisplayArr(i)[0] === "Sun") {
+  //     tempArray.push("SUN");
+  //   } else if (intervals.indexOf(selectedDateTableArray[i]) !== -1) {
+  //     tempArray.push(bookingsState[0].roomUseBy);
+  //   } else {
+  //     tempArray.push("");
+  //   }
+  // }
+
   console.log("OCCUPIEDBY", occupiedBy);
 
   //======================================
   //logic to map out 7 cells with key+value for each cell
   //======================
   //selectedDateStateISO will give an ISO (e.g 25 Dec 2022, becomes 2022-12-25)
-  const selectedDateStateISO = DateTime.fromFormat(
-    selectedDateState.slice(5),
-    "d MMM yyyy"
-  ).toISODate();
+  // const selectedDateStateISO = DateTime.fromFormat(
+  //   selectedDateState.slice(5),
+  //   "d MMM yyyy"
+  // ).toISODate();
 
   for (let i = 0; i < daysToShow; i++) {
     dayDisplayArr.push(
@@ -151,7 +187,8 @@ function CalendarDisplay({ selectedDateState }) {
 
   // Split Date format to only show Day
   const dayFromDayDisplayArr = (i) => dayDisplayArr[i].split(",");
-  console.log(dayFromDayDisplayArr(0)[0]);
+  console.log("dayFrDispArr 00 ", dayFromDayDisplayArr(0)[0]);
+  console.log("DAYDISPLAYARRAY=", dayDisplayArr);
   // Added that if Day === Sun should push Sun into Array and use CSS to grey out td
   for (let i = 0; i < selectedDateTableArray.length; i++) {
     if (dayFromDayDisplayArr(i)[0] === "Sun") {
