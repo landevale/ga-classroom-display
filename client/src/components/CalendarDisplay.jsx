@@ -20,15 +20,11 @@ function CalendarDisplay({ selectedDateState }) {
       .then((data) => setCohortState(data));
   }, []);
 
-  console.log("BOOKINGSSTATE", bookingsState);
-  console.log("COHORTSTATE", cohortState);
-
   //Changing selectedDateState to working ISO date
   const selectedISODate = DateTime.fromFormat(
     selectedDateState.slice(5),
     "d MMM yyyy"
   ).toISO();
-  console.log("selectedISODate", selectedISODate);
 
   //===========================================================
   const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE
@@ -65,7 +61,6 @@ function CalendarDisplay({ selectedDateState }) {
         .slice(0, 3)
     );
   }
-  console.log("weekDayARRAY=", weekDayArray);
 
   for (let i = 0; i < cohortState.length; i++) {
     let currDate = "";
@@ -149,14 +144,13 @@ function CalendarDisplay({ selectedDateState }) {
   //Logic for Sundays (to be made the highest priority (aka lowest/last to be run) apart from Holidays)
   for (let m = 0; m < numberOfClassRooms; m++) {
     for (let p = 0; p < weekDayArray.length; p++) {
-      console.log(weekDayArray);
       if (weekDayArray[p] === "Sun") {
         occupiedBy[m][p] = "SUN";
       }
     }
   }
 
-  console.log("OCCUPIEDBY", occupiedBy);
+
 
   //============================================
   //Populating array with calendarTable Headers
@@ -177,91 +171,13 @@ function CalendarDisplay({ selectedDateState }) {
         .slice(0, 3)
     );
   }
-  // console.log("DATEHEADERROW", dateHeaderRow);
-  // console.log("dayHEADERROW", dayHeaderRow);
-  //=============================
-  //Overwriting with Sundays
-  const selectedDateStateISO = DateTime.fromFormat(
-    selectedDateState.slice(5),
-    "d MMM yyyy"
-  ).toISODate();
-
-  for (let i = 0; i < daysToShow; i++) {
-    dayDisplayArr.push(
-      DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-        .plus({ days: i })
-        .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
-    );
-    selectedDateTableArray.push(
-      DateTime.fromISO(selectedDateStateISO).plus({ days: i }).toISODate()
-      // .slice(-2)
-    );
-  }
-
-  // Intervals between fetched start and end date
-  const startDate = bookingsState;
-  // console.log(startDate);
-  //   console.log(startDate[0]?.bookingStart);
-  const startDateDt = DateTime.fromISO(startDate[0]?.bookingStart);
-  // console.log(startDateDt);
-
-  const endDate = bookingsState;
-  //   console.log(endDate);
-  //   console.log(endDate[0]?.bookingEnd);
-  const endDateDt = DateTime.fromISO(endDate[0]?.bookingEnd);
-  // console.log(endDateDt);
-
-  const intervals = Interval.fromDateTimes(
-    startDateDt,
-    endDateDt.plus({ days: 1 })
-  )
-    .splitBy({ day: 1 })
-    .map((d) => `${d.start.year}-${d.start.month}-${d.start.day}`);
-
-  // console.log("intervals = ", intervals);
-
-  const rowIntervals = Interval.fromDateTimes(
-    startDateDt,
-    endDateDt.plus({ days: 1 })
-  )
-    .splitBy({ day: 1 })
-    .map((d) => `6-${d.start.year}-${d.start.month}-${d.start.day}`);
-  // console.log("ROWINTERVALS", rowIntervals);
-  //for each of the <td> in clasroom6's row, derivedinterval.filter(row6)===true
-
-  // console.log("ROWINTERVALS2", intervals[0]);
-  // console.log("sdtatypeOF", selectedDateTableArray[0]);
-
-  const tempArray = [];
-  // console.log("totemparray", typeof tempArray);
-
-  // Split Date format to only show Day
-  const dayFromDayDisplayArr = (i) => dayDisplayArr[i].split(",");
-
-  // Added that if Day === Sun should push Sun into Array and use CSS to grey out td
-  // for (let i = 0; i < selectedDateTableArray.length; i++) {
-  //   if (dayFromDayDisplayArr(i)[0] === "Sun") {
-  //     tempArray.push("SUN");
-  //   } else if (intervals.indexOf(selectedDateTableArray[i]) !== -1) {
-  //     tempArray.push(bookingsState[0].roomUseBy);
-  //   } else {
-  //     tempArray.push("");
-  //   }
-  // }
-
-  // const classroomFiveTableMap = tempArray.map((ele, i) => (
-  //   <td key={i} id={ele} className={ele}>
-  //     {ele}
-  //   </td>
-  // ));
-
-  console.log("TEMPARRAY", tempArray);
 
   return (
     <table className="table" border="solid">
       <tbody>
         <tr className="table__row table__row--header">
           <th
+            style={{ minWidth: 1200 }}
             scope="colgroup"
             colSpan={daysToShow + 1}
             className="table__cell--header table__cell--level table__cell--align-left"
@@ -328,7 +244,6 @@ function CalendarDisplay({ selectedDateState }) {
 
         <tr>
           <td>Classroom 5</td>
-          {/* {classroomFiveTableMap} */}
           {occupiedBy[4].map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}

@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/landevale/project3#readme",
   "devDependencies": {
-    "eslint": "^8.30.0"
+    "eslint": "^8.30.0",
+    "eslint-plugin-react": "^7.31.11"
   }
 }
