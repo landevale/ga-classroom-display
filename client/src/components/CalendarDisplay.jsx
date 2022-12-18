@@ -33,6 +33,9 @@ function CalendarDisplay({ selectedDateState }) {
   //===========================================================
   const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE
   //===========================================================
+  //===========================================================
+  const numberOfClassRooms = 6; //EDIT Number of Classrooms HERE
+  //===========================================================
   // Array to display based on day selected
   const dayDisplayArr = [];
 
@@ -42,10 +45,6 @@ function CalendarDisplay({ selectedDateState }) {
 
   //==========================================
   // Logic for creating empty array (to be appended later) then mapped onto table
-
-  //===========================================================
-  const numberOfClassRooms = 6; //EDIT Number of Classrooms HERE
-  //===========================================================
   const occupiedBy = [];
   for (let i = 0; i < numberOfClassRooms; i++) {
     occupiedBy.push([]);
@@ -53,7 +52,6 @@ function CalendarDisplay({ selectedDateState }) {
       occupiedBy[i].push("");
     }
   }
-
   //==========================================
   // Logic for looping through ALL bookings
   // Populate the calendar with the courseCode of each and every cohort, regardless of whether overlap or not (stretch-> check for overlaps and include an asterisk *)
@@ -159,6 +157,28 @@ function CalendarDisplay({ selectedDateState }) {
   }
 
   console.log("OCCUPIEDBY", occupiedBy);
+
+  //============================================
+  //Populating array with calendarTable Headers
+  const dateHeaderRow = [];
+  for (let i = 0; i < daysToShow; i++) {
+    dateHeaderRow.push(
+      DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
+        .plus({ days: i })
+        .toLocaleString(DateTime.DATE_MED)
+    );
+  }
+  const dayHeaderRow = [];
+  for (let i = 0; i < daysToShow; i++) {
+    dayHeaderRow.push(
+      DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
+        .plus({ days: i })
+        .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+        .slice(0, 3)
+    );
+  }
+  // console.log("DATEHEADERROW", dateHeaderRow);
+  // console.log("dayHEADERROW", dayHeaderRow);
   //=============================
   //Overwriting with Sundays
   const selectedDateStateISO = DateTime.fromFormat(
@@ -243,7 +263,7 @@ function CalendarDisplay({ selectedDateState }) {
         <tr className="table__row table__row--header">
           <th
             scope="colgroup"
-            colSpan="15"
+            colSpan={daysToShow + 1}
             className="table__cell--header table__cell--level table__cell--align-left"
           >
             Timetable
@@ -253,11 +273,19 @@ function CalendarDisplay({ selectedDateState }) {
           <th
             scope="col"
             className="table__cell--header table__cell--align-left"
+            rowSpan="2"
           >
             Classroom
           </th>
-          {dayDisplayArr.map((ele, i) => (
-            <th scope="col" className="table__cell--header" key={i}>
+          {dateHeaderRow.map((ele, i) => (
+            <th scope="col" className="table__cell--header" key={`${ele}${i}`}>
+              {ele}
+            </th>
+          ))}
+        </tr>
+        <tr>
+          {dayHeaderRow.map((ele, i) => (
+            <th scope="col" className="table__cell--header" key={`${ele}${i}`}>
               {ele}
             </th>
           ))}
