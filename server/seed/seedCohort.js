@@ -16,8 +16,8 @@ const seed = async (req, res) => {
           friday: false,
         },
       },
-      startTime: 9,
-      endTime: 17,
+      startTime: "09:00",
+      endTime: "17:00",
       classRoom: 4,
       weeks: 2,
       studentSuccess: "Kerin",
@@ -38,8 +38,8 @@ const seed = async (req, res) => {
           friday: false,
         },
       },
-      startTime: 9,
-      endTime: 17,
+      startTime: "09:00",
+      endTime: "17:00",
       classRoom: 4,
       weeks: 2,
       studentSuccess: "Kerin",
@@ -48,7 +48,7 @@ const seed = async (req, res) => {
 
     {
       courseCode: "DSiFX07",
-      courseSchedule: "FullTime", //PartTime or FullTime
+      courseSchedule: "PartTime", //PartTime or FullTime
       startDate: "2022-12-28",
       endDate: "2023-01-10",
       daysOnCampus: {
@@ -60,8 +60,8 @@ const seed = async (req, res) => {
           friday: false,
         },
       },
-      startTime: 9,
-      endTime: 18,
+      startTime: "09:00",
+      endTime: "18:00",
       classRoom: 5,
       weeks: 2,
       studentSuccess: "Kerin",

@@ -35,10 +35,10 @@ function CoursesTable() {
           <th>Days</th>
           <th>Start Time</th>
           <th>End Time</th>
-          <th>Days on Campus</th>
+          <th>Sat on Campus</th>
           <th>Classroom</th>
           <th>Weeks</th>
-          <th>Sat on Campus</th>
+          <th>Edit / Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -51,9 +51,9 @@ function CoursesTable() {
             <td>Days on Campus</td>
             <td>{course.startTime}</td>
             <td>{course.endTime}</td>
+            <td>{course.altSaturdays}</td>
             <td>{course.classRoom}</td>
             <td>{course.weeks}</td>
-            <td>{course.altSaturdays}</td>
             <td>
               <Link to={`/editcourse/${course._id}`}>📝</Link>
               <button onClick={handleDelete(course._id, i)}>X</button>

@@ -30,7 +30,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/bookings" element={<Bookings />} />
-              <Route path="/editcourse/:code" element={<EditCourse />} />
+              <Route path="/editcourse/:id" element={<EditCourse />} />
               <Route path="*" element={<Error />} />
             </Route>
             {/* Banner */}
