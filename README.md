@@ -49,3 +49,7 @@ Form (inputs) -> POST /users (body as JSON) [Request]> Extract body -> Insert in
 2. Login and hash password
 
 3. Write logic to check whether classroom @date/time is booked or not. IF(booked), display booking, ELSE display original cohort details if present
+
+
+## Notes:
+Min-width for calendarDisplay component is on Ln 172 (change the value to change the width of the table)
