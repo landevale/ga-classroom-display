@@ -23,6 +23,16 @@ function CourseRegForm() {
   const [endTime, setEndTime] = useState("17:00");
   const [classRoom, setClassRoom] = useState("");
   const [msg, setMsg] = useState("");
+  //Form Validation & Errors
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    let tempErrors = {};
+    if (!courseCode) tempErrors.name = "Course is required";
+    setErrors(tempErrors);
+    setMsg("Course is required!");
+    return Object.keys(tempErrors).length === 0;
+  };
 
   const classroomOptions = [
     { value: "1", label: "Classrooom 1" },
@@ -45,33 +55,36 @@ function CourseRegForm() {
 
   // More validation? Unique? Required?
   const handleCreate = async () => {
-    const info = {
-      courseCode,
-      courseSchedule,
-      startDate,
-      endDate,
-      daysOnCampus,
-      altSaturdays,
-      startTime,
-      endTime,
-      classRoom,
-    };
-    try {
-      const response = await fetch("/cohorts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(info),
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not OK");
+    if (validate()) {
+      const info = {
+        courseCode,
+        courseSchedule,
+        startDate,
+        endDate,
+        daysOnCampus,
+        altSaturdays,
+        startTime,
+        endTime,
+        classRoom,
+      };
+
+      try {
+        const response = await fetch("/cohorts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(info),
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not OK");
+        }
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.log(info);
+        setMsg("Something went wrong!");
       }
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(info);
-      setMsg("Something went wrong!");
     }
   };
 
@@ -87,6 +100,7 @@ function CourseRegForm() {
               name="courseCode"
               value={courseCode}
               onChange={(e) => setCourseCode(e.target.value)}
+              required
             />
           </label>
 
@@ -206,16 +220,15 @@ function CourseRegForm() {
             required
             onChange={(e) => setEndTime(e.target.value)}
           />
+
           <br />
           <br />
+
           <ClassroomDropdown
-            isSearchable
-            isMulti
             placeHolder="Classroom"
             classroomOptions={classroomOptions}
-            onChange={(value) => setClassRoom(value)}
+            onChange={(value) => setClassRoom(value.value)}
           />
-
           <br />
           <br />
           <button onClick={handleCreate}>Create Course</button>
