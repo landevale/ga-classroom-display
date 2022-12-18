@@ -23,7 +23,7 @@ const seed = async (req, res) => {
       studentSuccess: "Kerin",
       altSaturdays: "none", //none, odd, even, ALL
     },
-    ,
+
     {
       courseCode: "SEI41",
       courseSchedule: "FullTime", //PartTime or FullTime
@@ -45,7 +45,7 @@ const seed = async (req, res) => {
       studentSuccess: "Kerin",
       altSaturdays: "none", //none, odd, even, ALL
     },
-    ,
+
     {
       courseCode: "DSiFX07",
       courseSchedule: "FullTime", //PartTime or FullTime

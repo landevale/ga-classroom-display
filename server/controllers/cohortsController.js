@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Cohort = require("../models/cohort");
-// const seed = require("../seed/seedCohort");
+const seed = require("../seed/seedCohort");
 
-// router.get("/seed", seed);
+router.get("/seed", seed);
 
 router.get("/", async (req, res) => {
   //? return [ list of cohortss]
