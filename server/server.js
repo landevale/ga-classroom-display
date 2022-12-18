@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 
 // Import
 const bookingsController = require("./controllers/bookingsController.js");
+const cohortsController = require("./controllers/cohortsController.js");
 // const Booking = require("./models/booking");
 // const usersController = require("./controllers/usersController.js");
 // const User = require("./models/user");
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("../client/dist"));
 app.use("/bookings", bookingsController);
+app.use("/cohorts", cohortsController);
 // app.use("/users", usersController);
 // session
 app.set("trust proxy", 1); // trust first proxy

@@ -19,8 +19,8 @@ function CourseRegForm() {
     },
   });
   const [altSaturdays, setAltSaturdays] = useState("No");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
+  const [startTime, setStartTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("17:00");
   const [classRoom, setClassRoom] = useState("");
   const [msg, setMsg] = useState("");
 
@@ -75,7 +75,6 @@ function CourseRegForm() {
     }
   };
 
-  console.log(classRoom);
   return (
     <>
       <div>
@@ -100,6 +99,7 @@ function CourseRegForm() {
               value="FullTime"
               checked={true}
               className="form-check-input"
+              onChange={(event) => setCourseSchedule(event.target.value)}
             />
             Full Time
           </label>
@@ -109,6 +109,7 @@ function CourseRegForm() {
               name="courseSchedule"
               value="PartTime"
               className="form-check-input"
+              onChange={(event) => setCourseSchedule(event.target.value)}
             />
             Part Time
           </label>
@@ -187,6 +188,7 @@ function CourseRegForm() {
             name="startTime"
             min="09:00"
             max="18:00"
+            value={startTime}
             required
             onChange={(e) => setStartTime(e.target.value)}
           />
@@ -200,6 +202,7 @@ function CourseRegForm() {
             name="endTime"
             min="09:00"
             max="18:00"
+            value={endTime}
             required
             onChange={(e) => setEndTime(e.target.value)}
           />
