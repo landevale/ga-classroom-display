@@ -24,21 +24,37 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.get("/seed", async (req, res) => {
-//   const users = [
-//     {
-//       username: "grapefruit",
-//       email: "pink@fruits.com",
-//       password: "fruitbasket",
-//     },
-//   ];
-//   try {
-//     await User.deleteMany({}); //* delete all users
-//     const newUsers = await User.create(users);
-//     res.json(newUsers);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedCohort = await Cohort.findByIdAndRemove(id);
+    res.status(200).send(deletedCohort);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const cohort = await Cohort.findById(id);
+    res.json(cohort);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedCohort = await Cohort.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).send(updatedCohort);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 module.exports = router;
