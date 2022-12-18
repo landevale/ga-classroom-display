@@ -32,12 +32,6 @@ function CalendarDisplay({ selectedDateState }) {
   //===========================================================
   const numberOfClassRooms = 6; //EDIT Number of Classrooms HERE
   //===========================================================
-  // Array to display based on day selected
-  const dayDisplayArr = [];
-
-  const selectedDateTableArray = [];
-
-  //need to filter by date, then by class. with that info, push data into array with IF-sun logic and map out
 
   //==========================================
   // Logic for creating empty array (to be appended later) then mapped onto table
@@ -149,8 +143,6 @@ function CalendarDisplay({ selectedDateState }) {
       }
     }
   }
-
-
 
   //============================================
   //Populating array with calendarTable Headers
