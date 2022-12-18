@@ -55,7 +55,8 @@ function CalendarDisplay({ selectedDateState }) {
   }
 
   //==========================================
-  // Logic for looping through ALL bookings (change to looping throuogh all cohort later=> and then looping through bookings to overwrite)
+  // Logic for looping through ALL bookings
+  // Populate the calendar with the courseCode of each and every cohort, regardless of whether overlap or not (stretch-> check for overlaps and include an asterisk *)
 
   const weekDayArray = [];
   for (let i = 0; i < daysToShow; i++) {
@@ -85,35 +86,61 @@ function CalendarDisplay({ selectedDateState }) {
     }
     //======================================
     //Logic to fill in based on DaysOnCampus
+    // IF dayoncampus weekDay = false && IF cell currently populated by the current courseIndex (logic loops through ALL courses)
+    // Need to do the logic for alternate saturdays
     for (let k = 0; k < weekDayArray.length; k++) {
       switch (weekDayArray[k]) {
         case "Mon":
-          if (cohortState[i].daysOnCampus.days.monday === false) {
+          if (
+            cohortState[i].daysOnCampus.days.monday === false &&
+            cohortState[i].courseCode ===
+              occupiedBy[cohortState[i].classRoom - 1][k]
+          ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
           break;
         case "Tue":
-          if (cohortState[i].daysOnCampus.days.tuesday === false) {
+          if (
+            cohortState[i].daysOnCampus.days.tuesday === false &&
+            cohortState[i].courseCode ===
+              occupiedBy[cohortState[i].classRoom - 1][k]
+          ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
           break;
         case "Wed":
-          if (cohortState[i].daysOnCampus.days.wednesday === false) {
+          if (
+            cohortState[i].daysOnCampus.days.wednesday === false &&
+            cohortState[i].courseCode ===
+              occupiedBy[cohortState[i].classRoom - 1][k]
+          ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
           break;
         case "Thu":
-          if (cohortState[i].daysOnCampus.days.thursday === false) {
+          if (
+            cohortState[i].daysOnCampus.days.thursday === false &&
+            cohortState[i].courseCode ===
+              occupiedBy[cohortState[i].classRoom - 1][k]
+          ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
           break;
         case "Fri":
-          if (cohortState[i].daysOnCampus.days.friday === false) {
+          if (
+            cohortState[i].daysOnCampus.days.friday === false &&
+            cohortState[i].courseCode ===
+              occupiedBy[cohortState[i].classRoom - 1][k]
+          ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
           break;
         case "Sat":
-          if (cohortState[i].altSaturdays === "none") {
+          if (
+            cohortState[i].altSaturdays === "none" &&
+            cohortState[i].courseCode ===
+              occupiedBy[cohortState[i].classRoom - 1][k]
+          ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
           break;
@@ -150,7 +177,6 @@ function CalendarDisplay({ selectedDateState }) {
       // .slice(-2)
     );
   }
-
 
   // Intervals between fetched start and end date
   const startDate = bookingsState;
