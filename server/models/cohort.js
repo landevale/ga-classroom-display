@@ -12,30 +12,29 @@ const cohortSchema = new mongoose.Schema(
     },
     courseSchedule: { type: String }, //PartTime or FullTime
     startDate: {
-      type: Date,
+      type: String,
       required: true,
       index: true,
     },
     endDate: {
-      type: Date,
+      type: String,
       required: true,
       index: true,
     },
     daysOnCampus: {
-      days:
-        {
-          monday: { type: Boolean, required: true },
-          tuesday: { type: Boolean, required: true },
-          wednesday: { type: Boolean, required: true },
-          thursday: { type: Boolean, required: true },
-          friday: { type: Boolean, required: true },
-        },
+      days: {
+        monday: { type: Boolean, default: false, required: true },
+        tuesday: { type: Boolean, default: false, required: true },
+        wednesday: { type: Boolean, default: false, required: true },
+        thursday: { type: Boolean, default: false, required: true },
+        friday: { type: Boolean, default: false, required: true },
+      },
     },
-    startTime: { type: Number, required: true }, //need start/end-time(?) Do we need to display "hours" in daily calendar?
-    endTime: { type: Number, required: true },
+    startTime: { type: String }, //need start/end-time(?) Do we need to display "hours" in daily calendar?
+    endTime: { type: String },
     classRoom: { type: Number },
-    weeks: { type: Number, required: true },
-    studentSuccess:{type:String, required:true},
+    weeks: { type: Number },
+    studentSuccess: { type: String },
     altSaturdays: { type: String, required: true }, //none, odd, even, ALL
   },
   { timestamps: true }

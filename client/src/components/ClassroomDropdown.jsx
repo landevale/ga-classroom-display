@@ -121,9 +121,9 @@ const ClassroomDropdown = ({
     return selectedValue.value === classroomOption.value;
   };
 
-  //   const onSearch = (e) => {
-  //     setSearchValue(e.target.value);
-  //   };
+  const onSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   const getOptions = () => {
     if (!searchValue) {
@@ -150,11 +150,11 @@ const ClassroomDropdown = ({
       </div>
       {showMenu && (
         <div className="dropdown-menu">
-          {/* {isSearchable && (
+          {isSearchable && (
             <div className="search-box">
               <input onChange={onSearch} value={searchValue} ref={searchRef} />
             </div>
-          )} */}
+          )}
           {getOptions().map((classroomOption) => (
             <div
               onClick={() => onItemClick(classroomOption)}
