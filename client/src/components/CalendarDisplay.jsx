@@ -13,6 +13,7 @@ function CalendarDisplay({ selectedDateState }) {
   const [bookingsState, setBookingsState] = useState([]);
   useEffect(() => {
     fetch("/bookings/")
+      // fetch("localhost:3000/bookings")
       .then((response) => response.json())
       .then((data) => setBookingsState(data));
   }, []);
