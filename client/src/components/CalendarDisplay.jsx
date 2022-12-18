@@ -11,14 +11,17 @@ function CalendarDisplay({ selectedDateState }) {
   //==============================
   //Fetching Data json and set state for Data into sookingState
   const [bookingsState, setBookingsState] = useState([]);
+  const [cohortState, setCohortState] = useState([]);
   useEffect(() => {
-    fetch("/bookings/")
-      // fetch("localhost:3000/bookings")
+    // fetch("/bookings/")
+    fetch("/cohorts/")
       .then((response) => response.json())
-      .then((data) => setBookingsState(data));
+      // .then((data) => console.log("DATA", data));
+      .then((data) => setCohortState(data));
   }, []);
 
   console.log("BOOKINGSSTATE", bookingsState);
+  console.log("COHORTSTATE", cohortState);
 
   //Changing selectedDateState to working ISO date
   const selectedISODate = DateTime.fromFormat(
@@ -53,41 +56,8 @@ function CalendarDisplay({ selectedDateState }) {
 
   //==========================================
   // Logic for looping through ALL bookings (change to looping throuogh all cohort later=> and then looping through bookings to overwrite)
-  for (let i = 0; i < bookingsState.length; i++) {
-    let currDate = "";
-    let currBookingStartDate = "";
-    let currBookingEndDate = "";
-    for (let j = 0; j < daysToShow; j++) {
-      currDate = new Date(selectedDateState);
-      // console.log("SELECTEDISODATE2", selectedISODate);
-      currDate = new Date(
-        DateTime.fromISO(selectedISODate).plus({ days: j }).toISO()
-      );
-      // console.log("CURRDATE", currDate);
-      currBookingStartDate = new Date(bookingsState[i].bookingStart);
-      currBookingEndDate = new Date(bookingsState[i].bookingEnd);
-      // console.log(typeof currBookingEndDate)
-      // console.log(
-      //   "ALLDATES",
-      //   currBookingStartDate,
-      //   currBookingEndDate,
-      //   currDate
-      // );
-      if (currBookingStartDate <= currDate && currBookingEndDate >= currDate)
-        occupiedBy[bookingsState[i].classRoom - 1][j] =
-          bookingsState[i].roomUseBy;
-    }
-  }
-
-  //=============================
-  //Overwriting with Sundays
-  const selectedDateStateISO = DateTime.fromFormat(
-    selectedDateState.slice(5),
-    "d MMM yyyy"
-  ).toISODate();
 
   const weekDayArray = [];
-  const sundayArray = [];
   for (let i = 0; i < daysToShow; i++) {
     weekDayArray.push(
       DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
@@ -95,14 +65,130 @@ function CalendarDisplay({ selectedDateState }) {
         .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
         .slice(0, 3)
     );
-    // sundayArray.push(
-    //   DateTime.fromISO(selectedDateStateISO)
-    //     .plus({ days: i })
-    //     .toISODate()
-    //     .slice(-2)
-    // );
   }
   console.log("weekDayARRAY=", weekDayArray);
+
+  for (let i = 0; i < cohortState.length; i++) {
+    let currDate = "";
+    let currCohortStartDate = "";
+    let currCohortEndDate = "";
+    for (let j = 0; j < daysToShow; j++) {
+      currDate = new Date(selectedDateState);
+      // console.log("SELECTEDISODATE2", selectedISODate);
+      currDate = new Date(
+        DateTime.fromISO(selectedISODate).plus({ days: j }).toISO()
+      );
+      // console.log("CURRDATE", currDate);
+      currCohortStartDate = new Date(cohortState[i].startDate);
+      currCohortEndDate = new Date(cohortState[i].endDate);
+      // console.log(typeof currBookingEndDate)
+      // console.log(
+      //   "ALLDATES",
+      //   currBookingStartDate,
+      //   currBookingEndDate,
+      //   currDate
+      // );
+      if (currCohortStartDate <= currDate && currCohortEndDate >= currDate) {
+        occupiedBy[cohortState[i].classRoom - 1][j] = cohortState[i].courseCode;
+      }
+    }
+    //======================================
+    //Logic to fill in based on DaysOnCampus
+    for (let k = 0; k < weekDayArray.length; k++) {
+      switch (weekDayArray[k]) {
+        // case "Sun":
+        //   occupiedBy[cohortState[i].classRoom - 1][k] = "SUN";
+        // break;
+        case "Mon":
+          if (cohortState[i].daysOnCampus.days.monday === false) {
+            occupiedBy[cohortState[i].classRoom - 1][k] = "";
+          }
+          break;
+        case "Tue":
+          if (cohortState[i].daysOnCampus.days.tuesday === false) {
+            occupiedBy[cohortState[i].classRoom - 1][k] = "";
+          }
+          break;
+        case "Wed":
+          if (cohortState[i].daysOnCampus.days.wednesday === false) {
+            occupiedBy[cohortState[i].classRoom - 1][k] = "";
+          }
+          break;
+        case "Thu":
+          if (cohortState[i].daysOnCampus.days.thursday === false) {
+            occupiedBy[cohortState[i].classRoom - 1][k] = "";
+          }
+          break;
+        case "Fri":
+          if (cohortState[i].daysOnCampus.days.friday === false) {
+            occupiedBy[cohortState[i].classRoom - 1][k] = "";
+          }
+          break;
+        case "Sat":
+          if (cohortState[i].altSaturdays === "none") {
+            occupiedBy[cohortState[i].classRoom - 1][k] = "";
+          }
+          break;
+      }
+    }
+  }
+  //=============================================
+  //Logic for Sundays (to be made the highest priority (aka lowest/last to be run))
+  for (let m = 0; m < numberOfClassRooms; m++) {
+    for (let p = 0; p < weekDayArray.length; p++) {
+      console.log(weekDayArray);
+      if (weekDayArray[p] === "Sun") {
+        occupiedBy[m][p] = "SUN";
+      }
+    }
+  }
+
+  console.log("OCCUPIEDBY", occupiedBy);
+  //=============================
+  //Overwriting with Sundays
+  const selectedDateStateISO = DateTime.fromFormat(
+    selectedDateState.slice(5),
+    "d MMM yyyy"
+  ).toISODate();
+
+  // const weekDayArray = [];
+  // const sundayArray = [];
+  // for (let i = 0; i < daysToShow; i++) {
+  //   weekDayArray.push(
+  //     DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
+  //       .plus({ days: i })
+  //       .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+  //       .slice(0, 3)
+  //   );
+  // }
+  // console.log("weekDayARRAY=", weekDayArray);
+  //========================================
+  //DAY MUTATE LOGIC HERE
+  // for (let i = 0; i < weekDayArray.length; i++) {
+  //   switch (weekDayArray[i]) {
+  //     case "Sun":
+  //       occupiedBy[i] = "SUN";
+  //       break;
+  //     case "Mon":
+  //       if (cohortState) break;
+  //     case "Tue":
+  //       day = "Tuesday";
+  //       break;
+  //     case "Wed":
+  //       day = "Tuesday";
+  //       break;
+  //     case "Thu":
+  //       day = "Tuesday";
+  //       break;
+  //     case "Fri":
+  //       day = "Tuesday";
+  //       break;
+  //     case "Sat":
+  //       day = "Tuesday";
+  //       break;
+  //   }
+  // }
+
   // console.log("sundayARRAY=", sundayArray);
   // for (let i = 0; i < selectedDateTableArray.length; i++) {
   //   if (dayFromDayDisplayArr(i)[0] === "Sun") {
@@ -113,8 +199,6 @@ function CalendarDisplay({ selectedDateState }) {
   //     tempArray.push("");
   //   }
   // }
-
-  console.log("OCCUPIEDBY", occupiedBy);
 
   //======================================
   //logic to map out 7 cells with key+value for each cell
@@ -200,22 +284,22 @@ function CalendarDisplay({ selectedDateState }) {
     }
   }
 
-  const classroomFiveTableMap = tempArray.map((ele, i) => (
-    <td key={i} id={ele} className={ele}>
-      {ele}
-    </td>
-  ));
+  // const classroomFiveTableMap = tempArray.map((ele, i) => (
+  //   <td key={i} id={ele} className={ele}>
+  //     {ele}
+  //   </td>
+  // ));
 
-  useEffect(() => {
-    // const testGetClassRoomSix = document.getElementById("6-2022-12-18");
+  // useEffect(() => {
+  //   // const testGetClassRoomSix = document.getElementById("6-2022-12-18");
 
-    // console.log("GETCLASSROOM6-18Dec =", testGetClassRoomSix);
-    // testGetClassRoomSix.innerHTML = "TESTGEbyId"
+  //   // console.log("GETCLASSROOM6-18Dec =", testGetClassRoomSix);
+  //   // testGetClassRoomSix.innerHTML = "TESTGEbyId"
 
-    for (let i = 0; i < daysToShow; i++) {
-      [i];
-    }
-  }, []);
+  //   for (let i = 0; i < daysToShow; i++) {
+  //     [i];
+  //   }
+  // }, []);
 
   console.log("TEMPARRAY", tempArray);
 
@@ -274,7 +358,10 @@ function CalendarDisplay({ selectedDateState }) {
 
         <tr>
           <td>Classroom 5</td>
-          {classroomFiveTableMap}
+          {/* {classroomFiveTableMap} */}
+          {occupiedBy[4].map((ele, i) => (
+            <td key={`${ele}+${i}`}>{ele}</td>
+          ))}
         </tr>
 
         <tr>
