@@ -18,6 +18,7 @@ function CourseRegForm() {
       friday: false,
     },
   });
+  const [altSaturdays, setAltSaturdays] = useState("No");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [classRoom, setClassRoom] = useState("");
@@ -40,9 +41,21 @@ function CourseRegForm() {
     { value: "Fri", label: "Friday" },
   ];
 
+  const satOptions = ["No", "Odd - 1st Week", "Even - 2nd Week", "All"];
+
   // More validation? Unique? Required?
   const handleCreate = async () => {
-    const info = { courseCode };
+    const info = {
+      courseCode,
+      courseSchedule,
+      startDate,
+      endDate,
+      daysOnCampus,
+      altSaturdays,
+      startTime,
+      endTime,
+      classRoom,
+    };
     try {
       const response = await fetch("/cohorts", {
         method: "POST",
@@ -57,6 +70,7 @@ function CourseRegForm() {
       const data = await response.json();
       console.log(data);
     } catch (error) {
+      console.log(info);
       setMsg("Something went wrong!");
     }
   };
@@ -68,13 +82,15 @@ function CourseRegForm() {
         <fieldset>
           <legend>Course Registration Form</legend>
           <label>
-            Course Code:{" "}
+            Course Code:
             <input
+              type="text"
               name="courseCode"
               value={courseCode}
-              onChange={(event) => console.log(event.target.value)}
+              onChange={(e) => setCourseCode(e.target.value)}
             />
           </label>
+
           <br />
           <p>Course Type:</p>
           <label>
@@ -101,19 +117,19 @@ function CourseRegForm() {
           <label>
             Start Date:{" "}
             <input
+              type="date"
+              id="start"
+              min={DateTime.now().toFormat("yyyy-MM-dd")}
               //==================
               //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
               onChange={(e) =>
-                console.log(
+                setStartDate(
                   DateTime.fromISO(e.target.value).toLocaleString(
                     DateTime.DATETIME_FULL
                     //====================
                   )
                 )
               }
-              type="date"
-              id="start"
-              min={DateTime.now().toFormat("yyyy-MM-dd")}
             />
           </label>
           <br />
@@ -121,8 +137,18 @@ function CourseRegForm() {
             End Date:{" "}
             <input
               type="date"
-              id="start"
+              id="end"
               min={DateTime.now().toFormat("yyyy-MM-dd")}
+              //==================
+              //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
+              onChange={(e) =>
+                setEndDate(
+                  DateTime.fromISO(e.target.value).toLocaleString(
+                    DateTime.DATETIME_FULL
+                    //====================
+                  )
+                )
+              }
             />
           </label>
 
@@ -133,8 +159,24 @@ function CourseRegForm() {
             isMulti
             placeHolder="Days on Campus"
             dayOptions={dayOptions}
-            onChange={(value) => console.log(value)}
+            onChange={(value) => setDaysOnCampus(value)}
           />
+          <br />
+          <br />
+
+          <label htmlFor="altSaturdays">Saturdays: </label>
+          <select
+            name="altSaturdays"
+            value={altSaturdays}
+            onChange={(e) => setAltSaturdays(e.target.value)}
+          >
+            {satOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+
           <br />
           <br />
           <label htmlFor="startTime">Start Time: </label>
@@ -171,7 +213,7 @@ function CourseRegForm() {
 
           <br />
           <br />
-          <button onClick={handleCreate}>Create</button>
+          <button onClick={handleCreate}>Create Course</button>
         </fieldset>
         <p>{msg}</p>
       </div>
