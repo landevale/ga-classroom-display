@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
-function SharedLayout() {
+function SharedLayout({ user }) {
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <div>
         <Outlet />
       </div>

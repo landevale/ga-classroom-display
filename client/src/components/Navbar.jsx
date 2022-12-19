@@ -1,8 +1,9 @@
 import React from "react";
 import { Link as NavLink, Link, useNavigate } from "react-router-dom";
 import mainLogo from "../assets/CMYK-White-Red_Small_GeneralAssembly-Horizontal.png";
+import UserInfo from "./UserInfo";
 
-function Navbar() {
+function Navbar({ user }) {
   const navigate = useNavigate();
   // const handleLogout = () => {
   //   console.log("Log out");
@@ -52,7 +53,10 @@ function Navbar() {
         <button>
           <Link to="/login">Login</Link>
         </button>
+        {"    "}
         <button onClick={handleLogout}>Logout</button>
+        {"    "}
+        <UserInfo user={user} />
       </nav>
 
       <br />
