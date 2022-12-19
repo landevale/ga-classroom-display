@@ -145,15 +145,134 @@ function CalendarDisplay({ selectedDateState }) {
       }
     }
   }
-  //=============================================
-  //Logic for
-  for (let i = 0; i < bookingsState.length; i++) {}
+
+  //     currDate = new Date(selectedDateState);
+  //   currDate = new Date(
+  //   DateTime.fromISO(selectedISODate).plus({ days: j }).toISO()
+  // );
+  // currCohortStartDate = new Date(cohortState[i].startDate);
+  // currCohortEndDate = new Date(cohortState[i].endDate);
+  //   }
+  // }
+
+  // for (let i = 0; i < bookingsState.length; i++) {
+  //   let currDate = "";
+  //   let currBookingStartDate = "";
+  //   let currBookingEndDate = "";
+  //   for (let j = 0; j < daysToShow; j++) {
+  //     currDate = new Date(selectedDateState);
+  //     currDate = new Date(
+  //       DateTime.fromISO(selectedISODate).plus({ days: j }).toISO()
+  //     );
+  //     currBookingStartDate = new Date(bookingsState[i].bookingStart);
+  //     currBookingEndDate = new Date(bookingsState[i].bookingEnd);
+
+  //     if (bookingsState[i].holiday === true) {
+  //       occupiedBy[]
+  //     }
+
+  //     if (currBookingStartDate <= currDate && currBookingEndDate >= currDate && bookingState[i].holiday === false ) {
+  //       occupiedBy[cohortState[i].classRoom - 1][j] = cohortState[i].courseCode;
+  //     } else  {
+
+  //     }
+  //   }
+  // }
+
   //=============================================
   //Logic for Sundays (to be made the highest priority (aka lowest/last to be run) apart from Holidays)
   for (let m = 0; m < numberOfClassRooms; m++) {
     for (let p = 0; p < weekDayArray.length; p++) {
       if (weekDayArray[p] === "Sun") {
         occupiedBy[m][p] = "SUN";
+      }
+    }
+  }
+  //=============================================
+  //Logic for HOLIDAYS && Manual Bookings
+  //1) Find holidays, 2)Iterate through all the classrooms' occupiedBy arrays, and replace with roomUseBy if dateState is between start and end date
+
+  //Loop through all the bookings state to scan for holidays === true
+  for (let i = 0; i < bookingsState.length; i++) {
+    // console.log(bookingsState);
+    let currDate = "";
+    let currBookingStartDate = "";
+    let currBookingEndDate = "";
+    currBookingStartDate = new Date(bookingsState[i].bookingStart);
+    currBookingEndDate = new Date(bookingsState[i].bookingEnd);
+    if (bookingsState[i].holiday === true) {
+      // console.log("HOLIDAYDETECTTED")
+      //loop through all the classrooms
+      for (let j = 0; j < occupiedBy.length; j++) {
+        //loop through the array of occupiedBy
+        for (let k = 0; k < occupiedBy[j].length; k++) {
+          // console.log("HOLIDAYDETECTTED");
+          // console.log("OCCBY", occupiedBy);
+          currDate = new Date(selectedDateState);
+          currDate = new Date(
+            DateTime.fromISO(selectedISODate).plus({ days: k }).toISO()
+          );
+          //check for whether currDate (derived from dateState) is between holiday start and end date
+          if (
+            currBookingStartDate <= currDate &&
+            currBookingEndDate >= currDate
+          ) {
+            occupiedBy[j][k] = `H:${bookingsState[i].roomUseBy}`;
+          }
+        }
+      }
+      //IF IT IS NOT A HOLIDAY,...replace the dates
+      //If not holiday but is institution-wide event
+    } else if (
+      bookingsState[i].holiday === false &&
+      bookingsState[i].classRoom === undefined
+    ) {
+      console.log("classroomUndefined");
+      //loop through all the classrooms
+      for (let j = 0; j < occupiedBy.length; j++) {
+        //loop through the array of occupiedBy
+        for (let k = 0; k < occupiedBy[j].length; k++) {
+          // console.log("HOLIDAYDETECTTED");
+          // console.log("OCCBY", occupiedBy);
+          currDate = new Date(selectedDateState);
+          currDate = new Date(
+            DateTime.fromISO(selectedISODate).plus({ days: k }).toISO()
+          );
+          //check for whether currDate (derived from dateState) is between booking start and end date
+          if (
+            currBookingStartDate <= currDate &&
+            currBookingEndDate >= currDate &&
+            occupiedBy[j][k].slice(0, 2) !== "H:"
+          ) {
+            occupiedBy[j][k] = bookingsState[i].roomUseBy;
+          }
+        }
+      }
+    } else {
+      //situation where NOT holiday && classroom present
+
+      //loop through the particular classroom '7 (days)' times
+      for (
+        let m = 0;
+        m < occupiedBy[bookingsState[i].classRoom - 1].length;
+        m++
+      ) {
+        // console.log("bookingdefined7*2");
+
+        currDate = new Date(selectedDateState);
+        currDate = new Date(
+          DateTime.fromISO(selectedISODate).plus({ days: m }).toISO()
+        );
+        // console.log("CURRDATE", currDate);
+        if (
+          currBookingStartDate <= currDate &&
+          currBookingEndDate >= currDate &&
+          occupiedBy[bookingsState[i].classRoom - 1][m].slice(0, 2) !== "H:"
+        ) {
+          console.log("classroom");
+          occupiedBy[bookingsState[i].classRoom - 1][m] =
+            bookingsState[i].roomUseBy;
+        }
       }
     }
   }
