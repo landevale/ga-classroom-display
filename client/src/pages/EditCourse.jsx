@@ -59,6 +59,10 @@ function EditCourse() {
     navigate("/courses");
   };
 
+  const logger = () => {
+    console.log(formState);
+    
+  }
   return (
     <>
       <h1>Edit Course {id}</h1>
@@ -189,6 +193,11 @@ function EditCourse() {
               onChange={handleChange}
             />
           </label>
+          {/* DELETE THIS WHEN DONE; FOR CONSOLE LOGGINGS etc */}
+          <br />
+          <br />
+          <button onClick={logger()}>Log</button>
+          {/* DELETE THIS WHEN DONE; FOR CONSOLE LOGGINGS etc */}
         </fieldset>
         <button>Update</button>
         <button type="reset">Reset</button>
