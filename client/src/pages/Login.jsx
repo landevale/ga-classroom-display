@@ -1,5 +1,7 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import LoginForm from "../components/LoginForm";
 
 function Login() {
   const navigate = useNavigate();
@@ -42,6 +44,7 @@ function Login() {
           <button onClick={handleLogin}>Log In</button>
         </fieldset>
       </div>
+      <LoginForm />
     </>
   );
 }
