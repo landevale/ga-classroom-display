@@ -5,8 +5,8 @@ const seed = async (req, res) => {
     {
       courseCode: "SEI40",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-25",
-      endDate: "2023-01-05",
+      startDate: "2022-12-27T00:00:00.000+08:00",
+      endDate: "2023-01-05T00:00:00.000+08:00",
       daysOnCampus: {
         days: {
           monday: true,
@@ -18,7 +18,7 @@ const seed = async (req, res) => {
       },
       startTime: "09:00",
       endTime: "17:00",
-      classRoom: 4,
+      classRoom: 2,
       weeks: 2,
       studentSuccess: "Kerin",
       altSaturdays: "none", //none, odd, even, ALL
@@ -27,8 +27,8 @@ const seed = async (req, res) => {
     {
       courseCode: "SEI41",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-27",
-      endDate: "2023-01-07",
+      startDate: "2022-12-27T00:00:00.000+08:00",
+      endDate: "2023-01-05T00:00:00.000+08:00",
       daysOnCampus: {
         days: {
           monday: true,
@@ -45,12 +45,11 @@ const seed = async (req, res) => {
       studentSuccess: "Kerin",
       altSaturdays: "none", //none, odd, even, ALL
     },
-
     {
       courseCode: "DSiFX07",
       courseSchedule: "PartTime", //PartTime or FullTime
-      startDate: "2022-12-28",
-      endDate: "2023-01-10",
+      startDate: "2022-12-28T00:00:00.000+08:00",
+      endDate: "2023-01-10T00:00:00.000+08:00",
       daysOnCampus: {
         days: {
           monday: false,
@@ -66,6 +65,27 @@ const seed = async (req, res) => {
       weeks: 2,
       studentSuccess: "Kerin",
       altSaturdays: "odd", //none, odd, even, ALL
+    },
+    {
+      courseCode: "ISOTest",
+      courseSchedule: "PartTime", //PartTime or FullTime
+      startDate: "2023-01-09T00:00:00.000+08:00",
+      endDate: "2023-02-09T00:00:00.000+08:00",
+      daysOnCampus: {
+        days: {
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: false,
+          friday: false,
+        },
+      },
+      startTime: "09:00",
+      endTime: "18:00",
+      classRoom: 5,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "all", //none, odd, even, ALL
     },
   ];
   await Cohort.deleteMany({});

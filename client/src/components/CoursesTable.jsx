@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { DateTime } from "luxon";
 
 function CoursesTable() {
   const [courses, setCourses] = useState([]);
@@ -46,8 +47,8 @@ function CoursesTable() {
           <tr key={i}>
             <td>{course.courseCode}</td>
             <td>{course.courseSchedule}</td>
-            <td>{course.startDate}</td>
-            <td>{course.endDate}</td>
+            <td>{DateTime.fromISO(course.startDate).toISODate()}</td>
+            <td>{DateTime.fromISO(course.endDate).toISODate()}</td>
             <td>Days on Campus</td>
             <td>{course.startTime}</td>
             <td>{course.endTime}</td>

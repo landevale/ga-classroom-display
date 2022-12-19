@@ -7,8 +7,8 @@ const bookingSchema = new mongoose.Schema(
     roomUseBy: { type: String, required: true },
     // createdBy: { type: Schema.ObjectId, ref: User }, // check whether this user= admin or userOfRoom
     createdBy: { type: String, required: true },
-    bookingStart: { type: Date, required: true },
-    bookingEnd: { type: Date, required: true },
+    bookingStart: { type: String, required: true, index: true },
+    bookingEnd: { type: String, required: true, index: true },
     classRoom: { type: Number },
     holiday: { type: Boolean, required: true },
     cohort: { type: String },

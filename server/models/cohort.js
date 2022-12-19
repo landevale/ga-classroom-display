@@ -23,11 +23,11 @@ const cohortSchema = new mongoose.Schema(
     },
     daysOnCampus: {
       days: {
-        monday: { type: Boolean, default: false, required: true },
-        tuesday: { type: Boolean, default: false, required: true },
-        wednesday: { type: Boolean, default: false, required: true },
-        thursday: { type: Boolean, default: false, required: true },
-        friday: { type: Boolean, default: false, required: true },
+        monday: { type: Boolean, default: false },
+        tuesday: { type: Boolean, default: false },
+        wednesday: { type: Boolean, default: false },
+        thursday: { type: Boolean, default: false },
+        friday: { type: Boolean, default: false },
       },
     },
     startTime: { type: String }, //need start/end-time(?) Do we need to display "hours" in daily calendar?

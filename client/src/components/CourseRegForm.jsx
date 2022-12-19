@@ -137,13 +137,11 @@ function CourseRegForm() {
               min={DateTime.now().toFormat("yyyy-MM-dd")}
               //==================
               //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
-              onChange={(e) =>
-                //   console.log(e.target.value)
-                setStartDate(
-                  DateTime.fromISO(e.target.value).toLocaleString(
-                    DateTime.DATETIME_FULL
-                  )
-                )
+              onChange={
+                (e) =>
+                  // (e) => console.log(typeof e.target.value)
+                  setStartDate(DateTime.fromISO(e.target.value).toISO())
+                // )
               }
             />
           </label>
@@ -156,13 +154,12 @@ function CourseRegForm() {
               min={DateTime.now().toFormat("yyyy-MM-dd")}
               //==================
               //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
-              onChange={(e) =>
-                setEndDate(
-                  DateTime.fromISO(e.target.value).toLocaleString(
-                    DateTime.DATETIME_FULL
-                    //====================
-                  )
-                )
+              onChange={
+                (e) => setEndDate(DateTime.fromISO(e.target.value).toISO())
+                // setEndDate(
+                //   DateTime.fromISO(e.target.value).toLocaleString(
+                //     DateTime.DATETIME_FULL
+                //====================
               }
             />
           </label>

@@ -59,10 +59,6 @@ function EditCourse() {
     navigate("/courses");
   };
 
-  const logger = () => {
-    console.log(formState);
-    
-  }
   return (
     <>
       <h1>Edit Course {id}</h1>
@@ -88,7 +84,10 @@ function EditCourse() {
               type="radio"
               name="courseSchedule"
               value="FullTime"
-              checked={formState.courseSchedule === "FullTime"}
+              defaultChecked={
+                formState.courseSchedule === "FullTime" ? true : false
+              }
+              // checked={formState.courseSchedule === "FullTime" ? true : false}
               onChange={handleChange}
             />
           </label>
@@ -98,7 +97,10 @@ function EditCourse() {
               type="radio"
               name="courseSchedule"
               value="PartTime"
-              checked={formState.courseSchedule === "PartTime"}
+              defaultChecked={
+                formState.courseSchedule === "PartTime" ? true : false
+              }
+              // checked={formState.courseSchedule === "PartTime"}
               onChange={handleChange}
             />
           </label>
@@ -111,7 +113,7 @@ function EditCourse() {
               type="date"
               id="start"
               name="startDate"
-              defaultValue={formState.startDate}
+              defaultValue={DateTime.fromISO(formState.startDate).toISODate()}
               min={DateTime.now().toFormat("yyyy-MM-dd")}
               onChange={handleChange}
             />
@@ -123,7 +125,7 @@ function EditCourse() {
               type="date"
               id="end"
               name="endDate"
-              defaultValue={formState.endDate}
+              defaultValue={DateTime.fromISO(formState.endDate).toISODate()}
               min={DateTime.now().toFormat("yyyy-MM-dd")}
               onChange={handleChange}
             />
@@ -194,9 +196,9 @@ function EditCourse() {
             />
           </label>
           {/* DELETE THIS WHEN DONE; FOR CONSOLE LOGGINGS etc */}
+          {/* <br />
           <br />
-          <br />
-          <button onClick={logger()}>Log</button>
+          <button onClick={logger()}>Log</button> */}
           {/* DELETE THIS WHEN DONE; FOR CONSOLE LOGGINGS etc */}
         </fieldset>
         <button>Update</button>
