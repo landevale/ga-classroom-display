@@ -1,6 +1,7 @@
 import React, { useState, createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Navbar from "./components/Navbar";
 import SharedLayout from "./pages/SharedLayout";
 import LogLayout from "./pages/LogLayout";
 import Home from "./pages/Home";
@@ -17,6 +18,7 @@ console.log("DataContent", DataContext);
 
 function App() {
   const [notLoggedIn, setNotLoggedIn] = useState(false);
+  const [user, setUser] = useState({ username: "User1" });
 
   return (
     <div className="App">
@@ -24,9 +26,10 @@ function App() {
         <DataContext.Provider
           setNotLoggedIn={setNotLoggedIn}
           notLoggedIn={notLoggedIn}
+          user={user}
         >
           <Routes>
-            <Route path="/" element={<SharedLayout />}>
+            <Route path="/" element={<SharedLayout user={user} />}>
               <Route index element={<Home />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/bookings" element={<Bookings />} />
