@@ -135,12 +135,18 @@ function CalendarDisplay({ selectedDateState }) {
           ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
+          //  else if (
+          //   cohortState[i].altSaturdays === "none" &&
+          //   cohortState[i].courseCode ===
+          //     occupiedBy[cohortState[i].classRoom - 1][k]
+          // ) {
+          // }
           break;
       }
     }
   }
   //=============================================
-  //Logic for 
+  //Logic for
   for (let i = 0; i < bookingsState.length; i++) {}
   //=============================================
   //Logic for Sundays (to be made the highest priority (aka lowest/last to be run) apart from Holidays)
