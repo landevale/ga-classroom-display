@@ -9,16 +9,21 @@ function CalendarDisplay({ selectedDateState }) {
   };
 
   //==============================
-  //Fetching Data json and set state for Data into sookingState
-  const [bookingsState, setBookingsState] = useState([]);
+  //Fetching Data json and set state for Data into cohort & bookingState
   const [cohortState, setCohortState] = useState([]);
   useEffect(() => {
-    // fetch("/bookings/")
     fetch("/cohorts/")
       .then((response) => response.json())
-      // .then((data) => console.log("DATA", data));
       .then((data) => setCohortState(data));
   }, []);
+
+  const [bookingsState, setBookingsState] = useState([]);
+  useEffect(() => {
+    fetch("/bookings/")
+      .then((response) => response.json())
+      .then((data) => setBookingsState(data));
+  }, []);
+  console.log("BOOKINGSTATE = ", bookingsState);
 
   //Changing selectedDateState to working ISO date
   const selectedISODate = DateTime.fromFormat(
@@ -130,10 +135,19 @@ function CalendarDisplay({ selectedDateState }) {
           ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
+          //  else if (
+          //   cohortState[i].altSaturdays === "none" &&
+          //   cohortState[i].courseCode ===
+          //     occupiedBy[cohortState[i].classRoom - 1][k]
+          // ) {
+          // }
           break;
       }
     }
   }
+  //=============================================
+  //Logic for
+  for (let i = 0; i < bookingsState.length; i++) {}
   //=============================================
   //Logic for Sundays (to be made the highest priority (aka lowest/last to be run) apart from Holidays)
   for (let m = 0; m < numberOfClassRooms; m++) {
