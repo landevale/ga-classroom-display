@@ -1,27 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
-
-// function LoginForm() {
-//   return (
-//     <>
-//       <div>
-//         <fieldset>
-//           <legend>LOG IN</legend>
-//           <label>
-//             Username: <input name="username" />
-//           </label>
-//           {"   "}
-//           <label>
-//             Password: <input name="password" />
-//           </label>
-//           {/* <button onClick={handleLogin}>Log In</button> */}
-//         </fieldset>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default LoginForm;
+import * as Yup from "yup";
 
 const LoginForm = () => (
   <div>
@@ -57,22 +36,30 @@ const LoginForm = () => (
         /* and other goodies */
       }) => (
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.email}
-          />
+          <label>
+            Email:{" "}
+            <input
+              type="email"
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+            />
+          </label>
           {errors.email && touched.email && errors.email}
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.password}
-          />
+          <br />
+          <label>
+            Password:{" "}
+            <input
+              type="password"
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
+          </label>
           {errors.password && touched.password && errors.password}
+          <br />
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>

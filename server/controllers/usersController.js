@@ -1,33 +1,41 @@
 const express = require("express");
 const router = express.Router();
-// const User = require("../models/user");
+const bcrypt = require("bcrypt");
+const User = require("../models/user");
 
-// router.get("/seed", async (req, res) => {
-//   const users = [
-//     {
-//       username: "grapefruit",
-//       email: "pink@fruits.com",
-//       password: "fruitbasket",
-//     },
-//   ];
-//   try {
-//     await User.deleteMany({}); //* delete all users
-//     const newUsers = await User.create(users);
-//     res.json(newUsers);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
+router.get("/seed", async (req, res) => {
+  const users = [
+    {
+      username: "grapefruit",
+      email: "pink@fruits.com",
+      password: bcrypt.hashSync("fruitbasket", 10),
+      admin: false,
+    },
+    {
+      username: "testingt",
+      email: "admin@test.com",
+      password: bcrypt.hashSync("password123", 10),
+      admin: true,
+    },
+  ];
+  try {
+    await User.deleteMany({}); //* delete all users
+    const newUsers = await User.create(users);
+    res.json(newUsers);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
-// router.get("/", async (req, res) => {
-//   try {
-//     const users = await User.find({}).exec();
-//     console.log(users);
-//     res.json(users);
-//   } catch (error) {
-//     res.status(500).json(error);
-//     console.log(error);
-//   }
-// });
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find({}).exec();
+    console.log(users);
+    res.json(users);
+  } catch (error) {
+    res.status(500).json(error);
+    console.log(error);
+  }
+});
 
 module.exports = router;

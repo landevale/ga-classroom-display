@@ -4,9 +4,21 @@ import mainLogo from "../assets/CMYK-White-Red_Small_GeneralAssembly-Horizontal.
 
 function Navbar() {
   const navigate = useNavigate();
-  const handleLogout = () => {
-    console.log("Log out");
-    navigate("/logout");
+  // const handleLogout = () => {
+  //   console.log("Log out");
+  //   navigate("/logout");
+  // };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await fetch("sessions/logout", {
+        method: "GET",
+      });
+      navigate("/logout");
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (

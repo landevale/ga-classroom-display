@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
       match: [/^[a-zA-Z0-9]+$/, "is invalid"],
       index: true,
     },
-    password: { type: String, required: true },
+    password: { type: String, minlength: 8, required: true },
     email: {
       type: String,
       lowercase: true,
