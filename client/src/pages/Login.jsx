@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import LoginForm from "../components/LoginForm";
-
 function Login() {
   const navigate = useNavigate();
   const handleLogin = () => {
@@ -44,7 +42,6 @@ function Login() {
           <button onClick={handleLogin}>Log In</button>
         </fieldset>
       </div>
-      <LoginForm />
     </>
   );
 }
