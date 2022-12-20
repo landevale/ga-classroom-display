@@ -22,9 +22,9 @@ const PORT = process.env.PORT ?? 3000;
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("../client/dist"));
-app.use("/bookings", bookingsController);
-app.use("/cohorts", cohortsController);
-app.use("/users", usersController);
+app.use("/api/bookings", bookingsController);
+app.use("/api/cohorts", cohortsController);
+app.use("/api/users", usersController);
 // session
 app.use("/sessions", sessionsController);
 app.set("trust proxy", 1); // trust first proxy
@@ -55,7 +55,7 @@ app.get("/api/", (req, res) => {
   res.json({ msg: "Hello World!" });
 });
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).exec();
   if (user === null) {

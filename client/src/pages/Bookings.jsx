@@ -24,7 +24,7 @@ function Bookings() {
     { value: "6", label: "Classrooom 6" },
   ];
 
-  const holidayOptions = ["No", "Yes"];
+  const holidayOptions = [false, true];
 
   const validate = () => {
     let tempErrors = {};
@@ -71,7 +71,7 @@ function Bookings() {
       };
 
       try {
-        const response = await fetch("/bookings", {
+        const response = await fetch("/api/bookings", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -191,7 +191,7 @@ function Bookings() {
           <label htmlFor="holiday">Holiday *: </label>
           <select
             name="holiday"
-            defaultvalue={holiday}
+            defaultValue={holiday}
             required
             onChange={(e) => setHoliday(e.target.value)}
           >

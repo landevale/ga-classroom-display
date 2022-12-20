@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 function Login({ notLoggedIn, setNotLoggedIn }) {
   const navigate = useNavigate();
-  const [msg, setMsg] = useState([]);
+  const [msg, setMsg] = useState("");
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -19,22 +19,25 @@ function Login({ notLoggedIn, setNotLoggedIn }) {
 
   const handleLogin = (info) => {
     console.log(info);
-    const response = fetch("/login", {
+    const response = fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(info),
     });
-    console.log(response);
+    console.log("Response", response);
 
     if (response.ok) {
       // navigate("/");
-      fetch("/api/secret")
-        .then((request) => request.json())
-        .then((data) => setMsg(data));
+      // fetch("/api/secret")
+      //   .then((request) => request.json())
+      //   .then((data) => setMsg(data));
       setNotLoggedIn(false);
       console.log(notLoggedIn);
+      setMsg("Login successful");
+    } else {
+      setMsg("Invalid login");
     }
   };
 
