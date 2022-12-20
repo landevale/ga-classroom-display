@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { DateTime } from "luxon";
+import { DataContext } from "../App";
 
 function CoursesTable() {
   const [courses, setCourses] = useState([]);
+  const { notLoggedIn } = useContext(DataContext);
 
   useEffect(() => {
     fetch("/api/cohorts/")
@@ -39,7 +41,7 @@ function CoursesTable() {
           <th>Sat on Campus</th>
           <th>Classroom</th>
           <th>Weeks</th>
-          <th>Edit / Delete</th>
+          {notLoggedIn ? null : <th>Edit / Delete</th>}
         </tr>
       </thead>
       <tbody>
@@ -55,10 +57,12 @@ function CoursesTable() {
             <td>{course.altSaturdays}</td>
             <td>{course.classRoom}</td>
             <td>{course.weeks}</td>
-            <td>
-              <Link to={`/editcourse/${course._id}`}>📝</Link>
-              <button onClick={handleDelete(course._id, i)}>X</button>
-            </td>
+            {notLoggedIn ? null : (
+              <td>
+                <Link to={`/editcourse/${course._id}`}>📝</Link>
+                <button onClick={handleDelete(course._id, i)}>X</button>
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

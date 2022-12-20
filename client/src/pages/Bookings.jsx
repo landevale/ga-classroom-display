@@ -1,6 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 import { DateTime } from "luxon";
+// import { DataContext } from "../App";
 import ClassroomDropdown from "../components/ClassroomDropdown";
 
 function Bookings() {
@@ -195,11 +196,13 @@ function Bookings() {
             required
             onChange={(e) => setHoliday(e.target.value)}
           >
-            {holidayOptions.map((option) => (
+            {/* {holidayOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
-            ))}
+            ))} */}
+            <option value="false">No</option>
+            <option value="true">Yes</option>
           </select>
           <br />
           <br />

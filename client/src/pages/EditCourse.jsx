@@ -12,7 +12,7 @@ function EditCourse() {
 
   useEffect(() => {
     const fetchCourse = async () => {
-      const response = await fetch(`/cohorts/${id}`);
+      const response = await fetch(`/api/cohorts/${id}`);
       const data = await response.json();
       console.log(data);
       setFormState(data);
