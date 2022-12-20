@@ -17,12 +17,14 @@ export const DataContext = createContext();
 console.log("DataContent", DataContext);
 
 function App() {
-  const [notLoggedIn, setNotLoggedIn] = useState(false);
+  const [notLoggedIn, setNotLoggedIn] = useState(true);
   const [user, setUser] = useState("");
 
   return (
     <div className="App">
-      <DataContext.Provider value={{ user, setUser }}>
+      <DataContext.Provider
+        value={{ user, setUser, notLoggedIn, setNotLoggedIn }}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SharedLayout user={user} />}>
@@ -35,7 +37,7 @@ function App() {
             {/* Banner */}
 
             <Route path="/" element={<LogLayout />}>
-              <Route path="/login" element={<Login setUser={setUser} />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout setUser={setUser} />} />
             </Route>
             {/* No Navbar */}

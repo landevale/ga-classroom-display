@@ -5,10 +5,12 @@ import * as Yup from "yup";
 import { DataContext } from "../App";
 // import LoginForm from "../components/LoginForm";
 
-function Login({ setUser }) {
+function Login() {
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [userId, setUserId] = useState("");
+
+  const { setUser, notLoggedIn, setNotLoggedIn } = useContext(DataContext);
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -35,12 +37,17 @@ function Login({ setUser }) {
       console.log(data);
       setUserId(data.user._id);
       setUser(data.user.username);
+      setNotLoggedIn(false);
       setMsg("Login successful");
       navigate("/");
     } else {
       setMsg("Invalid login");
     }
   };
+
+  useEffect(() => {
+    console.log("Not logged in", notLoggedIn);
+  }, [notLoggedIn]);
 
   useEffect(() => {
     console.log(msg);

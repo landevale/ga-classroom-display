@@ -10,17 +10,17 @@ const cohortSchema = new mongoose.Schema(
       index: true,
       trim: true,
     },
-    courseSchedule: { type: String }, //PartTime or FullTime
+    courseSchedule: { type: String }, //PartTime or FullTime // trim
     startDate: {
       type: String,
       required: true,
       index: true,
-    },
+    }, // dates
     endDate: {
       type: String,
       required: true,
       index: true,
-    },
+    }, // dates
     daysOnCampus: {
       days: {
         monday: { type: Boolean, default: false },
@@ -29,7 +29,7 @@ const cohortSchema = new mongoose.Schema(
         thursday: { type: Boolean, default: false },
         friday: { type: Boolean, default: false },
       },
-    },
+    }, // remove the nest
     startTime: { type: String }, //need start/end-time(?) Do we need to display "hours" in daily calendar?
     endTime: { type: String },
     classRoom: { type: Number },

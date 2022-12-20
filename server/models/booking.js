@@ -4,15 +4,15 @@ const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema(
   {
-    roomUseBy: { type: String, required: true },
+    roomUseBy: { type: String, required: true }, // trim
     // createdBy: { type: Schema.ObjectId, ref: User }, // check whether this user= admin or userOfRoom
     createdBy: { type: String, required: true },
-    bookingStart: { type: String, required: true, index: true },
-    bookingEnd: { type: String, required: true, index: true },
-    classRoom: { type: Number },
+    bookingStart: { type: String, required: true, index: true }, // date
+    bookingEnd: { type: String, required: true, index: true }, // date
+    classRoom: { type: Number }, // min 1 max 6
     holiday: { type: Boolean, required: true },
-    cohort: { type: String },
-    bookingPurpose: { type: String },
+    cohort: { type: String }, // trim
+    bookingPurpose: { type: String }, // trim
   },
   { timestamps: true }
 );

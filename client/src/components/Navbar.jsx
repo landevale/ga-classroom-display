@@ -10,7 +10,7 @@ function Navbar() {
   //   console.log("Log out");
   //   navigate("/logout");
   // };
-  const { user, setUser } = useContext(DataContext);
+  const { user, setUser, notLoggedIn } = useContext(DataContext);
   console.log(user);
 
   const handleLogout = async (e) => {
@@ -54,12 +54,15 @@ function Navbar() {
         <a>
           <NavLink to="/display">Display</NavLink>
         </a>
-        <button>
-          <Link to="/login">Login</Link>
-        </button>
         {"    "}
-        <button onClick={handleLogout}>Logout</button>
-        {"    "}
+        {notLoggedIn ? (
+          <button>
+            <Link to="/login">Login</Link>
+          </button>
+        ) : (
+          <button onClick={handleLogout}>Logout</button>
+        )}
+
         <UserInfo />
       </nav>
 
