@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link as NavLink, Link, useNavigate } from "react-router-dom";
+import { DataContext } from "../App";
 import mainLogo from "../assets/CMYK-White-Red_Small_GeneralAssembly-Horizontal.png";
 import UserInfo from "./UserInfo";
 
-function Navbar({ user }) {
+function Navbar() {
   const navigate = useNavigate();
   // const handleLogout = () => {
   //   console.log("Log out");
   //   navigate("/logout");
   // };
+  const user = useContext(DataContext);
+  console.log(user);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -56,7 +59,7 @@ function Navbar({ user }) {
         {"    "}
         <button onClick={handleLogout}>Logout</button>
         {"    "}
-        <UserInfo user={user} />
+        <UserInfo />
       </nav>
 
       <br />

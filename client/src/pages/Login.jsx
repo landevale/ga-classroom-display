@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { DataContext } from "../App";
 // import LoginForm from "../components/LoginForm";
 
-function Login() {
+function Login({ setUser }) {
   const context = useContext(DataContext);
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
@@ -35,6 +35,7 @@ function Login() {
       const data = await response.json();
       console.log(data);
       setUserId(data.user._id);
+      setUser(data.user.username);
       setMsg("Login successful");
     } else {
       setMsg("Invalid login");
