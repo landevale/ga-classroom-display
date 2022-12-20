@@ -10,7 +10,8 @@ function Navbar() {
   //   console.log("Log out");
   //   navigate("/logout");
   // };
-  const { user, setUser, notLoggedIn } = useContext(DataContext);
+  const { user, setUser, notLoggedIn, setNotLoggedIn } =
+    useContext(DataContext);
   console.log(user);
 
   const handleLogout = async (e) => {
@@ -20,6 +21,7 @@ function Navbar() {
         method: "GET",
       });
       setUser("");
+      setNotLoggedIn(true);
       navigate("/logout");
     } catch (error) {
       console.error(error.message);
@@ -47,9 +49,7 @@ function Navbar() {
           <NavLink to="/courses">Courses</NavLink>
         </a>
         {"    "}
-        <a>
-          <NavLink to="/bookings">Bookings</NavLink>
-        </a>
+        <a>{notLoggedIn ? null : <NavLink to="/bookings">Bookings</NavLink>}</a>
         {"    "}
         <a>
           <NavLink to="/display">Display</NavLink>
