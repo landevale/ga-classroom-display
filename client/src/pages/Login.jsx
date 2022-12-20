@@ -10,7 +10,8 @@ function Login() {
   const [msg, setMsg] = useState("");
   const [userId, setUserId] = useState("");
 
-  const { setUser, notLoggedIn, setNotLoggedIn } = useContext(DataContext);
+  const { setUser, notLoggedIn, setNotLoggedIn, isLoggedIn, setIsLoggedIn } =
+    useContext(DataContext);
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -29,15 +30,17 @@ function Login() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(info),
+      // credentials: "include",
     });
     console.log("Response", response);
 
     if (response.ok) {
       const data = await response.json();
       console.log(data);
-      setUserId(data.user._id);
-      setUser(data.user.username);
-      setNotLoggedIn(false);
+      // setUserId(data.user._id);
+      // setUser(data.user.username);
+      // setNotLoggedIn(false);
+      setIsLoggedIn(true);
       setMsg("Login successful");
       navigate("/");
     } else {
@@ -45,9 +48,9 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    console.log("Not logged in", notLoggedIn);
-  }, [notLoggedIn]);
+  // useEffect(() => {
+  //   console.log("Not logged in", notLoggedIn);
+  // }, [notLoggedIn]);
 
   useEffect(() => {
     console.log(msg);

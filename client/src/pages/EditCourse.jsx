@@ -3,12 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { DateTime } from "luxon";
 // import DaysDropdown from "../components/DaysDropdown";
 // import ClassroomDropdown from "../ClassroomDropdown";
-// import { DataContext } from "../App";
+import { DataContext } from "../App";
 
 function EditCourse() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formState, setFormState] = useState({});
+
+  const { isLoggedIn } = useContext(DataContext);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -59,7 +61,7 @@ function EditCourse() {
     navigate("/courses");
   };
 
-  return (
+  return isLoggedIn ? (
     <>
       <h1>Edit Course {id}</h1>
 
@@ -205,6 +207,8 @@ function EditCourse() {
         <button type="reset">Reset</button>
       </form>
     </>
+  ) : (
+    <p>You are not logged in</p>
   );
 }
 

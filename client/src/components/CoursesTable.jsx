@@ -5,7 +5,7 @@ import { DataContext } from "../App";
 
 function CoursesTable() {
   const [courses, setCourses] = useState([]);
-  const { notLoggedIn } = useContext(DataContext);
+  const { isLoggedIn } = useContext(DataContext);
 
   useEffect(() => {
     fetch("/api/cohorts/")
@@ -41,7 +41,7 @@ function CoursesTable() {
           <th>Sat on Campus</th>
           <th>Classroom</th>
           <th>Weeks</th>
-          {notLoggedIn ? null : <th>Edit / Delete</th>}
+          {isLoggedIn ? <th>Edit / Delete</th> : null}
         </tr>
       </thead>
       <tbody>
@@ -57,12 +57,12 @@ function CoursesTable() {
             <td>{course.altSaturdays}</td>
             <td>{course.classRoom}</td>
             <td>{course.weeks}</td>
-            {notLoggedIn ? null : (
+            {isLoggedIn ? (
               <td>
                 <Link to={`/editcourse/${course._id}`}>📝</Link>
                 <button onClick={handleDelete(course._id, i)}>X</button>
               </td>
-            )}
+            ) : null}
           </tr>
         ))}
       </tbody>

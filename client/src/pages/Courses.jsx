@@ -4,9 +4,7 @@ import CourseRegForm from "../components/CourseRegForm";
 import CoursesTable from "../components/CoursesTable";
 
 function Courses() {
-  const { user, setUser, notLoggedIn, setNotLoggedIn } =
-    useContext(DataContext);
-  console.log(user);
+  const { isLoggedIn } = useContext(DataContext);
 
   return (
     <>
@@ -14,12 +12,12 @@ function Courses() {
         <h1>Courses</h1>
         <CoursesTable />
       </div>
-      {notLoggedIn ? null : (
+      {isLoggedIn ? (
         <div>
           <h1>Course Registration</h1>
           <CourseRegForm />
         </div>
-      )}
+      ) : null}
     </>
   );
 }

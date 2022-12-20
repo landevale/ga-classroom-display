@@ -64,10 +64,14 @@ app.post("/api/login", async (req, res) => {
   // if (password !== user.password)
   if (!bcrypt.compareSync(password, user.password)) {
     return res.status(401).json({ msg: "Not valid" });
+  } else {
+    // set session data for the authenticated user
+    req.session.userid = email;
+    req.session.loggedIn = true;
+    console.log("username", user.username);
+    req.sessions.username = user.username;
+    return res.json({ user });
   }
-  // set session data for the authenticated user
-  req.session.userid = email;
-  return res.json({ user });
 });
 
 //* login - (sessions)
@@ -101,11 +105,15 @@ app.get("/api/secret", [checkLogin], (req, res) => {
   res.json({ msg: "Need more milo" });
 });
 
-app.get("/api/secret2", (req, res) => {
+app.get("/api/secret2", [checkLogin], (req, res) => {
   res.json({ msg: "Need more snacks" });
 });
 
-app.get("/sessions/logout", function (req, res) {
+app.get("/api/login-status", (req, res) => {
+  res.json({ loggedIn: req.session.loggedIn });
+});
+
+app.get("/api/logout", function (req, res) {
   req.session.destroy(() => {
     res.json({ msg: "Logout success" });
     // res.redirect("/logout");

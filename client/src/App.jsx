@@ -17,13 +17,21 @@ export const DataContext = createContext();
 console.log("DataContent", DataContext);
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [notLoggedIn, setNotLoggedIn] = useState(true);
   const [user, setUser] = useState("");
 
   return (
     <div className="App">
       <DataContext.Provider
-        value={{ user, setUser, notLoggedIn, setNotLoggedIn }}
+        value={{
+          user,
+          setUser,
+          notLoggedIn,
+          setNotLoggedIn,
+          isLoggedIn,
+          setIsLoggedIn,
+        }}
       >
         <BrowserRouter>
           <Routes>
