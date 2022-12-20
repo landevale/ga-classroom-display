@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { DataContext } from "../App";
 // import LoginForm from "../components/LoginForm";
 
-function Login({ notLoggedIn, setNotLoggedIn }) {
+function Login() {
+  const context = useContext(DataContext);
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
 
@@ -17,9 +19,9 @@ function Login({ notLoggedIn, setNotLoggedIn }) {
       .min(8, "Password must be at least 8 characters"),
   });
 
-  const handleLogin = (info) => {
+  const handleLogin = async (info) => {
     console.log(info);
-    const response = fetch("/api/login", {
+    const response = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,12 +31,6 @@ function Login({ notLoggedIn, setNotLoggedIn }) {
     console.log("Response", response);
 
     if (response.ok) {
-      // navigate("/");
-      // fetch("/api/secret")
-      //   .then((request) => request.json())
-      //   .then((data) => setMsg(data));
-      setNotLoggedIn(false);
-      console.log(notLoggedIn);
       setMsg("Login successful");
     } else {
       setMsg("Invalid login");

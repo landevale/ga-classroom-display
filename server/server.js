@@ -67,7 +67,7 @@ app.post("/api/login", async (req, res) => {
   }
   // set session data for the authenticated user
   req.session.userid = email;
-  return res.json({ msg: "Valid" });
+  return res.json({ user });
 });
 
 //* login - (sessions)
