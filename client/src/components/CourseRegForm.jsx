@@ -3,6 +3,7 @@ import { useState } from "react";
 import { DateTime } from "luxon";
 import DaysDropdown from "./DaysDropdown";
 import ClassroomDropdown from "./ClassroomDropdown";
+import DaysMultiDropdown from "./DaysMultiDropdown";
 
 function CourseRegForm() {
   const [courseCode, setCourseCode] = useState("");
@@ -173,6 +174,7 @@ function CourseRegForm() {
             dayOptions={dayOptions}
             onChange={(value) => setDaysOnCampus(value)}
           />
+          {/* <DaysMultiDropdown /> */}
           <br />
           <br />
 
