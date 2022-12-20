@@ -12,14 +12,14 @@ function CalendarDisplay({ selectedDateState }) {
   //Fetching Data json and set state for Data into cohort & bookingState
   const [cohortState, setCohortState] = useState([]);
   useEffect(() => {
-    fetch("/cohorts/")
+    fetch("/api/cohorts/")
       .then((response) => response.json())
       .then((data) => setCohortState(data));
   }, []);
 
   const [bookingsState, setBookingsState] = useState([]);
   useEffect(() => {
-    fetch("/bookings/")
+    fetch("/api/bookings/")
       .then((response) => response.json())
       .then((data) => setBookingsState(data));
   }, []);
