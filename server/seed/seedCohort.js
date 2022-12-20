@@ -87,6 +87,27 @@ const seed = async (req, res) => {
       studentSuccess: "Kerin",
       altSaturdays: "all", //none, odd, even, ALL
     },
+    {
+      courseCode: "manBookInitLoadTest",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-12-22T00:00:00.000+08:00",
+      endDate: "2023-02-24T00:00:00.000+08:00",
+      daysOnCampus: {
+        days: {
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+        },
+      },
+      startTime: "09:00",
+      endTime: "18:00",
+      classRoom: 1,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "all", //none, odd, even, ALL
+    },
   ];
   await Cohort.deleteMany({});
 

@@ -8,7 +8,7 @@ function Bookings() {
   const [bookingStart, setBookingStart] = useState("");
   const [bookingEnd, setBookingEnd] = useState("");
   const [classRoom, setClassRoom] = useState("");
-  const [holiday, setHoliday] = useState("No");
+  const [holiday, setHoliday] = useState(false);
   const [bookingPurpose, setBookingPurpose] = useState("");
   const [msg, setMsg] = useState("");
   const [cohort, setCohort] = useState("");
