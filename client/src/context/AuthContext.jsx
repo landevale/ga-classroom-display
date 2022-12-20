@@ -10,24 +10,20 @@ export const UserProvider = ({ children }) => {
     loading: true,
   });
 
-  // Before fetching response from /auth/user, check for token in storage
-  const token = localStorage.getItem("token");
-
-  // If token exists, set all request headers to contain Bearer token.
-  if (token) {
-    axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
-  }
-
   // On re-render, state resets, so we fetch user state again
-  const fetchUser = async () => {
+  const fetchUser = async (info) => {
     try {
-      const { data: response } = await axios.get(
-        "https://good-gray-dugong-yoke.cyclic.app/auth/user"
-      );
+      const { data: response } = await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(info),
+      });
       if (response.data.user) {
         setUser({
           data: {
-            id: response.data.user.id,
+            username: response.data.user.username,
             email: response.data.user.email,
           },
           error: null,
@@ -45,17 +41,17 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      fetchUser();
-    } else {
-      setUser({
-        data: null,
-        error: null,
-        loading: false,
-      });
-    }
-  }, []);
+  //   useEffect(() => {
+  //     if (token) {
+  //       fetchUser();
+  //     } else {
+  //       setUser({
+  //         data: null,
+  //         error: null,
+  //         loading: false,
+  //       });
+  //     }
+  //   }, []);
 
   return (
     <UserContext.Provider value={[user, setUser]}>

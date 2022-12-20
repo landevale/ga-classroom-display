@@ -9,6 +9,7 @@ function Login() {
   const context = useContext(DataContext);
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
+  const [userId, setUserId] = useState("");
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -31,6 +32,9 @@ function Login() {
     console.log("Response", response);
 
     if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setUserId(data.user._id);
       setMsg("Login successful");
     } else {
       setMsg("Invalid login");
@@ -40,6 +44,10 @@ function Login() {
   useEffect(() => {
     console.log(msg);
   }, [msg]);
+
+  useEffect(() => {
+    console.log(userId);
+  }, [userId]);
 
   return (
     <>
