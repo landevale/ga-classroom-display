@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <DataContext.Provider value={user}>
+      <DataContext.Provider value={{ user, setUser }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SharedLayout user={user} />}>
@@ -36,7 +36,7 @@ function App() {
 
             <Route path="/" element={<LogLayout />}>
               <Route path="/login" element={<Login setUser={setUser} />} />
-              <Route path="/logout" element={<Logout />} />
+              <Route path="/logout" element={<Logout setUser={setUser} />} />
             </Route>
             {/* No Navbar */}
             <Route path="/display" element={<Display />} />

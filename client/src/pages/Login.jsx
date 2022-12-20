@@ -6,7 +6,6 @@ import { DataContext } from "../App";
 // import LoginForm from "../components/LoginForm";
 
 function Login({ setUser }) {
-  const context = useContext(DataContext);
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [userId, setUserId] = useState("");
@@ -37,6 +36,7 @@ function Login({ setUser }) {
       setUserId(data.user._id);
       setUser(data.user.username);
       setMsg("Login successful");
+      navigate("/");
     } else {
       setMsg("Invalid login");
     }

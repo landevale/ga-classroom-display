@@ -10,7 +10,7 @@ function Navbar() {
   //   console.log("Log out");
   //   navigate("/logout");
   // };
-  const user = useContext(DataContext);
+  const { user, setUser } = useContext(DataContext);
   console.log(user);
 
   const handleLogout = async (e) => {
@@ -19,6 +19,7 @@ function Navbar() {
       await fetch("sessions/logout", {
         method: "GET",
       });
+      setUser("");
       navigate("/logout");
     } catch (error) {
       console.error(error.message);

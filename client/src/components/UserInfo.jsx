@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { DataContext } from "../App";
 
 const UserInfo = () => {
-  const user = useContext(DataContext);
+  const { user } = useContext(DataContext);
   console.log("UserInfo", user);
 
   return (
