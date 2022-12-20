@@ -102,6 +102,9 @@ const DaysDropdown = ({
     }
     setSelectedValue(newValue);
     onChange(newValue);
+    //================
+    //Checking whether full selected val exists
+    console.log(newValue);
   };
 
   const isSelected = (dayOption) => {
