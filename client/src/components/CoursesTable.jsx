@@ -6,13 +6,13 @@ function CoursesTable() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch("/cohorts/")
+    fetch("/api/cohorts/")
       .then((response) => response.json())
       .then((data) => setCourses(data));
   }, []);
 
   const handleDelete = (id, i) => () => {
-    fetch(`/cohorts/${id}`, {
+    fetch(`/api/cohorts/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
