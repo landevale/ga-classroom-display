@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DateTime } from "luxon";
+import { DataContext } from "../App";
 
 export default function CalDisplayLogic({
-  selectedDateState,
   daysToShow,
   numberOfClassRooms,
   occupiedBy,
 }) {
+  const { selectedDateState } = useContext(DataContext);
   //==============================
   //Fetching Data json and set state for Data into cohort & bookingState
   const [cohortState, setCohortState] = useState([]);

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DateTime, Interval } from "luxon";
+import { DataContext } from "../App";
 import PropTypes from "prop-types";
 import CalDisplayLogic from "./CalDisplayLogic";
 
-function CalendarDisplay({ selectedDateState }) {
+function CalendarDisplay() {
   // Prop validaton
+  const { selectedDateState } = useContext(DataContext);
   CalendarDisplay.propTypes = {
     selectedDateState: PropTypes.string,
   };
@@ -37,7 +39,6 @@ function CalendarDisplay({ selectedDateState }) {
 
   const occupiedBy = [];
   CalDisplayLogic({
-    selectedDateState,
     daysToShow,
     numberOfClassRooms,
     occupiedBy,

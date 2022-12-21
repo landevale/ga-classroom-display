@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DateTime } from "luxon";
 import CalendarDisplay from "../components/CalendarDisplay";
+import { DataContext } from "../App";
 
 function Home() {
-  const [selectedDateState, setSeletedDateState] = useState(
-    // DateTime.now().toFormat("yyyy-MM-dd")
-    DateTime.now()
-      .plus({ days: 0 })
-      .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
-  );
+  const { setSelectedDateState } = useContext(DataContext);
+  // const [selectedDateState, setSelectedDateState] = useState(
+  //   // DateTime.now().toFormat("yyyy-MM-dd")
+  //   DateTime.now()
+  //     .plus({ days: 0 })
+  //     .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+  // );
 
-  useEffect(() => {
-    // console.log(typeof selectedDateState);
-    // console.log(selectedDateState);
-    // console.log(DateTime.selectedDateState.plus({ days: 30 }));
-  }, [selectedDateState]);
+  // useEffect(() => {
+  //   // console.log(typeof selectedDateState);
+  //   // console.log(selectedDateState);
+  //   // console.log(DateTime.selectedDateState.plus({ days: 30 }));
+  // }, [selectedDateState]);
 
   const handleDate = (e) => {
     const oldFormat = "yyyy-MM-dd";
@@ -22,7 +24,7 @@ function Home() {
       DateTime.DATE_MED_WITH_WEEKDAY
     );
     // console.log("New date " + newDate);
-    setSeletedDateState(newDate);
+    setSelectedDateState(newDate);
     // console.log("unparsed newDate", DateTime.fromFormat(e, oldFormat));
     // console.log("e", e);
     // console.log("typeof e", typeof e);
@@ -42,7 +44,7 @@ function Home() {
           onChange={(e) => handleDate(e.target.value)}
         />
       </div>
-      <CalendarDisplay selectedDateState={selectedDateState} />
+      <CalendarDisplay />
     </>
   );
 }

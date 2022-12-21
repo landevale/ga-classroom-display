@@ -14,6 +14,7 @@ import Logout from "./pages/Logout";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
 import Testing from "./pages/Testing";
+import { DateTime } from "luxon";
 
 export const DataContext = createContext();
 console.log("DataContent", DataContext);
@@ -22,7 +23,12 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [notLoggedIn, setNotLoggedIn] = useState(true);
   const [user, setUser] = useState("");
-
+  const [selectedDateState, setSelectedDateState] = useState(
+    // DateTime.now().toFormat("yyyy-MM-dd")
+    DateTime.now()
+      .plus({ days: 0 })
+      .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+  );
   return (
     <div className="App">
       <DataContext.Provider
@@ -33,6 +39,8 @@ function App() {
           setNotLoggedIn,
           isLoggedIn,
           setIsLoggedIn,
+          selectedDateState,
+          setSelectedDateState,
         }}
       >
         <BrowserRouter>
