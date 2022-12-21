@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { DataContext } from "../App";
 import mainLogo from "../assets/CMYK-White-Red_Small_GeneralAssembly-Horizontal.png";
 
 function Banner() {
+  const { setIsLoggedIn } = useContext(DataContext);
+
+  useEffect(() => {
+    async function checkLogin() {
+      const response = await fetch("/api/login-status");
+      const data = await response.json();
+      setIsLoggedIn(data.loggedIn);
+    }
+    checkLogin();
+  }, []);
+
   return (
     <>
       <nav>

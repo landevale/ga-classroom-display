@@ -12,6 +12,7 @@ import Display from "./pages/Display";
 import Logout from "./pages/Logout";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
+import Testing from "./pages/Testing";
 
 export const DataContext = createContext();
 console.log("DataContent", DataContext);
@@ -41,6 +42,7 @@ function App() {
               <Route path="/bookings" element={<Bookings />} />
               <Route path="/editcourse/:id" element={<EditCourse />} />
               <Route path="*" element={<Error />} />
+              <Route path="/test" element={<Testing />} />
             </Route>
             {/* Banner */}
 
