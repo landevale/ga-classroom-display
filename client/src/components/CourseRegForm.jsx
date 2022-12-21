@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFormik, Formik, Field, Form } from "formik";
 import { DateTime } from "luxon";
 import { courseRegSchema } from "../schemas/courseRegSchema";
 
 function CourseRegForm() {
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -40,6 +42,7 @@ function CourseRegForm() {
           }
           const data = await response.json();
           console.log(data);
+          navigate("/courses");
         } catch (error) {
           console.log(values);
           setMsg("Something went wrong!");
@@ -204,8 +207,20 @@ function CourseRegForm() {
           />
           <br />
           <br />
+          <select name="classRoom" onChange={handleChange}>
+            <option value="" disabled selected>
+              Select a classroom
+            </option>
+            <option value="1">Classroom 1</option>
+            <option value="2">Classroom 2</option>
+            <option value="3">Classroom 3</option>
+            <option value="4">Classroom 4</option>
+            <option value="5">Classroom 5</option>
+            <option value="6">Classroom 6</option>
+          </select>
+          <br />
 
-          <fieldset>
+          {/* <fieldset>
             <legend>Classroom:</legend>
             <label>
               Classroom 1
@@ -269,7 +284,7 @@ function CourseRegForm() {
                 onChange={handleChange}
               />
             </label>
-          </fieldset>
+          </fieldset> */}
           <button type="submit">Create Course</button>
           <p>{msg}</p>
         </form>
