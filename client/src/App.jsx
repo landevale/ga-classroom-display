@@ -9,6 +9,7 @@ import Courses from "./pages/Courses";
 import EditCourse from "./pages/EditCourse";
 import Bookings from "./pages/Bookings";
 import Display from "./pages/Display";
+import DisplayClassroom from "./pages/DisplayClassroom";
 import Logout from "./pages/Logout";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
@@ -39,8 +40,9 @@ function App() {
             <Route path="/" element={<SharedLayout user={user} />}>
               <Route index element={<Home />} />
               <Route path="/courses" element={<Courses />} />
-              <Route path="/bookings" element={<Bookings />} />
               <Route path="/editcourse/:id" element={<EditCourse />} />
+              <Route path="/bookings" element={<Bookings />} />
+              <Route path="/display" element={<Display />} />
               <Route path="*" element={<Error />} />
               <Route path="/test" element={<Testing />} />
             </Route>
@@ -51,8 +53,7 @@ function App() {
               <Route path="/logout" element={<Logout setUser={setUser} />} />
             </Route>
             {/* No Navbar */}
-            <Route path="/display" element={<Display />} />
-            <Route path="/display:id" element={<Display />} />
+            <Route path="/display/:id" element={<DisplayClassroom />} />
           </Routes>
         </BrowserRouter>
       </DataContext.Provider>

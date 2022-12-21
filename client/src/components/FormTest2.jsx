@@ -1,8 +1,7 @@
 import React from "react";
 import { useFormik, Formik, Field, Form } from "formik";
 import { DateTime } from "luxon";
-import DaysDropdown from "./DaysDropdown";
-import ClassroomDropdown from "./ClassroomDropdown";
+
 import { courseRegSchema } from "../schemas/CourseRegSchema";
 
 function FormTest2() {
@@ -13,7 +12,13 @@ function FormTest2() {
         courseSchedule: "",
         startDate: "",
         endDate: "",
-        // daysOnCampus: [{}],
+        daysOnCampus: {
+          monday: false,
+          tuesday: false,
+          wednesday: false,
+          thursday: false,
+          friday: false,
+        },
         // altSaturdays: "",
         startTime: "",
         endTime: "",
@@ -31,23 +36,6 @@ function FormTest2() {
   //   // Perform logic for handling form submission
   //   console.log(values);
   // };
-
-  // const classroomOptions = [
-  //   { value: "1", label: "Classrooom 1" },
-  //   { value: "2", label: "Classrooom 2" },
-  //   { value: "3", label: "Classrooom 3" },
-  //   { value: "4", label: "Classrooom 4" },
-  //   { value: "5", label: "Classrooom 5" },
-  //   { value: "6", label: "Classrooom 6" },
-  // ];
-
-  // const dayOptions = [
-  //   { value: "Mon", label: "Monday" },
-  //   { value: "Tue", label: "Tuesday" },
-  //   { value: "Wed", label: "Wednesday" },
-  //   { value: "Thu", label: "Thursday" },
-  //   { value: "Fri", label: "Friday" },
-  // ];
 
   // const satOptions = ["No", "Odd - 1st Week", "Even - 2nd Week", "All"];
 
@@ -132,37 +120,43 @@ function FormTest2() {
           <p className="error">
             {errors.endDate && touched.endDate && errors.endDate}
           </p>
-
-          {/* <br />
-        <br />
-        <DaysDropdown
-          isSearchable
-          isMulti
-          placeHolder="Days on Campus"
-          dayOptions={dayOptions}
-          onChange={handleChange}
-        /> */}
-          {/* <MultiDaySelect /> */}
-          {/* <br />
-        <br />
-
-        <label htmlFor="altSaturdays">Saturdays: </label>
-        <select
-          name="altSaturdays"
-          value={values.altSaturdays}
-          onChange={handleChange}
-        >
-          {satOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select> */}
+          <fieldset>
+            <legend>Days on Campus:</legend>
+            <input
+              name="daysOnCampus.monday"
+              type="checkbox"
+              onChange={handleChange}
+            />{" "}
+            Monday
+            <input
+              name="daysOnCampus.tuesday"
+              type="checkbox"
+              onChange={handleChange}
+            />{" "}
+            Tuesday
+            <input
+              name="daysOnCampus.wednesday"
+              type="checkbox"
+              onChange={handleChange}
+            />{" "}
+            Wednesday
+            <input
+              name="daysOnCampus.thursday"
+              type="checkbox"
+              onChange={handleChange}
+            />{" "}
+            Thursday
+            <input
+              name="daysOnCampus.friday"
+              type="checkbox"
+              onChange={handleChange}
+            />{" "}
+            Friday
+          </fieldset>
 
           <br />
           <br />
           <label htmlFor="startTime">Start Time: </label>
-
           <input
             type="time"
             id="startTime"
@@ -173,9 +167,7 @@ function FormTest2() {
             onChange={handleChange}
           />
           <br />
-
           <label htmlFor="endTime">End Time: </label>
-
           <input
             type="time"
             id="endTime"
@@ -185,25 +177,13 @@ function FormTest2() {
             value={values.endTime}
             onChange={handleChange}
           />
-
           <br />
           <br />
-          {/* <label htmlFor="classRoom">Classroom: </label>
-          <select name="classRoom" onChange={handleChange}>
-            <option value="" disabled>
-              Select an option
-            </option>
-            <option value="1">Classroom 1</option>
-            <option value="2">Classroom 2</option>
-            <option value="3">Classroom 3</option>
-            <option value="4">Classroom 4</option>
-            <option value="5">Classroom 5</option>
-            <option value="6">Classroom 6</option>
-          </select> */}
 
           <fieldset>
             <legend>Classroom:</legend>
             <label>
+              Classroom 1
               <input
                 type="radio"
                 name="classRoom"
@@ -211,9 +191,10 @@ function FormTest2() {
                 className="form-check-input"
                 onChange={handleChange}
               />
-              Classroom 1
             </label>
+
             <label>
+              Classroom 2
               <input
                 type="radio"
                 name="classRoom"
@@ -221,9 +202,9 @@ function FormTest2() {
                 className="form-check-input"
                 onChange={handleChange}
               />
-              Classroom 2
             </label>
             <label>
+              Classroom 3
               <input
                 type="radio"
                 name="classRoom"
@@ -231,9 +212,10 @@ function FormTest2() {
                 className="form-check-input"
                 onChange={handleChange}
               />
-              Classroom 3
             </label>
+            <br />
             <label>
+              Classroom 4
               <input
                 type="radio"
                 name="classRoom"
@@ -241,9 +223,9 @@ function FormTest2() {
                 className="form-check-input"
                 onChange={handleChange}
               />
-              Classroom 4
             </label>
             <label>
+              Classroom 5
               <input
                 type="radio"
                 name="classRoom"
@@ -251,9 +233,9 @@ function FormTest2() {
                 className="form-check-input"
                 onChange={handleChange}
               />
-              Classroom 5
             </label>
             <label>
+              Classroom 6
               <input
                 type="radio"
                 name="classRoom"
@@ -261,10 +243,8 @@ function FormTest2() {
                 className="form-check-input"
                 onChange={handleChange}
               />
-              Classroom 6
             </label>
           </fieldset>
-
           <button type="submit">Create Course</button>
         </form>
       </fieldset>
