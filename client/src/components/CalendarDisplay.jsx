@@ -87,16 +87,20 @@ function CalendarDisplay({ selectedDateState }) {
       currDate = new Date(
         DateTime.fromISO(selectedISODate).plus({ days: j }).toISO()
       );
-      currCohortStartDate = new Date(cohortState[i].startDate);
-      currCohortEndDate = new Date(cohortState[i].endDate);
+      currCohortStartDate = new Date(
+        DateTime.fromISO(cohortState[i].startDate).toISO()
+      );
+      currCohortEndDate = new Date(
+        DateTime.fromISO(cohortState[i].endDate).toISO()
+      );
       if (currCohortStartDate <= currDate && currCohortEndDate >= currDate) {
         // occupiedBy[cohortState[i].classRoom - 1][j] = cohortState[i].courseCode;
         // for (let k = 0; k < weekDayArray.length; k++) {
-
+        console.log("WEEKDAY array = ", weekDayArray);
         switch (weekDayArray[j]) {
           case "Mon":
             if (
-              cohortState[i].daysOnCampus.days.monday === true &&
+              cohortState[i].daysOnCampus.monday === true &&
               // cohortState[i].courseCode ===
               //   occupiedBy[cohortState[i].classRoom - 1][k]
               occupiedBy[cohortState[i].classRoom - 1][j] === ""
@@ -106,8 +110,9 @@ function CalendarDisplay({ selectedDateState }) {
             }
             break;
           case "Tue":
+            console.log("replacing tuesdays");
             if (
-              cohortState[i].daysOnCampus.days.tuesday === true &&
+              cohortState[i].daysOnCampus.tuesday === true &&
               // cohortState[i].courseCode ===
               //   occupiedBy[cohortState[i].classRoom - 1][k]
               occupiedBy[cohortState[i].classRoom - 1][j] === ""
@@ -118,18 +123,19 @@ function CalendarDisplay({ selectedDateState }) {
             break;
           case "Wed":
             if (
-              cohortState[i].daysOnCampus.days.wednesday === true &&
+              cohortState[i].daysOnCampus.wednesday === true &&
               occupiedBy[cohortState[i].classRoom - 1][j] === ""
               // cohortState[i].courseCode ===
               //   occupiedBy[cohortState[i].classRoom - 1][k]
             ) {
               occupiedBy[cohortState[i].classRoom - 1][j] =
                 cohortState[i].courseCode;
+              console.log("replacing wednesdays");
             }
             break;
           case "Thu":
             if (
-              cohortState[i].daysOnCampus.days.thursday === true &&
+              cohortState[i].daysOnCampus.thursday === true &&
               occupiedBy[cohortState[i].classRoom - 1][j] === ""
               // cohortState[i].courseCode ===
               //   occupiedBy[cohortState[i].classRoom - 1][k]
@@ -140,7 +146,7 @@ function CalendarDisplay({ selectedDateState }) {
             break;
           case "Fri":
             if (
-              cohortState[i].daysOnCampus.days.friday === true &&
+              cohortState[i].daysOnCampus.friday === true &&
               occupiedBy[cohortState[i].classRoom - 1][j] === ""
               // cohortState[i].courseCode ===
               //   occupiedBy[cohortState[i].classRoom - 1][k]
@@ -149,206 +155,86 @@ function CalendarDisplay({ selectedDateState }) {
                 cohortState[i].courseCode;
             }
             break;
-          // case "Sat":
-          //   //=====================
-          //   //Function for finding all the Saturdays and pushing into Sat array (does not take into account odd/even/Sat)
-          //   const findSaturdays = (startingDate, endingDate) => {
-          //     startingDate = new Date(DateTime.fromISO(startingDate).toISO());
-          //     let currentDate = new Date(startingDate);
-          //     // console.log("CURRDATE", currentDate);
-          //     endingDate = new Date(DateTime.fromISO(endingDate).toISO());
-          //     // console.log("ENDINGDATE", endingDate);
-          //     // console.log(startingDate, endingDate);
-          //     while (currentDate <= endingDate) {
-          //       // console.log("YES CURRENT < START")
-          //       if (currentDate.getDay() === 6) {
-          //         console.log("YES FOUND SAT", currentDate);
-          //         saturdays.push(new Date(currentDate));
-          //       }
-          //       currentDate.setDate(currentDate.getDate() + 1);
-          //     }
-          //     // console.log("SATURDAYS", saturdays);
-          //   };
+          case "Sat":
+            //=====================
+            //Function for finding all the Saturdays and pushing into Sat array (does not take into account odd/even/Sat)
+            const findSaturdays = (startingDate, endingDate) => {
+              startingDate = new Date(DateTime.fromISO(startingDate).toISO());
+              let currentDate = new Date(startingDate);
+              // console.log("CURRDATE", currentDate);
+              endingDate = new Date(DateTime.fromISO(endingDate).toISO());
+              // console.log("ENDINGDATE", endingDate);
+              // console.log(startingDate, endingDate);
+              while (currentDate <= endingDate) {
+                // console.log("YES CURRENT < START")
+                if (currentDate.getDay() === 6) {
+                  console.log("YES FOUND SAT", currentDate);
+                  saturdays.push(new Date(currentDate));
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+              }
+              // console.log("SATURDAYS", saturdays);
+            };
 
-          //   //====================
-          //   //Finding all Saturdays' dates; both ODD and EVEN
-          //   findSaturdays(cohortState[i].startDate, cohortState[i].endDate);
-          //   console.log("SATURDAYS", saturdays);
+            //====================
+            //Finding all Saturdays' dates; both ODD and EVEN, and a compareArray to filter later
+            findSaturdays(cohortState[i].startDate, cohortState[i].endDate);
+            console.log("SATURDAYS", saturdays);
 
-          //   for (let n = 0; n < saturdays.length; n++) {
-          //     if ((n + 1) % 2 === 0) {
-          //       evenSaturdays.push(saturdays[n]);
-          //     } else {
-          //       oddSaturdays.push(saturdays[n]);
-          //     }
-          //   }
-          //   console.log("EVENSats = ", evenSaturdays);
-          //   console.log("ODDSats = ", oddSaturdays);
+            for (let n = 0; n < saturdays.length; n++) {
+              if ((n + 1) % 2 === 0) {
+                evenSaturdays.push(saturdays[n].getDate());
+              } else {
+                oddSaturdays.push(saturdays[n].getDate());
+              }
+            }
+            console.log("EVENSats = ", evenSaturdays);
+            console.log("ODDSats = ", oddSaturdays);
 
-          //   //=====================
-          //   //IF statement to check whether "none","odd","even","all"
-          //   if (
-          //     cohortState[i].altSaturdays === "none" &&
-          //     cohortState[i].courseCode ===
-          //       occupiedBy[cohortState[i].classRoom - 1][k]
-          //   ) {
-          //     occupiedBy[cohortState[i].classRoom - 1][k] = "";
-          //   }
+            let weekDateCompareArray = [];
+            for (let d = 0; d < weekDateArray.length; d++) {
+              weekDateCompareArray.push(new Date(weekDateArray[d]).getDate());
+            }
+            console.log(weekDateCompareArray);
 
-          //   break;
+            //============================
+            //If statement to determine display based on "odd","even,"all"
+            if (
+              cohortState[i].altSaturdays === "odd" &&
+              weekDateCompareArray.filter((value) =>
+                oddSaturdays.includes(value)
+              ).length !== 0 &&
+              occupiedBy[cohortState[i].classRoom - 1][j] === ""
+            ) {
+              occupiedBy[cohortState[i].classRoom - 1][j] =
+                cohortState[i].courseCode;
+            }
+
+            if (
+              cohortState[i].altSaturdays === "even" &&
+              weekDateCompareArray.filter((value) =>
+                evenSaturdays.includes(value)
+              ).length !== 0 &&
+              occupiedBy[cohortState[i].classRoom - 1][j] === ""
+            ) {
+              occupiedBy[cohortState[i].classRoom - 1][j] =
+                cohortState[i].courseCode;
+              console.log("evensatdetectec");
+            }
+
+            if (
+              cohortState[i].altSaturdays === "all" &&
+              occupiedBy[cohortState[i].classRoom - 1][j] === ""
+            ) {
+              occupiedBy[cohortState[i].classRoom - 1][j] =
+                cohortState[i].courseCode;
+            }
+            break;
         }
       }
     }
   }
 
-  //========COMM OUT============================
-  //======================================
-  //Logic to fill in based on DaysOnCampus
-  // IF dayoncampus weekDay = false && IF cell currently populated by the current courseIndex (logic loops through ALL courses)
-  // Need to do the logic for alternate saturdays
-  //   for (let k = 0; k < weekDayArray.length; k++) {
-  //     switch (weekDayArray[k]) {
-  //       case "Mon":
-  //         if (
-  //           cohortState[i].daysOnCampus.days.monday === false &&
-  //           cohortState[i].courseCode ===
-  //             occupiedBy[cohortState[i].classRoom - 1][k]
-  //         ) {
-  //           occupiedBy[cohortState[i].classRoom - 1][k] = "";
-  //         }
-  //         break;
-  //       case "Tue":
-  //         if (
-  //           cohortState[i].daysOnCampus.days.tuesday === false &&
-  //           cohortState[i].courseCode ===
-  //             occupiedBy[cohortState[i].classRoom - 1][k]
-  //         ) {
-  //           occupiedBy[cohortState[i].classRoom - 1][k] = "";
-  //         }
-  //         break;
-  //       case "Wed":
-  //         if (
-  //           cohortState[i].daysOnCampus.days.wednesday === false &&
-  //           cohortState[i].courseCode ===
-  //             occupiedBy[cohortState[i].classRoom - 1][k]
-  //         ) {
-  //           occupiedBy[cohortState[i].classRoom - 1][k] = "";
-  //         }
-  //         break;
-  //       case "Thu":
-  //         if (
-  //           cohortState[i].daysOnCampus.days.thursday === false &&
-  //           cohortState[i].courseCode ===
-  //             occupiedBy[cohortState[i].classRoom - 1][k]
-  //         ) {
-  //           occupiedBy[cohortState[i].classRoom - 1][k] = "";
-  //         }
-  //         break;
-  //       case "Fri":
-  //         if (
-  //           cohortState[i].daysOnCampus.days.friday === false &&
-  //           cohortState[i].courseCode ===
-  //             occupiedBy[cohortState[i].classRoom - 1][k]
-  //         ) {
-  //           occupiedBy[cohortState[i].classRoom - 1][k] = "";
-  //         }
-  //         break;
-  //       case "Sat":
-  //         //======================
-  //         //Function for finding all the Saturdays and pushing into Sat array (does not take into account odd/even/Sat)
-  //         // let saturdays = [];
-  //         // let evenSaturdays = [];
-  //         // let oddSaturdays = [];
-  //         //
-  //         const findSaturdays = (startingDate, endingDate) => {
-  //           // let currentDate = new Date(cohortState[i].startDate);
-
-  //           startingDate = new Date(DateTime.fromISO(startingDate).toISO());
-  //           let currentDate = new Date(startingDate);
-  //           // console.log("CURRDATE", currentDate);
-  //           endingDate = new Date(DateTime.fromISO(endingDate).toISO());
-  //           // console.log("ENDINGDATE", endingDate);
-  //           // console.log(startingDate, endingDate);
-  //           while (currentDate <= endingDate) {
-  //             // console.log("YES CURRENT < START")
-  //             if (currentDate.getDay() === 6) {
-  //               console.log("YES FOUND SAT", currentDate);
-
-  //               saturdays.push(new Date(currentDate));
-  //             }
-  //             currentDate.setDate(currentDate.getDate() + 1);
-  //           }
-  //           // console.log("SATURDAYS", saturdays);
-  //         };
-
-  //         //====================
-  //         //Finding all Saturdays' dates; both ODD and EVEN
-  //         findSaturdays(cohortState[i].startDate, cohortState[i].endDate);
-  //         console.log("SATURDAYS", saturdays);
-
-  //         //getting Even Saturdays
-
-  //         for (let n = 0; n < saturdays.length; n++) {
-  //           if ((n + 1) % 2 === 0) {
-  //             evenSaturdays.push(saturdays[n]);
-  //           } else {
-  //             oddSaturdays.push(saturdays[n]);
-  //           }
-  //         }
-  //         console.log("EVENSats = ", evenSaturdays);
-  //         console.log("ODDSats = ", oddSaturdays);
-
-  //         // const findMatchingSaturdays = (array1, array2) => {
-  //         //   array1.filter(saturDate => array2.includes(saturDate));
-  //         // };
-
-  //         //===================
-  //         //IF Statements to check which saturdays to display, depending on none, odd,even (ALL will display automatically since it won't be removed)
-  //         if (
-  //           cohortState[i].altSaturdays === "none" &&
-  //           cohortState[i].courseCode ===
-  //             occupiedBy[cohortState[i].classRoom - 1][k]
-  //         ) {
-  //           occupiedBy[cohortState[i].classRoom - 1][k] = "";
-  //         }
-  //         if (
-  //           cohortState[i].altSaturdays === "odd" &&
-  //           weekDateArray.filter((value) => evenSaturdays.includes(value))
-  //             .length !== 0 &&
-  //           cohortState[i].courseCode ===
-  //             occupiedBy[cohortState[i].classRoom - 1][k]
-  //         ) {
-  //           occupiedBy[cohortState[i].classRoom - 1][k] = "";
-
-  //           console.log(
-  //             "MATCHING EVEN",
-  //             weekDateArray.filter((value) => evenSaturdays.includes(value))
-  //               .length
-  //           );
-  //         }
-
-  //         if (
-  //           cohortState[i].altSaturdays === "even" &&
-  //           weekDateArray.filter((value) => oddSaturdays.includes(value))
-  //             .length !== 0 &&
-  //           cohortState[i].courseCode ===
-  //             occupiedBy[cohortState[i].classRoom - 1][k]
-  //         ) {
-  //           occupiedBy[cohortState[i].classRoom - 1][k] = "";
-  //           // findMatchingSaturdays(weekDateArray, oddSaturdays);
-  //           console.log(
-  //             "MATCHING ODD",
-  //             weekDateArray.filter((value) => oddSaturdays.includes(value))
-  //               .length
-  //           );
-  //         }
-
-  //         break;
-  //     }
-  //   }
-  // }
-  //========COMM OUT============================
-  //=============================================
   //Logic for Sundays (to be made the highest priority (aka lowest/last to be run) apart from Holidays)
   for (let m = 0; m < numberOfClassRooms; m++) {
     for (let p = 0; p < weekDayArray.length; p++) {
