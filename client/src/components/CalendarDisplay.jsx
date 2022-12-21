@@ -60,11 +60,23 @@ function CalendarDisplay({ selectedDateState }) {
         .slice(0, 3)
     );
   }
+  const weekDateArray = [];
+  for (let i = 0; i < daysToShow; i++) {
+    weekDateArray.push(
+      DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
+        .plus({ days: i })
+        .toISODate()
+    );
+  }
+  console.log("weekdatearray = ", weekDateArray);
 
   for (let i = 0; i < cohortState.length; i++) {
     let currDate = "";
     let currCohortStartDate = "";
     let currCohortEndDate = "";
+
+    let saturdays = [];
+
     for (let j = 0; j < daysToShow; j++) {
       currDate = new Date(selectedDateState);
       currDate = new Date(
@@ -128,6 +140,69 @@ function CalendarDisplay({ selectedDateState }) {
           }
           break;
         case "Sat":
+          //======================
+          //Function for finding all the Saturdays and pushing into Sat array (does not take into account odd/even/Sat)
+          // let saturdays = [];
+          let evenSaturdays = [];
+          let oddSaturdays = [];
+          //
+          const findSaturdays = (startingDate, endingDate) => {
+            // let currentDate = new Date(cohortState[i].startDate);
+
+            startingDate = new Date(DateTime.fromISO(startingDate).toISO());
+            let currentDate = new Date(startingDate);
+            // console.log("CURRDATE", currentDate);
+            endingDate = new Date(DateTime.fromISO(endingDate).toISO());
+            // console.log("ENDINGDATE", endingDate);
+            // console.log(startingDate, endingDate);
+            while (currentDate <= endingDate) {
+              // console.log("YES CURRENT < START")
+              if (currentDate.getDay() === 6) {
+                console.log("YES FOUND SAT", currentDate);
+                
+                saturdays.push(new Date(currentDate));
+              }
+              currentDate.setDate(currentDate.getDate() + 1);
+            }
+            console.log("SATURDAYS", saturdays);
+
+            // console.log(
+            //   "startISODate",
+            //   DateTime.fromISO(cohortState[i].startDate).toISODate()
+            // );
+
+            // console.log(
+            //   "startISODate",
+            //   DateTime.fromISO(cohortState[i].endDate).toISODate()
+            // );
+          };
+
+          //====================
+          //Finding all Saturdays' dates; both ODD and EVEN
+          findSaturdays(cohortState[i].startDate, cohortState[i].endDate);
+          // console.log("SATURDAYS", saturdays);
+
+          //getting Even Saturdays
+
+          for (let n = 0; n < saturdays.length; n++) {
+            if ((n + 1) / 2 === 0) {
+              evenSaturdays.push(saturdays[n]);
+            }
+          }
+          // console.log("EVENSats = ", evenSaturdays);
+
+          for (let g = 0; g < saturdays.length; g++) {
+            if ((g + 1) / 2 !== 0) {
+              oddSaturdays.push(saturdays[g]);
+            }
+          }
+          // console.log("ODDSats = ", oddSaturdays);
+
+          const findMatchingSaturdays = (array1, array2) => {
+            array1.filter((saturDate) => array2.includes(saturDate));
+          };
+          //===================
+          //IF Statements to check which saturdays to display, depending on none, odd,even (ALL will display automatically since it won't be removed)
           if (
             cohortState[i].altSaturdays === "none" &&
             cohortState[i].courseCode ===
@@ -135,12 +210,28 @@ function CalendarDisplay({ selectedDateState }) {
           ) {
             occupiedBy[cohortState[i].classRoom - 1][k] = "";
           }
-          //  else if (
-          //   cohortState[i].altSaturdays === "none" &&
-          //   cohortState[i].courseCode ===
-          //     occupiedBy[cohortState[i].classRoom - 1][k]
-          // ) {
-          // }
+          if (
+            cohortState[i].altSaturdays === "odd" &&
+            //This means if display(daysToShow) more than 21 days, may have error, will need to refractor
+            // findMatchingSaturdays(weekDateArray, evenSaturdays).length !== 0 &&
+            cohortState[i].courseCode ===
+              occupiedBy[cohortState[i].classRoom - 1][k]
+          ) {
+            occupiedBy[cohortState[i].classRoom - 1][k] = "";
+            console.log(findMatchingSaturdays(weekDateArray, evenSaturdays));
+          }
+
+          if (
+            cohortState[i].altSaturdays === "even" &&
+            //This means if display(daysToShow) more than 21 days, may have error, will need to refractor
+            // findMatchingSaturdays(weekDateArray, oddSaturdays).length !== 0 &&
+            cohortState[i].courseCode ===
+              occupiedBy[cohortState[i].classRoom - 1][k]
+          ) {
+            occupiedBy[cohortState[i].classRoom - 1][k] = "";
+            findMatchingSaturdays(weekDateArray, oddSaturdays);
+          }
+
           break;
       }
     }

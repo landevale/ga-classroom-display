@@ -91,7 +91,7 @@ const seed = async (req, res) => {
       courseCode: "manBookInitLoadTest",
       courseSchedule: "FullTime", //PartTime or FullTime
       startDate: "2022-12-22T00:00:00.000+08:00",
-      endDate: "2023-02-24T00:00:00.000+08:00",
+      endDate: "2022-02-24T00:00:00.000+08:00",
       daysOnCampus: {
         days: {
           monday: true,
@@ -107,6 +107,50 @@ const seed = async (req, res) => {
       weeks: 2,
       studentSuccess: "Kerin",
       altSaturdays: "all", //none, odd, even, ALL
+    },
+
+    {
+      courseCode: "OddSatCohort",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2023-02-01T00:00:00.000+08:00",
+      endDate: "2023-02-27T00:00:00.000+08:00",
+      daysOnCampus: {
+        days: {
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+        },
+      },
+      startTime: "09:00",
+      endTime: "17:00",
+      classRoom: 2,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "odd", //none, odd, even, ALL
+    },
+
+    {
+      courseCode: "EvenSatCohort",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2023-02-01T00:00:00.000+08:00",
+      endDate: "2023-02-27T00:00:00.000+08:00",
+      daysOnCampus: {
+        days: {
+          monday: true,
+          tuesday: true,
+          wednesday: true,
+          thursday: true,
+          friday: true,
+        },
+      },
+      startTime: "09:00",
+      endTime: "17:00",
+      classRoom: 3,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "even", //none, odd, even, ALL
     },
   ];
   await Cohort.deleteMany({});
