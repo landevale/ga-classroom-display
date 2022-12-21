@@ -107,6 +107,21 @@ const DaysDropdown = ({
     console.log(newValue);
   };
 
+  // Updated DOESN'T WORK
+  // const onItemClick = (dayOption) => {
+  //   if (selectedValue[dayOption.value]) {
+  //     setSelectedValue({
+  //       ...selectedValue,
+  //       [dayOption.value]: false,
+  //     });
+  //   } else {
+  //     setSelectedValue({
+  //       ...selectedValue,
+  //       [dayOption.value]: true,
+  //     });
+  //   }
+  // };
+
   const isSelected = (dayOption) => {
     if (isMulti) {
       return (

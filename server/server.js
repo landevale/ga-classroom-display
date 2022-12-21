@@ -69,7 +69,7 @@ app.post("/api/login", async (req, res) => {
     req.session.userid = email;
     req.session.loggedIn = true;
     console.log("username", user.username);
-    req.sessions.username = user.username;
+    req.session.username = user.username;
     return res.json({ user });
   }
 });
@@ -111,6 +111,10 @@ app.get("/api/secret2", [checkLogin], (req, res) => {
 
 app.get("/api/login-status", (req, res) => {
   res.json({ loggedIn: req.session.loggedIn });
+});
+
+app.get("/api/username", (req, res) => {
+  res.json({ username: req.session.username });
 });
 
 app.get("/api/logout", function (req, res) {

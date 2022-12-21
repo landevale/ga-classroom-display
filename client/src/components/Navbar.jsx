@@ -6,15 +6,11 @@ import UserInfo from "./UserInfo";
 
 function Navbar() {
   const navigate = useNavigate();
-  // const handleLogout = () => {
-  //   console.log("Log out");
-  //   navigate("/logout");
-  // };
+
   const {
     user,
     setUser,
-    // notLoggedIn,
-    // setNotLoggedIn,
+
     isLoggedIn,
     setIsLoggedIn,
   } = useContext(DataContext);
@@ -25,6 +21,15 @@ function Navbar() {
       const response = await fetch("/api/login-status");
       const data = await response.json();
       setIsLoggedIn(data.loggedIn);
+    }
+    checkLogin();
+  }, []);
+
+  useEffect(() => {
+    async function checkLogin() {
+      const response = await fetch("/api/username");
+      const data = await response.json();
+      setUser(data.username);
     }
     checkLogin();
   }, []);
@@ -65,20 +70,14 @@ function Navbar() {
           <NavLink to="/courses">Courses</NavLink>
         </a>
         {"    "}
-        {/* <a>{notLoggedIn ? null : <NavLink to="/bookings">Bookings</NavLink>}</a> */}
+
         <a>{isLoggedIn ? <NavLink to="/bookings">Bookings</NavLink> : null}</a>
         {"    "}
         <a>
           <NavLink to="/display">Display</NavLink>
         </a>
         {"    "}
-        {/* {notLoggedIn ? (
-          <button>
-            <Link to="/login">Login</Link>
-          </button>
-        ) : (
-          <button onClick={handleLogout}>Logout</button>
-        )} */}
+
         {isLoggedIn ? (
           <button onClick={handleLogout}>Logout</button>
         ) : (

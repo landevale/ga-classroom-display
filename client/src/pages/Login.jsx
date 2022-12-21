@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { DataContext } from "../App";
@@ -10,8 +10,7 @@ function Login() {
   const [msg, setMsg] = useState("");
   const [userId, setUserId] = useState("");
 
-  const { setUser, notLoggedIn, setNotLoggedIn, isLoggedIn, setIsLoggedIn } =
-    useContext(DataContext);
+  const { setUser, isLoggedIn, setIsLoggedIn } = useContext(DataContext);
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -37,8 +36,8 @@ function Login() {
     if (response.ok) {
       const data = await response.json();
       console.log(data);
-      // setUserId(data.user._id);
-      // setUser(data.user.username);
+      setUserId(data.user._id);
+      setUser(data.user.username);
       // setNotLoggedIn(false);
       setIsLoggedIn(true);
       setMsg("Login successful");
@@ -48,10 +47,6 @@ function Login() {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("Not logged in", notLoggedIn);
-  // }, [notLoggedIn]);
-
   useEffect(() => {
     console.log(msg);
   }, [msg]);
@@ -60,7 +55,11 @@ function Login() {
     console.log(userId);
   }, [userId]);
 
-  return (
+  return isLoggedIn ? (
+    <p>
+      Already logged in. Return to <Link to="/">Home</Link>.
+    </p>
+  ) : (
     <>
       {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
       <Formik
@@ -131,19 +130,19 @@ function Login() {
         )}
       </Formik>
       {/* <div>
-        <fieldset>
-          <legend>LOG IN</legend>
-          <label>
-            Username: <input name="username" />
-          </label>
-          {"   "}
-          <label>
-            Password: <input name="password" />
-          </label>
-          <button onClick={handleLogin}>Log In</button>
-          <LoginForm />
-        </fieldset>
-      </div> */}
+      <fieldset>
+        <legend>LOG IN</legend>
+        <label>
+          Username: <input name="username" />
+        </label>
+        {"   "}
+        <label>
+          Password: <input name="password" />
+        </label>
+        <button onClick={handleLogin}>Log In</button>
+        <LoginForm />
+      </fieldset>
+    </div> */}
     </>
   );
 }

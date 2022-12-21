@@ -208,7 +208,7 @@ function EditCourse() {
       </form>
     </>
   ) : (
-    <p>You are not logged in</p>
+    navigate("/")
   );
 }
 

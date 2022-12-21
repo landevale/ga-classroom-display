@@ -1,10 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DateTime } from "luxon";
-// import { DataContext } from "../App";
+import { DataContext } from "../App";
 import ClassroomDropdown from "../components/ClassroomDropdown";
 
 function Bookings() {
+  const { isLoggedIn } = useContext(DataContext);
+  const navigate = useNavigate();
+
   const [roomUseBy, setRoomUseBy] = useState("");
   const [bookingStart, setBookingStart] = useState("");
   const [bookingEnd, setBookingEnd] = useState("");
@@ -91,7 +94,7 @@ function Bookings() {
     }
   };
 
-  return (
+  return isLoggedIn ? (
     <>
       <div>
         <h1>Bookings</h1>
@@ -244,6 +247,8 @@ function Bookings() {
         <p>{msg}</p>
       </div>
     </>
+  ) : (
+    navigate("/")
   );
 }
 
