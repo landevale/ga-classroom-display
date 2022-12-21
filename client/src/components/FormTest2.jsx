@@ -1,8 +1,7 @@
 import React from "react";
 import { useFormik, Formik, Field, Form } from "formik";
 import { DateTime } from "luxon";
-
-import { courseRegSchema } from "../schemas/CourseRegSchema";
+import { courseRegSchema } from "../schemas/courseRegSchema";
 
 function FormTest2() {
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
