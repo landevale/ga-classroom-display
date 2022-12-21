@@ -14,6 +14,7 @@ export const courseRegSchema = Yup.object().shape({
     thursday: Yup.boolean(),
     friday: Yup.boolean(),
   }),
+  altSaturdays: Yup.string().required("Required"),
   startTime: Yup.string(),
   endTime: Yup.string(),
   classRoom: Yup.number().integer().positive().min(1).max(6),

@@ -40,7 +40,7 @@ function CoursesTable() {
           <th>End Time</th>
           <th>Sat on Campus</th>
           <th>Classroom</th>
-          <th>Weeks</th>
+          {/* <th>Weeks</th> */}
           {isLoggedIn ? <th>Edit / Delete</th> : null}
         </tr>
       </thead>
@@ -56,7 +56,7 @@ function CoursesTable() {
             <td>{course.endTime}</td>
             <td>{course.altSaturdays}</td>
             <td>{course.classRoom}</td>
-            <td>{course.weeks}</td>
+            {/* <td>{course.weeks}</td> */}
             {isLoggedIn ? (
               <td>
                 <Link to={`/editcourse/${course._id}`}>📝</Link>

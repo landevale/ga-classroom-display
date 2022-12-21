@@ -37,7 +37,12 @@ const cohortSchema = new mongoose.Schema(
     classRoom: { type: Number, min: 1, max: 6, integer: true },
     weeks: { type: Number },
     studentSuccess: { type: String },
-    altSaturdays: { type: String, required: true }, //none, odd, even, ALL
+    altSaturdays: {
+      type: String,
+      required: true,
+      default: "none",
+      enum: ["none", "odd", "even", "all"],
+    }, //none, odd, even, all
   },
   { timestamps: true }
 );

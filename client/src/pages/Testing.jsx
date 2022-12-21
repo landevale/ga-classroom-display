@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import FormTest from "../components/FormTest";
-import FormTest2 from "../components/FormTest2";
+import CourseRegForm from "../components/CourseRegForm";
 import FormTest3 from "../components/FormTest3";
 // import { DataContext } from "../App";
 // import CourseRegForm from "../components/CourseRegForm";
@@ -14,8 +14,8 @@ function Testing() {
       <div>
         <h1>Testing</h1>
       </div>
-      <FormTest3 />
-      <FormTest2 />
+      {/* <FormTest3 /> */}
+      <CourseRegForm />
       {/* <FormTest /> */}
       {/* {isLoggedIn ? (
         <div>
