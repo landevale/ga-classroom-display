@@ -120,7 +120,7 @@ const useCalDisplayLogic = () => {
                 occupiedBy[cohortState[i].classRoom - 1][j] !== ""
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
-                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
+                  "*:" + cohortState[i].courseCode;
               }
               break;
 
@@ -137,7 +137,7 @@ const useCalDisplayLogic = () => {
                 occupiedBy[cohortState[i].classRoom - 1][j] !== ""
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
-                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
+                  "*:" + cohortState[i].courseCode;
               }
               break;
             case "Wed":
@@ -152,7 +152,7 @@ const useCalDisplayLogic = () => {
                 occupiedBy[cohortState[i].classRoom - 1][j] === ""
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
-                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
+                  "*:" + cohortState[i].courseCode;
               }
               break;
             case "Thu":
@@ -167,7 +167,7 @@ const useCalDisplayLogic = () => {
                 occupiedBy[cohortState[i].classRoom - 1][j] !== ""
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
-                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
+                  "*:" + cohortState[i].courseCode;
               }
               break;
             case "Fri":
@@ -182,7 +182,7 @@ const useCalDisplayLogic = () => {
                 occupiedBy[cohortState[i].classRoom - 1][j] !== ""
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
-                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
+                  "*:" + cohortState[i].courseCode;
               }
               break;
             case "Sat":
@@ -239,7 +239,7 @@ const useCalDisplayLogic = () => {
                 occupiedBy[cohortState[i].classRoom - 1][j] !== ""
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
-                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
+                  "*:" + cohortState[i].courseCode;
               }
 
               if (
@@ -260,7 +260,7 @@ const useCalDisplayLogic = () => {
                 occupiedBy[cohortState[i].classRoom - 1][j] !== ""
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
-                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
+                  "*:" + cohortState[i].courseCode;
               }
 
               if (
@@ -275,7 +275,7 @@ const useCalDisplayLogic = () => {
                 occupiedBy[cohortState[i].classRoom - 1][j] !== ""
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
-                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
+                  "*:" + cohortState[i].courseCode;
               }
               break;
           }

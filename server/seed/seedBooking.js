@@ -2,33 +2,11 @@ const Booking = require("../models/booking");
 
 const seed = async (req, res) => {
   const seedBookings = [
-    // {
-    //   roomUseBy: "SEi40",
-    //   //user ref removed
-    //   createdBy: "Kerin",
-    //   bookingStart: "2022-12-25",
-    //   bookingEnd: "2022-12-30",
-    //   classRoom: 4,
-    //   holiday: false,
-    //   //   cohort: { type: String },
-    //   //   bookingPurpose: { type: String },
-    // },
-    // {
-    //   roomUseBy: "SEi41",
-    //   //user ref removed
-    //   createdBy: "Kerin",
-    //   bookingStart: "2022-12-25",
-    //   bookingEnd: "2022-12-30",
-    //   classRoom: 5,
-    //   holiday: false,
-    //   //   cohort: { type: String },
-    //   //   bookingPurpose: { type: String },
-    // },
     {
-      roomUseBy: "New Year Eve Party",
+      roomUseBy: "NYE Party",
       //user ref removed
-      createdBy: "Kerin",
-      bookingStart: "2022-12-31",
+      createdBy: "Paul",
+      bookingStart: "2022-12-28",
       bookingEnd: "2022-12-31",
       classRoom: 2,
       holiday: false,
@@ -45,13 +23,14 @@ const seed = async (req, res) => {
       holiday: true,
       //   cohort: { type: String },
     },
+
     {
-      roomUseBy: "Non-holBooking",
+      roomUseBy: "PreviousBooking",
       //user ref removed
       createdBy: "Paul",
-      bookingStart: "2022-12-31",
-      bookingEnd: "2023-01-04",
-      classRoom: 5,
+      bookingStart: "2022-12-20",
+      bookingEnd: "2022-12-21",
+      classRoom: 6,
       holiday: false,
       //   cohort: { type: String },
     },

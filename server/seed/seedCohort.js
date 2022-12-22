@@ -3,10 +3,10 @@ const Cohort = require("../models/cohort");
 const seed = async (req, res) => {
   const seedCohorts = [
     {
-      courseCode: "SEI40",
+      courseCode: "SEi40",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-27",
-      endDate: "2023-01-05",
+      startDate: "2022-10-24",
+      endDate: "2023-01-27",
       daysOnCampus: {
         monday: true,
         tuesday: true,
@@ -16,7 +16,26 @@ const seed = async (req, res) => {
       },
       startTime: "09:00",
       endTime: "17:00",
-      classRoom: 2,
+      classRoom: 4,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "none", //none, odd, even, ALL
+    },
+    {
+      courseCode: "Ovr-onTue",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-12-27",
+      endDate: "2023-01-05",
+      daysOnCampus: {
+        monday: false,
+        tuesday: true,
+        wednesday: true,
+        thursday: false,
+        friday: false,
+      },
+      startTime: "09:00",
+      endTime: "17:00",
+      classRoom: 4,
       weeks: 2,
       studentSuccess: "Kerin",
       altSaturdays: "none", //none, odd, even, ALL
@@ -43,32 +62,13 @@ const seed = async (req, res) => {
     },
     {
       courseCode: "DSiFX07",
-      courseSchedule: "PartTime", //PartTime or FullTime
-      startDate: "2022-12-28",
-      endDate: "2023-01-10",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-08-23",
+      endDate: "2023-03-04",
       daysOnCampus: {
         monday: false,
-        tuesday: true,
-        wednesday: true,
-        thursday: true,
-        friday: false,
-      },
-      startTime: "09:00",
-      endTime: "18:00",
-      classRoom: 5,
-      weeks: 2,
-      studentSuccess: "Kerin",
-      altSaturdays: "odd", //none, odd, even, ALL
-    },
-    {
-      courseCode: "ISOTest",
-      courseSchedule: "PartTime", //PartTime or FullTime
-      startDate: "2023-01-09",
-      endDate: "2023-02-09",
-      daysOnCampus: {
-        monday: true,
-        tuesday: true,
-        wednesday: true,
+        tuesday: false,
+        wednesday: false,
         thursday: false,
         friday: false,
       },
@@ -77,53 +77,190 @@ const seed = async (req, res) => {
       classRoom: 5,
       weeks: 2,
       studentSuccess: "Kerin",
-      altSaturdays: "all", //none, odd, even, ALL
+      altSaturdays: "odd", //none, odd, even, ALL
     },
     {
-      courseCode: "manBookInitLoadTest",
+      courseCode: "SEiFX11",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-22",
-      endDate: "2022-02-24",
+      startDate: "2022-08-16",
+      endDate: "2023-02-25",
       daysOnCampus: {
-        monday: true,
-        tuesday: true,
-        wednesday: true,
-        thursday: true,
-        friday: true,
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
       },
       startTime: "09:00",
       endTime: "18:00",
       classRoom: 1,
       weeks: 2,
       studentSuccess: "Kerin",
-      altSaturdays: "all", //none, odd, even, ALL
+      altSaturdays: "odd", //none, odd, even, ALL
+    },
+    {
+      courseCode: "UXDiFX05",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-08-30",
+      endDate: "2023-03-11",
+      daysOnCampus: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+      },
+      startTime: "09:00",
+      endTime: "18:00",
+      classRoom: 3,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "odd", //none, odd, even, ALL
+    },
+    {
+      courseCode: "UXDi41",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-12-22",
+      endDate: "2022-02-24",
+      daysOnCampus: {
+        monday: false,
+        tuesday: false,
+        wednesday: true,
+        thursday: true,
+        friday: false,
+      },
+      startTime: "09:00",
+      endTime: "18:00",
+      classRoom: 1,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "none", //none, odd, even, ALL
     },
 
     {
-      courseCode: "OddSatCohort",
+      courseCode: "DSi33",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2023-02-01",
-      endDate: "2023-02-27",
+      startDate: "2022-10-24",
+      endDate: "2023-01-27",
       daysOnCampus: {
-        monday: true,
-        tuesday: true,
+        monday: false,
+        tuesday: false,
         wednesday: true,
         thursday: true,
-        friday: true,
+        friday: false,
       },
       startTime: "09:00",
       endTime: "17:00",
-      classRoom: 2,
+      classRoom: 5,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "none", //none, odd, even, ALL
+    },
+
+    {
+      courseCode: "SEiFX12",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-10-29",
+      endDate: "2023-05-13",
+      daysOnCampus: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+      },
+      startTime: "09:00",
+      endTime: "17:00",
+      classRoom: 1,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "odd", //none, odd, even, ALL
+    },
+    {
+      courseCode: "DXiFX09",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-11-12",
+      endDate: "2023-05-27",
+      daysOnCampus: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+      },
+      startTime: "09:00",
+      endTime: "17:00",
+      classRoom: 6,
       weeks: 2,
       studentSuccess: "Kerin",
       altSaturdays: "odd", //none, odd, even, ALL
     },
 
     {
-      courseCode: "EvenSatCohort",
+      courseCode: "UXDi42",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2023-02-01",
-      endDate: "2023-02-27",
+      startDate: "2022-11-21",
+      endDate: "2023-02-24",
+      daysOnCampus: {
+        monday: false,
+        tuesday: false,
+        wednesday: true,
+        thursday: true,
+        friday: false,
+      },
+      startTime: "09:00",
+      endTime: "17:00",
+      classRoom: 6,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "none", //none, odd, even, ALL
+    },
+
+    {
+      courseCode: "DSi34",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-11-28",
+      endDate: "2023-03-03",
+      daysOnCampus: {
+        monday: true,
+        tuesday: true,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+      },
+      startTime: "09:00",
+      endTime: "17:00",
+      classRoom: 5,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "none", //none, odd, even, ALL
+    },
+
+    {
+      courseCode: "SEi41",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-12-05",
+      endDate: "2023-03-10",
+      daysOnCampus: {
+        monday: true,
+        tuesday: true,
+        wednesday: true,
+        thursday: true,
+        friday: false,
+      },
+      startTime: "09:00",
+      endTime: "17:00",
+      classRoom: 4,
+      weeks: 2,
+      studentSuccess: "Kerin",
+      altSaturdays: "none", //none, odd, even, ALL
+    },
+
+    {
+      courseCode: "expired",
+      courseSchedule: "FullTime", //PartTime or FullTime
+      startDate: "2022-12-05",
+      endDate: "2022-12-20",
       daysOnCampus: {
         monday: true,
         tuesday: true,
@@ -133,10 +270,10 @@ const seed = async (req, res) => {
       },
       startTime: "09:00",
       endTime: "17:00",
-      classRoom: 3,
+      classRoom: 4,
       weeks: 2,
       studentSuccess: "Kerin",
-      altSaturdays: "even", //none, odd, even, ALL
+      altSaturdays: "all", //none, odd, even, ALL
     },
   ];
   await Cohort.deleteMany({});
