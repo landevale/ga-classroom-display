@@ -4,7 +4,7 @@ import { useFormik, Formik, Field, Form } from "formik";
 import { DateTime } from "luxon";
 import { courseRegSchema } from "../schemas/courseRegSchema";
 
-function CourseRegForm() {
+function CourseRegForm({ setRefresh }) {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
@@ -42,6 +42,7 @@ function CourseRegForm() {
           }
           const data = await response.json();
           console.log(data);
+          setRefresh(true);
           navigate("/courses");
         } catch (error) {
           console.log(values);
@@ -117,8 +118,6 @@ function CourseRegForm() {
               type="date"
               name="startDate"
               min={DateTime.now().toFormat("yyyy-MM-dd")}
-              //==================
-              //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
               onChange={handleChange}
             />
           </label>
@@ -132,8 +131,6 @@ function CourseRegForm() {
               type="date"
               name="endDate"
               min={DateTime.now().toFormat("yyyy-MM-dd")}
-              //==================
-              //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
               onChange={handleChange}
             />
           </label>
@@ -222,71 +219,6 @@ function CourseRegForm() {
           </select>
           <br />
 
-          {/* <fieldset>
-            <legend>Classroom:</legend>
-            <label>
-              Classroom 1
-              <input
-                type="radio"
-                name="classRoom"
-                value="1"
-                className="form-check-input"
-                onChange={handleChange}
-              />
-            </label>
-
-            <label>
-              Classroom 2
-              <input
-                type="radio"
-                name="classRoom"
-                value="2"
-                className="form-check-input"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Classroom 3
-              <input
-                type="radio"
-                name="classRoom"
-                value="3"
-                className="form-check-input"
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              Classroom 4
-              <input
-                type="radio"
-                name="classRoom"
-                value="4"
-                className="form-check-input"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Classroom 5
-              <input
-                type="radio"
-                name="classRoom"
-                value="5"
-                className="form-check-input"
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Classroom 6
-              <input
-                type="radio"
-                name="classRoom"
-                value="6"
-                className="form-check-input"
-                onChange={handleChange}
-              />
-            </label>
-          </fieldset> */}
           <button type="submit">Create Course</button>
           <p>{msg}</p>
         </form>

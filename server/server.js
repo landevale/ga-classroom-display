@@ -55,6 +55,7 @@ app.get("/api/", (req, res) => {
   res.json({ msg: "Hello World!" });
 });
 
+// Login with bycrypt hash and sessions
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).exec();
@@ -74,21 +75,20 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-//* login - (sessions)
-// app.post("/api/sessions", (req, res) => {
-//   if (req.body.password === "123") {
-//     req.session.login = "simon"; //? store something in session
-//     res.json({ msg: "ok" });
-//   } else {
-//     res.status(401).json({ error: "Not Ok" });
-//   }
-// });
+app.get("/api/login-status", (req, res) => {
+  res.json({ loggedIn: req.session.loggedIn });
+});
 
-// app.delete("/api/sessions", (req, res) => {
-//   req.session.destroy(() => {
-// res.json({ msg: "Logout success" });
-//   });
-// });
+app.get("/api/username", (req, res) => {
+  res.json({ username: req.session.username });
+});
+
+app.get("/api/logout", function (req, res) {
+  req.session.destroy(() => {
+    res.json({ msg: "Logout success" });
+    // res.redirect("/logout");
+  });
+});
 
 const checkLogin = (req, res, next) => {
   // const { email } = req.body;
@@ -107,21 +107,6 @@ app.get("/api/secret", [checkLogin], (req, res) => {
 
 app.get("/api/secret2", [checkLogin], (req, res) => {
   res.json({ msg: "Need more snacks" });
-});
-
-app.get("/api/login-status", (req, res) => {
-  res.json({ loggedIn: req.session.loggedIn });
-});
-
-app.get("/api/username", (req, res) => {
-  res.json({ username: req.session.username });
-});
-
-app.get("/api/logout", function (req, res) {
-  req.session.destroy(() => {
-    res.json({ msg: "Logout success" });
-    // res.redirect("/logout");
-  });
 });
 
 app.get("*", (req, res) => {

@@ -3,15 +3,18 @@ import { Link } from "react-router-dom";
 import { DateTime } from "luxon";
 import { DataContext } from "../App";
 
-function CoursesTable() {
+function CoursesTable({ refresh, setRefresh }) {
   const [courses, setCourses] = useState([]);
   const { isLoggedIn } = useContext(DataContext);
 
   useEffect(() => {
     fetch("/api/cohorts/")
       .then((response) => response.json())
-      .then((data) => setCourses(data));
-  }, []);
+      .then((data) => {
+        setCourses(data);
+        setRefresh(false); // Reset refresh to false
+      });
+  }, [refresh]);
 
   const handleDelete = (id, i) => () => {
     fetch(`/api/cohorts/${id}`, {
