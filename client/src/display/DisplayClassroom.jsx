@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import useCalDisplayLogic from "../components/CalDisplayLogic";
 
 function DisplayClassroom() {
-
   const [countdown, setCountdown] = useState(10);
   const calDisplayLogic = useCalDisplayLogic();
 
@@ -61,6 +60,7 @@ function DisplayClassroom() {
         <h1 style={{ color: "white" }}>CLASSROOM {id}</h1>
       </div>
       <hr style={{ color: "white", borderWidth: "2px" }} />
+      <br />
       <h2 style={{ fontSize: "36px", color: "white" }}>
         {calDisplayLogic[id - 1]?.[0]}
       </h2>
