@@ -39,6 +39,7 @@ function DisplayClassroom() {
   // console.log(bookingsState);
   let classRoomUser = calDisplayLogic[id - 1]?.[0];
 
+  // eslint-disable-next-line
   let bookingsStateFilter = bookingsState?.filter(
     (ele) => ele.roomUseBy === classRoomUser
   );
@@ -57,45 +58,11 @@ function DisplayClassroom() {
   // console.log("CS.SD",cohortStateFilter[0]?.startTime)
   // let cohortStateEndTime = ;
 
-  // return (
-  //   <div style={{ height: "100vh", width: "100vw" }}>
-  //     <div style={{ backgroundColor: "grey", height: "100vh", width: "100vw" }}>
-  //       {/* <div
-  //         style={{
-  //           display: "flex",
-  //           alignItems: "center",
-  //           justifyContent: "center",
-  //         }}
-  //       > */}
-  //       <h1>CLASSROOM {id}</h1>
-  //       <hr />
-  //       <h2>{calDisplayLogic[id - 1]?.[0]}</h2>
-  //       {/* <h3>Purpose</h3> */}
-  //       {bookingsStateFilter ? null : (
-  //         <p>
-  //           {cohortStartTime} - {cohortEndTime}
-  //         </p>
-  //       )}
-  //       <p>Placeholder: {countdown} seconds remaining until refresh.</p>
-  //       <a>
-  //         <Link to="/">
-  //           <img
-  //             src={mainLogo}
-  //             style={{ width: 500, height: "auto" }}
-  //             alt="GENERAL ASSEMBLY"
-  //           />
-  //         </Link>
-  //       </a>
-  //       {/* </div> */}
-  //     </div>
-  //   </div>
-  // );
-
   return (
     <div style={{ height: "100vh", width: "100vw", backgroundColor: "black" }}>
       <div
         style={{
-          height: "50vh",
+          height: "40vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -103,9 +70,11 @@ function DisplayClassroom() {
       >
         <h1 style={{ color: "white" }}>CLASSROOM {id}</h1>
       </div>
-      <hr style={{ color: "white", borderWidth: "1px" }} />
-      <h2 style={{ color: "white" }}>{calDisplayLogic[id - 1]?.[0]}</h2>
-      <p style={{ color: "white" }}>
+      <hr style={{ color: "white", borderWidth: "2px" }} />
+      <h2 style={{ fontSize: "36px", color: "white" }}>
+        {calDisplayLogic[id - 1]?.[0]}
+      </h2>
+      <p style={{ fontSize: "28px", color: "white" }}>
         {cohortStartTime} - {cohortEndTime}
       </p>
       <p style={{ color: "white" }}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { DateTime } from "luxon";
 import CalendarDisplay from "../components/CalendarDisplay";
 import { DataContext } from "../App";
@@ -33,7 +33,7 @@ function Home() {
   return (
     <>
       <div>
-        <h1>This is Homepage.</h1>
+        <h1>Home</h1>
       </div>
       <div>
         <input

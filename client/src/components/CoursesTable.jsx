@@ -93,7 +93,7 @@ function CoursesTable({ refresh, setRefresh }) {
           </select>
         </div>
 
-        <caption>Courses</caption>
+        {/* <caption>Courses</caption> */}
 
         <thead>
           <tr>

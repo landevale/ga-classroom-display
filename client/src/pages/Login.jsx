@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import { DataContext } from "../App";
 import { userSchema } from "../schemas/userSchema";
-// import LoginForm from "../components/LoginForm";
 
 function Login() {
   const navigate = useNavigate();
