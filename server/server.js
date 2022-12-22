@@ -86,7 +86,6 @@ app.get("/api/username", (req, res) => {
 app.get("/api/logout", function (req, res) {
   req.session.destroy(() => {
     res.json({ msg: "Logout success" });
-    // res.redirect("/logout");
   });
 });
 

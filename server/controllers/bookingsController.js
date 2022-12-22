@@ -1,9 +1,21 @@
 const express = require("express");
+const session = require("express-session");
 const router = express.Router();
 const Booking = require("../models/booking");
 const seed = require("../seed/seedBooking");
 
-router.get("/seed", seed);
+// session
+
+router.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    // cookie: { secure: true },
+  })
+);
+
+router.get("/seed", seed); // DELETE!
 
 router.get("/", async (req, res) => {
   //? return [ list of bookings]
@@ -16,6 +28,11 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  // Check for the presence of session data
+  if (!req.session.username) {
+    res.status(401).send("Unauthorized");
+    return;
+  }
   try {
     const booking = await Booking.create(req.body);
     res.status(201).json(booking);
@@ -25,8 +42,12 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
+  // Check for the presence of session data
+  if (!req.session.username) {
+    res.status(401).send("Unauthorized");
+    return;
+  }
   const { id } = req.params;
-
   try {
     const deletedBooking = await Booking.findByIdAndRemove(id);
     res.status(200).send(deletedBooking);
@@ -46,6 +67,11 @@ router.get("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
+  // Check for the presence of session data
+  if (!req.session.username) {
+    res.status(401).send("Unauthorized");
+    return;
+  }
   const { id } = req.params;
   try {
     const updatedBooking = await Booking.findByIdAndUpdate(id, req.body, {
@@ -56,22 +82,5 @@ router.put("/:id", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
-// router.get("/seed", async (req, res) => {
-//   const users = [
-//     {
-//       username: "grapefruit",
-//       email: "pink@fruits.com",
-//       password: "fruitbasket",
-//     },
-//   ];
-//   try {
-//     await User.deleteMany({}); //* delete all users
-//     const newUsers = await User.create(users);
-//     res.json(newUsers);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
 
 module.exports = router;
