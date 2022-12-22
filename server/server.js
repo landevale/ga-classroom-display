@@ -3,6 +3,7 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -18,24 +19,32 @@ const sessionsController = require("./controllers/sessionsController.js");
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
+// Create a new MemoryStore instance
+const store = new MemoryStore({
+  checkPeriod: 86400000, // prune expired entries every 24h
+});
+
 // MIDDLEWARE
-app.use(express.json());
-app.use(morgan("dev"));
-app.use(express.static("../client/dist"));
-app.use("/api/bookings", bookingsController);
-app.use("/api/cohorts", cohortsController);
-app.use("/api/users", usersController);
 // session
-app.use("/sessions", sessionsController);
+
 app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
+    store: store,
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     // cookie: { secure: true },
   })
 );
+// other middleware
+app.use(express.json());
+app.use(morgan("dev"));
+app.use(express.static("../client/dist"));
+app.use("/api/bookings", bookingsController);
+app.use("/api/cohorts", cohortsController);
+app.use("/api/users", usersController);
+app.use("/sessions", sessionsController);
 
 // Connect to Mongo
 const mongoURI = process.env.SECRET_KEY;

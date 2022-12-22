@@ -11,7 +11,6 @@ function Logout() {
         method: "GET",
       });
       setUser("");
-      // setNotLoggedIn(true);
       setIsLoggedIn(false);
       console.log("Response", response);
     }

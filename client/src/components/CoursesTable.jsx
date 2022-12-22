@@ -12,9 +12,6 @@ function CoursesTable({ refresh, setRefresh }) {
   const { isLoggedIn } = useContext(DataContext);
   const [courses, setCourses] = useState([]);
   const [selectedClassRoom, setSelectedClassRoom] = useState("");
-
-  // const [cohortFilter, setCohortFilter] = useState(""); // New state for cohort filter
-
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (event) => {
@@ -47,13 +44,6 @@ function CoursesTable({ refresh, setRefresh }) {
         setCourses(courses.filter((h) => h._id !== id));
       });
   };
-
-  // const filteredCourses = courses.filter(
-  //   (course) =>
-  //     searchQuery !== "" &&
-  //     course.courseCode &&
-  //     course.courseCode.toLowerCase().includes(searchQuery.toLowerCase())
-  // );
 
   const filteredCourses = courses.filter(
     (course) =>

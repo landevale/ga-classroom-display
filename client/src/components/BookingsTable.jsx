@@ -12,6 +12,8 @@ function BookingsTable({ refresh, setRefresh }) {
   const [bookings, setBookings] = useState([]);
   const { isLoggedIn } = useContext(DataContext);
 
+  const [sort, setSort] = useState({ key: "bookingStart", order: "asc" });
+
   useEffect(() => {
     fetch("/api/bookings/")
       .then((response) => response.json())
@@ -35,14 +37,45 @@ function BookingsTable({ refresh, setRefresh }) {
       });
   };
 
+  // Sorting bookings
+  const handleSort = (key) => {
+    setSort({ key, order: sort.order === "asc" ? "desc" : "asc" });
+  };
+
+  const sortedBookings = bookings.sort((a, b) => {
+    const aValue = a[sort.key];
+    const bValue = b[sort.key];
+    if (aValue < bValue) {
+      return sort.order === "asc" ? -1 : 1;
+    }
+    if (aValue > bValue) {
+      return sort.order === "asc" ? 1 : -1;
+    }
+    return 0;
+  });
+
   return (
     <table border="1">
       <caption>Bookings & Holidays</caption>
       <thead>
         <tr>
           <th>Room User</th>
-          <th>Start Date</th>
-          <th>End Date</th>
+          <th onClick={() => handleSort("bookingStart")}>
+            Start Date{" "}
+            {sort.key === "bookingStart"
+              ? sort.order === "asc"
+                ? "▲"
+                : "▼"
+              : ""}
+          </th>
+          <th onClick={() => handleSort("bookingEnd")}>
+            End Date{" "}
+            {sort.key === "bookingEnd"
+              ? sort.order === "asc"
+                ? "▲"
+                : "▼"
+              : ""}
+          </th>
           <th>Classroom</th>
           <th>Holiday</th>
           <th>Cohort</th>
@@ -51,8 +84,7 @@ function BookingsTable({ refresh, setRefresh }) {
         </tr>
       </thead>
       <tbody>
-        {/* {bookings.map((booking, i) => ( */}
-        {bookings
+        {sortedBookings
           .filter(
             (booking) =>
               DateTime.fromISO(booking.bookingEnd).startOf("day") >=

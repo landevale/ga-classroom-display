@@ -58,12 +58,6 @@ function CourseRegForm({ setRefresh }) {
 
   console.log(values);
   console.log("Errors", errors);
-  // const handleSubmit = (values) => {
-  //   // Perform logic for handling form submission
-  //   console.log(values);
-  // };
-
-  // const satOptions = ["No", "Odd - 1st Week", "Even - 2nd Week", "All"];
 
   return (
     <div>

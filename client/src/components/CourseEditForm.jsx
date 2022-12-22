@@ -33,16 +33,6 @@ function CourseEditForm({ id }) {
     classRoom: "",
   };
 
-  // useEffect(() => {
-  //   const fetchCourse = async () => {
-  //     const response = await fetch(`/api/cohorts/${id}`);
-  //     const data = await response.json();
-  //     console.log("From effect", data);
-  //     setFormState(data);
-  //   };
-  //   fetchCourse();
-  // }, [id]);
-
   useEffect(() => {
     // Fetch form state data from the server
     fetch(`/api/cohorts/${id}`)
@@ -58,15 +48,6 @@ function CourseEditForm({ id }) {
     console.log("Formstate", formState);
   }, [formState]);
 
-  // const {
-  //   values,
-  //   errors,
-  //   touched,
-  //   handleChange,
-  //   handleBlur,
-  //   handleSubmit,
-  //   setValues,
-  // }
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: courseRegSchema,

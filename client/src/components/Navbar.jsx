@@ -36,7 +36,6 @@ function Navbar() {
         method: "GET",
       });
       setUser("");
-      // setNotLoggedIn(true);
       setIsLoggedIn(false);
       navigate("/logout");
     } catch (error) {
