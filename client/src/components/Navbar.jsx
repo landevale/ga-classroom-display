@@ -14,7 +14,7 @@ function Navbar() {
     isLoggedIn,
     setIsLoggedIn,
   } = useContext(DataContext);
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     async function checkLogin() {
