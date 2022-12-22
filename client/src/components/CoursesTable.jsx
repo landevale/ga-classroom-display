@@ -13,7 +13,6 @@ function CoursesTable({ refresh, setRefresh }) {
   const [courses, setCourses] = useState([]);
   const [selectedClassRoom, setSelectedClassRoom] = useState("");
   const [sort, setSort] = useState({ key: "startDate", order: "asc" });
-
   const [searchQuery, setSearchQuery] = useState("");
 
   // Search

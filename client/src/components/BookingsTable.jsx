@@ -11,8 +11,13 @@ function BookingsTable({ refresh, setRefresh }) {
   };
   const [bookings, setBookings] = useState([]);
   const { isLoggedIn } = useContext(DataContext);
-
   const [sort, setSort] = useState({ key: "bookingStart", order: "asc" });
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Search
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   useEffect(() => {
     fetch("/api/bookings/")
@@ -37,12 +42,18 @@ function BookingsTable({ refresh, setRefresh }) {
       });
   };
 
-  // Sorting bookings
+  const filteredBookings = bookings.filter(
+    (booking) =>
+      searchQuery === "" ||
+      booking.roomUseBy.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Sorting Filtered Bookings
   const handleSort = (key) => {
     setSort({ key, order: sort.order === "asc" ? "desc" : "asc" });
   };
 
-  const sortedBookings = bookings.sort((a, b) => {
+  const sortedFilteredBookings = filteredBookings.sort((a, b) => {
     const aValue = a[sort.key];
     const bValue = b[sort.key];
     if (aValue < bValue) {
@@ -55,68 +66,82 @@ function BookingsTable({ refresh, setRefresh }) {
   });
 
   return (
-    <table border="1">
-      <caption>Bookings & Holidays</caption>
-      <thead>
-        <tr>
-          <th>Room User</th>
-          <th onClick={() => handleSort("bookingStart")}>
-            Start Date{" "}
-            {sort.key === "bookingStart"
-              ? sort.order === "asc"
-                ? "▲"
-                : "▼"
-              : ""}
-          </th>
-          <th onClick={() => handleSort("bookingEnd")}>
-            End Date{" "}
-            {sort.key === "bookingEnd"
-              ? sort.order === "asc"
-                ? "▲"
-                : "▼"
-              : ""}
-          </th>
-          <th>Classroom</th>
-          <th>Holiday</th>
-          <th>Cohort</th>
-          <th>Purpose</th>
-          {isLoggedIn ? <th>Edit / Delete</th> : null}
-        </tr>
-      </thead>
-      <tbody>
-        {sortedBookings
-          .filter(
-            (booking) =>
-              DateTime.fromISO(booking.bookingEnd).startOf("day") >=
-              DateTime.local().startOf("day")
-          ) //Filter bookings based on end date
-          .map((booking, i) => (
-            <tr key={i}>
-              <td>{booking.roomUseBy}</td>
-              <td>
-                {DateTime.fromISO(booking.bookingStart).toLocaleString(
-                  DateTime.DATE_MED_WITH_WEEKDAY
-                )}
-              </td>
-              <td>
-                {DateTime.fromISO(booking.bookingEnd).toLocaleString(
-                  DateTime.DATE_MED_WITH_WEEKDAY
-                )}
-              </td>
-              <td>{booking.classRoom}</td>
-              <td>{booking.holiday}</td>
-              <td>{booking.cohort}</td>
-              <td>{booking.bookingPurpose}</td>
-              {isLoggedIn ? (
+    <>
+      <br />
+      <br />
+      <label htmlFor="search">
+        Search Bookings (Used By):
+        <input
+          id="search"
+          type="text"
+          value={searchQuery}
+          onChange={handleSearch}
+        />
+      </label>
+      <table border="1">
+        <caption>Bookings & Holidays</caption>
+
+        <thead>
+          <tr>
+            <th>Room User</th>
+            <th onClick={() => handleSort("bookingStart")}>
+              Start Date{" "}
+              {sort.key === "bookingStart"
+                ? sort.order === "asc"
+                  ? "▲"
+                  : "▼"
+                : ""}
+            </th>
+            <th onClick={() => handleSort("bookingEnd")}>
+              End Date{" "}
+              {sort.key === "bookingEnd"
+                ? sort.order === "asc"
+                  ? "▲"
+                  : "▼"
+                : ""}
+            </th>
+            <th>Classroom</th>
+            <th>Holiday</th>
+            <th>Cohort</th>
+            <th>Purpose</th>
+            {isLoggedIn ? <th>Edit / Delete</th> : null}
+          </tr>
+        </thead>
+        <tbody>
+          {sortedFilteredBookings
+            .filter(
+              (booking) =>
+                DateTime.fromISO(booking.bookingEnd).startOf("day") >=
+                DateTime.local().startOf("day")
+            ) //Filter bookings based on end date
+            .map((booking, i) => (
+              <tr key={i}>
+                <td>{booking.roomUseBy}</td>
                 <td>
-                  <Link to={`/editbooking/${booking._id}`}>📝</Link>
-                  <button onClick={handleDelete(booking._id, i)}>X</button>
+                  {DateTime.fromISO(booking.bookingStart).toLocaleString(
+                    DateTime.DATE_MED_WITH_WEEKDAY
+                  )}
                 </td>
-              ) : null}
-            </tr>
-          ))}
-      </tbody>
-    </table>
+                <td>
+                  {DateTime.fromISO(booking.bookingEnd).toLocaleString(
+                    DateTime.DATE_MED_WITH_WEEKDAY
+                  )}
+                </td>
+                <td>{booking.classRoom}</td>
+                <td>{booking.holiday}</td>
+                <td>{booking.cohort}</td>
+                <td>{booking.bookingPurpose}</td>
+                {isLoggedIn ? (
+                  <td>
+                    <Link to={`/editbooking/${booking._id}`}>📝</Link>
+                    <button onClick={handleDelete(booking._id, i)}>X</button>
+                  </td>
+                ) : null}
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </>
   );
 }
 
