@@ -51,31 +51,38 @@ function BookingsTable({ refresh, setRefresh }) {
         </tr>
       </thead>
       <tbody>
-        {bookings.map((booking, i) => (
-          <tr key={i}>
-            <td>{booking.roomUseBy}</td>
-            <td>
-              {DateTime.fromISO(booking.bookingStart).toLocaleString(
-                DateTime.DATE_MED_WITH_WEEKDAY
-              )}
-            </td>
-            <td>
-              {DateTime.fromISO(booking.bookingEnd).toLocaleString(
-                DateTime.DATE_MED_WITH_WEEKDAY
-              )}
-            </td>
-            <td>{booking.classRoom}</td>
-            <td>{booking.holiday}</td>
-            <td>{booking.cohort}</td>
-            <td>{booking.Purpose}</td>
-            {isLoggedIn ? (
+        {/* {bookings.map((booking, i) => ( */}
+        {bookings
+          .filter(
+            (booking) =>
+              DateTime.fromISO(booking.bookingStart).startOf("day") >=
+              DateTime.local().startOf("day")
+          ) //Filter bookings based on start date
+          .map((booking, i) => (
+            <tr key={i}>
+              <td>{booking.roomUseBy}</td>
               <td>
-                <Link to={`/editcourse/${booking._id}`}>📝</Link>
-                <button onClick={handleDelete(booking._id, i)}>X</button>
+                {DateTime.fromISO(booking.bookingStart).toLocaleString(
+                  DateTime.DATE_MED_WITH_WEEKDAY
+                )}
               </td>
-            ) : null}
-          </tr>
-        ))}
+              <td>
+                {DateTime.fromISO(booking.bookingEnd).toLocaleString(
+                  DateTime.DATE_MED_WITH_WEEKDAY
+                )}
+              </td>
+              <td>{booking.classRoom}</td>
+              <td>{booking.holiday}</td>
+              <td>{booking.cohort}</td>
+              <td>{booking.Purpose}</td>
+              {isLoggedIn ? (
+                <td>
+                  <Link to={`/editcourse/${booking._id}`}>📝</Link>
+                  <button onClick={handleDelete(booking._id, i)}>X</button>
+                </td>
+              ) : null}
+            </tr>
+          ))}
       </tbody>
     </table>
   );
