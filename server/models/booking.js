@@ -6,10 +6,10 @@ const bookingSchema = new mongoose.Schema(
   {
     roomUseBy: { type: String, required: true }, // trim
     // createdBy: { type: Schema.ObjectId, ref: User }, // check whether this user= admin or userOfRoom
-    createdBy: { type: String, required: true },
+    createdBy: { type: String },
     bookingStart: { type: String, required: true, index: true }, // date
     bookingEnd: { type: String, required: true, index: true }, // date
-    classRoom: { type: Number }, // min 1 max 6
+    classRoom: { type: Number, min: 1, max: 6, integer: true }, // min 1 max 6
     holiday: { type: Boolean, required: true },
     cohort: { type: String }, // trim
     bookingPurpose: { type: String }, // trim

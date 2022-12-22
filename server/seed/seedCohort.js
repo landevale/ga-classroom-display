@@ -5,8 +5,8 @@ const seed = async (req, res) => {
     {
       courseCode: "SEI40",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-27T00:00:00.000+08:00",
-      endDate: "2023-01-05T00:00:00.000+08:00",
+      startDate: "2022-12-27",
+      endDate: "2023-01-05",
       daysOnCampus: {
         monday: true,
         tuesday: true,
@@ -25,8 +25,8 @@ const seed = async (req, res) => {
     {
       courseCode: "SEI41",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-27T00:00:00.000+08:00",
-      endDate: "2023-01-05T00:00:00.000+08:00",
+      startDate: "2022-12-27",
+      endDate: "2023-01-05",
       daysOnCampus: {
         monday: true,
         tuesday: true,
@@ -44,8 +44,8 @@ const seed = async (req, res) => {
     {
       courseCode: "DSiFX07",
       courseSchedule: "PartTime", //PartTime or FullTime
-      startDate: "2022-12-28T00:00:00.000+08:00",
-      endDate: "2023-01-10T00:00:00.000+08:00",
+      startDate: "2022-12-28",
+      endDate: "2023-01-10",
       daysOnCampus: {
         monday: false,
         tuesday: true,
@@ -63,8 +63,8 @@ const seed = async (req, res) => {
     {
       courseCode: "ISOTest",
       courseSchedule: "PartTime", //PartTime or FullTime
-      startDate: "2023-01-09T00:00:00.000+08:00",
-      endDate: "2023-02-09T00:00:00.000+08:00",
+      startDate: "2023-01-09",
+      endDate: "2023-02-09",
       daysOnCampus: {
         monday: true,
         tuesday: true,
@@ -82,8 +82,8 @@ const seed = async (req, res) => {
     {
       courseCode: "manBookInitLoadTest",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-22T00:00:00.000+08:00",
-      endDate: "2022-02-24T00:00:00.000+08:00",
+      startDate: "2022-12-22",
+      endDate: "2022-02-24",
       daysOnCampus: {
         monday: true,
         tuesday: true,
@@ -102,8 +102,8 @@ const seed = async (req, res) => {
     {
       courseCode: "OddSatCohort",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2023-02-01T00:00:00.000+08:00",
-      endDate: "2023-02-27T00:00:00.000+08:00",
+      startDate: "2023-02-01",
+      endDate: "2023-02-27",
       daysOnCampus: {
         monday: true,
         tuesday: true,
@@ -122,8 +122,8 @@ const seed = async (req, res) => {
     {
       courseCode: "EvenSatCohort",
       courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2023-02-01T00:00:00.000+08:00",
-      endDate: "2023-02-27T00:00:00.000+08:00",
+      startDate: "2023-02-01",
+      endDate: "2023-02-27",
       daysOnCampus: {
         monday: true,
         tuesday: true,

@@ -20,9 +20,9 @@ function CourseEditForm({ id }) {
   //   fetchCourse();
   // }, [id]);
 
-  let initialValues = {
-    courseCode: "SEI40",
-    courseSchedule: "FullTime",
+  const initialValues = {
+    courseCode: "",
+    courseSchedule: "",
     startDate: "",
     endDate: "",
     daysOnCampus: {
@@ -32,10 +32,10 @@ function CourseEditForm({ id }) {
       thursday: false,
       friday: false,
     },
-    altSaturdays: "none",
+    altSaturdays: "",
     startTime: "",
     endTime: "",
-    classRoom: "4",
+    classRoom: "",
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function CourseEditForm({ id }) {
       .then((response) => response.json())
       .then((data) => {
         setFormState(data);
-        initialValues = data;
+        // initialValues = data;
         formik.setValues(data);
       });
   }, [id]);
@@ -261,6 +261,7 @@ function CourseEditForm({ id }) {
               <option value="4">Classroom 4</option>
               <option value="5">Classroom 5</option>
               <option value="6">Classroom 6</option>
+              <option value="">None</option>
             </Field>
             <br />
             {/* <fieldset>

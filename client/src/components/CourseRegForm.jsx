@@ -207,6 +207,7 @@ function CourseRegForm() {
           />
           <br />
           <br />
+          <label htmlFor="classRoom">Classroom: </label>
           <select name="classRoom" onChange={handleChange}>
             <option value="" disabled selected>
               Select a classroom
@@ -217,6 +218,7 @@ function CourseRegForm() {
             <option value="4">Classroom 4</option>
             <option value="5">Classroom 5</option>
             <option value="6">Classroom 6</option>
+            <option value="">None</option>
           </select>
           <br />
 

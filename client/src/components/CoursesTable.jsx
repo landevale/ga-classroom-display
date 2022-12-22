@@ -49,9 +49,26 @@ function CoursesTable() {
           <tr key={i}>
             <td>{course.courseCode}</td>
             <td>{course.courseSchedule}</td>
-            <td>{DateTime.fromISO(course.startDate).toISODate()}</td>
-            <td>{DateTime.fromISO(course.endDate).toISODate()}</td>
-            <td>Days on Campus</td>
+            <td>
+              {DateTime.fromISO(course.startDate).toLocaleString(
+                DateTime.DATE_MED_WITH_WEEKDAY
+              )}
+            </td>
+            <td>
+              {DateTime.fromISO(course.endDate).toLocaleString(
+                DateTime.DATE_MED_WITH_WEEKDAY
+              )}
+            </td>
+            <td>
+              {Object.entries(course.daysOnCampus)
+                .map(([day, isOnCampus]) =>
+                  isOnCampus
+                    ? day.slice(0, 1).toUpperCase() + day.slice(1, 3)
+                    : null
+                )
+                .filter((day) => day !== null)
+                .join(", ")}
+            </td>
             <td>{course.startTime}</td>
             <td>{course.endTime}</td>
             <td>{course.altSaturdays}</td>
