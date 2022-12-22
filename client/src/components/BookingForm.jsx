@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { DateTime } from "luxon";
 import { bookingSchema } from "../schemas/bookingSchema";
+import PropTypes from "prop-types";
 
-function BookingForm() {
+function BookingForm({ setRefresh }) {
+  BookingForm.propTypes = {
+    setRefresh: PropTypes.func,
+  };
+
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
@@ -35,6 +40,7 @@ function BookingForm() {
           }
           const data = await response.json();
           console.log(data);
+          setRefresh(true);
           navigate("/bookings");
         } catch (error) {
           console.log(values);

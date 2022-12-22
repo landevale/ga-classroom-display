@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DataContext } from "../App";
-import CourseEditForm from "../components/CourseEditForm";
+import BookingEditForm from "../components/BookingEditForm";
 
-function EditCourse() {
+function EditBooking() {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -11,12 +11,12 @@ function EditCourse() {
 
   return isLoggedIn ? (
     <>
-      <h1>Edit Course</h1>
-      <CourseEditForm id={id} />
+      <h1>Edit Bookings</h1>
+      <BookingEditForm id={id} />
     </>
   ) : (
     navigate("/")
   );
 }
 
-export default EditCourse;
+export default EditBooking;

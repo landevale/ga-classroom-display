@@ -74,10 +74,10 @@ function BookingsTable({ refresh, setRefresh }) {
               <td>{booking.classRoom}</td>
               <td>{booking.holiday}</td>
               <td>{booking.cohort}</td>
-              <td>{booking.Purpose}</td>
+              <td>{booking.bookingPurpose}</td>
               {isLoggedIn ? (
                 <td>
-                  <Link to={`/editcourse/${booking._id}`}>📝</Link>
+                  <Link to={`/editbooking/${booking._id}`}>📝</Link>
                   <button onClick={handleDelete(booking._id, i)}>X</button>
                 </td>
               ) : null}

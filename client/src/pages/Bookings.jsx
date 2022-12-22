@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../App";
 import BookingForm from "../components/BookingForm";
@@ -6,6 +6,7 @@ import BookingsTable from "../components/BookingsTable";
 
 function Bookings() {
   const { isLoggedIn } = useContext(DataContext);
+  const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
 
   return isLoggedIn ? (
@@ -14,10 +15,10 @@ function Bookings() {
         <h1>Bookings</h1>
       </div>
       <div>
-        <BookingForm />
+        <BookingForm setRefresh={setRefresh} />
       </div>
       <div>
-        <BookingsTable />
+        <BookingsTable refresh={refresh} setRefresh={setRefresh} />
       </div>
     </>
   ) : (

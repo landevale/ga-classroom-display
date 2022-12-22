@@ -24,6 +24,39 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedBooking = await Booking.findByIdAndRemove(id);
+    res.status(200).send(deletedBooking);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const booking = await Booking.findById(id);
+    res.json(booking);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedBooking = await Booking.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).send(updatedBooking);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // router.get("/seed", async (req, res) => {
 //   const users = [
 //     {

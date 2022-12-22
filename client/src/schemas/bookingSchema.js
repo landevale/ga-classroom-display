@@ -5,7 +5,7 @@ export const bookingSchema = Yup.object().shape({
   createdBy: Yup.string(),
   bookingStart: Yup.date().required("Start date is required"),
   bookingEnd: Yup.date().required("End Date is required"),
-  classRoom: Yup.number().integer().positive().min(1).max(6),
+  classRoom: Yup.number().integer().positive().min(1).max(6).nullable(true),
   holiday: Yup.boolean().required(),
   cohort: Yup.string(),
   bookingPurpose: Yup.string(),

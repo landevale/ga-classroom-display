@@ -1,13 +1,13 @@
 import React, { useState, createContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar";
 import SharedLayout from "./pages/SharedLayout";
 import LogLayout from "./pages/LogLayout";
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import EditCourse from "./pages/EditCourse";
 import Bookings from "./pages/Bookings";
+import EditBooking from "./pages/EditBooking";
 import Display from "./pages/Display";
 import DisplayClassroom from "./pages/DisplayClassroom";
 import Logout from "./pages/Logout";
@@ -61,6 +61,7 @@ function App() {
               <Route path="/courses" element={<Courses />} />
               <Route path="/editcourse/:id" element={<EditCourse />} />
               <Route path="/bookings" element={<Bookings />} />
+              <Route path="/editbooking/:id" element={<EditBooking />} />
               <Route path="/display" element={<Display />} />
               <Route path="*" element={<Error />} />
               <Route path="/test" element={<Testing />} />
