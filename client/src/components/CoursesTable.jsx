@@ -14,7 +14,7 @@ function CoursesTable({ refresh, setRefresh }) {
   const [selectedClassRoom, setSelectedClassRoom] = useState("");
 
   useEffect(() => {
-    console.log(selectedClassRoom);
+    console.log("selectedClassRoom", selectedClassRoom);
   }, [selectedClassRoom]);
 
   useEffect(() => {
@@ -79,18 +79,19 @@ function CoursesTable({ refresh, setRefresh }) {
         {courses
           .filter(
             (course) =>
+              selectedClassRoom === "" ||
+              (course.classRoom && course.classRoom == selectedClassRoom)
+          ) //Filter courses based on classroom
+          .filter(
+            (course) =>
               DateTime.fromISO(course.endDate).startOf("day") >=
               DateTime.local().startOf("day")
           ) //Filter courses based on end date
-          .filter(
-            (course) =>
-              selectedClassRoom === "" ||
-              (course.classRoom && course.classRoom === selectedClassRoom)
-          ) //Filter courses based on classroom
           .map((course, i) => (
             <>
               {" "}
               {console.log("Filter and map", courses)}
+              {console.log("course.classRoom", course.classRoom)}
               <tr key={i}>
                 <td>{course.courseCode}</td>
                 <td>{course.courseSchedule}</td>
