@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import mainLogo from "../assets/CMYK-White-Red_Small_GeneralAssembly-Horizontal.png";
 import { useParams } from "react-router-dom";
+import useCalDisplayLogic from "../components/CalDisplayLogic";
+import { DataContext } from "../App";
 
 function DisplayClassroom() {
+  // const { occupiedBy } = useContext(DataContext);
   const [countdown, setCountdown] = useState(10);
 
+  const calDisplayLogic = useCalDisplayLogic();
+  console.log("CALDisLogic", calDisplayLogic);
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown((countdown) => countdown - 1);
@@ -14,7 +19,7 @@ function DisplayClassroom() {
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [countdown]);
+  }, [countdown, calDisplayLogic]);
 
   const { id } = useParams();
   return (
@@ -22,7 +27,7 @@ function DisplayClassroom() {
       <main style={{ backgroundColor: "grey" }}>
         <h1>CLASSROOM {id}</h1>
         <hr />
-        <h2>SEI-40</h2>
+        <h2>{calDisplayLogic[id-1]?.[0]}</h2>
         <h3>Purpose</h3>
         <p>Start time - End time</p>
         <p>Placeholder: {countdown} seconds remaining until refresh.</p>

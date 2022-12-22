@@ -13,7 +13,7 @@ function Login() {
   const { setUser, isLoggedIn, setIsLoggedIn } = useContext(DataContext);
 
   const handleLogin = async (info) => {
-    console.log(info);
+    // console.log(info);
     const response = await fetch("/api/login", {
       method: "POST",
       headers: {

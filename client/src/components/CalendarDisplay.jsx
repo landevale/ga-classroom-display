@@ -1,21 +1,53 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { DateTime, Interval } from "luxon";
 import { DataContext } from "../App";
 import PropTypes from "prop-types";
-import CalDisplayLogic from "./CalDisplayLogic";
+import useCalDisplayLogic from "./CalDisplayLogic";
+import { useCallback } from "react";
 
-function CalendarDisplay() {
+export default function CalendarDisplay() {
   // Prop validaton
-  const { selectedDateState } = useContext(DataContext);
+  const {
+    selectedDateState,
+    daysToShow,
+    occupiedFinalArray,
+    // numberOfClassRooms,
+  } = useContext(DataContext);
   CalendarDisplay.propTypes = {
     selectedDateState: PropTypes.string,
   };
 
+  // useEffect(() => {
+  //   useCalDisplayLogic(selectedDateState);
+  // }, [selectedDateState]);
+
+  //   return state
+  const calDisplayLogic = useCalDisplayLogic();
+  console.log(calDisplayLogic);
+  // const Home = () => {
+  // const [occupiedFinalArray]
+  // }
+  //   console.log("effectRunning");
+  // }, [selectedDateState]);
+
+  // const [currentCalendarArray, setCurrentCalendarArray] = useState([]);
+  // let calLogicFunction = async () => {
+  // let currentCalendarArray = useCalDisplayLogic();
+  // };
+
+  // calLogicFunction();
+
+  // useEffect(() => {
+  // calLogicFunction();
+  // }, [selectedDateState]);
+
+  // useCalDisplayLogic();
+
   //===========================================================
-  const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE (future feature)
+  // const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE (future feature)
   //===========================================================
   //===========================================================
-  const numberOfClassRooms = 6; //EDIT Number of Classrooms HERE (future feature)
+  // const numberOfClassRooms = 6; //EDIT Number of Classrooms HERE (future feature)
   //===========================================================
   //============================================
   //Populating table with Headers (e.g. date, and day)
@@ -27,6 +59,7 @@ function CalendarDisplay() {
         .toLocaleString(DateTime.DATE_MED)
     );
   }
+  // console.log(selectedDateState);
   const dayHeaderRow = [];
   for (let i = 0; i < daysToShow; i++) {
     dayHeaderRow.push(
@@ -37,12 +70,6 @@ function CalendarDisplay() {
     );
   }
 
-  const occupiedBy = [];
-  CalDisplayLogic({
-    daysToShow,
-    numberOfClassRooms,
-    occupiedBy,
-  });
   //=====COMMS OUT(1)==========
   // //==============================
   // //Fetching Data json and set state for Data into cohort & bookingState
@@ -425,7 +452,7 @@ function CalendarDisplay() {
         </tr>
         <tr>
           <td>Classroom 1</td>
-          {occupiedBy[0].map((ele, i) => (
+          {calDisplayLogic[0]?.map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}
             </td>
@@ -434,7 +461,8 @@ function CalendarDisplay() {
 
         <tr>
           <td>Classroom 2</td>
-          {occupiedBy[1].map((ele, i) => (
+          {/* {currentCalendarArray[1]?.map((ele, i) => ( */}
+          {calDisplayLogic[1]?.map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}
             </td>
@@ -443,7 +471,8 @@ function CalendarDisplay() {
 
         <tr>
           <td>Classroom 3</td>
-          {occupiedBy[2].map((ele, i) => (
+          {/* {currentCalendarArray[2]?.map((ele, i) => ( */}
+          {calDisplayLogic[2]?.map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}
             </td>
@@ -452,7 +481,8 @@ function CalendarDisplay() {
 
         <tr>
           <td>Classroom 4</td>
-          {occupiedBy[3].map((ele, i) => (
+
+          {calDisplayLogic[3]?.map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}
             </td>
@@ -461,7 +491,7 @@ function CalendarDisplay() {
 
         <tr>
           <td>Classroom 5</td>
-          {occupiedBy[4].map((ele, i) => (
+          {calDisplayLogic[4]?.map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}
             </td>
@@ -470,7 +500,8 @@ function CalendarDisplay() {
 
         <tr>
           <td>Classroom 6</td>
-          {occupiedBy[5].map((ele, i) => (
+
+          {calDisplayLogic[5]?.map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}
             </td>
@@ -481,4 +512,3 @@ function CalendarDisplay() {
   );
 }
 
-export default CalendarDisplay;

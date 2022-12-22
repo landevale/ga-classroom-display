@@ -29,6 +29,13 @@ function App() {
       .plus({ days: 0 })
       .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
   );
+  const [occupiedFinalArray,setOccupiedFinalArray] = useState([]);
+  //===========================================================
+  const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE (future feature)
+  //===========================================================
+  //===========================================================
+  const numberOfClassRooms = 6; //EDIT Number of Classrooms HERE (future feature)
+  //===========================================================
   return (
     <div className="App">
       <DataContext.Provider
@@ -41,6 +48,10 @@ function App() {
           setIsLoggedIn,
           selectedDateState,
           setSelectedDateState,
+          occupiedFinalArray,
+          setOccupiedFinalArray,
+          daysToShow,
+          numberOfClassRooms,
         }}
       >
         <BrowserRouter>
