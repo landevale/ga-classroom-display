@@ -12,8 +12,11 @@ function CoursesTable({ refresh, setRefresh }) {
   const { isLoggedIn } = useContext(DataContext);
   const [courses, setCourses] = useState([]);
   const [selectedClassRoom, setSelectedClassRoom] = useState("");
+  const [sort, setSort] = useState({ key: "startDate", order: "asc" });
+
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Search
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -54,6 +57,23 @@ function CoursesTable({ refresh, setRefresh }) {
   console.log("1st courses check", courses);
   console.log("1st filteredCourses check", filteredCourses);
 
+  // Sorting Filtered Courses
+  const handleSort = (key) => {
+    setSort({ key, order: sort.order === "asc" ? "desc" : "asc" });
+  };
+
+  const sortedFilteredCourses = filteredCourses.sort((a, b) => {
+    const aValue = a[sort.key];
+    const bValue = b[sort.key];
+    if (aValue < bValue) {
+      return sort.order === "asc" ? -1 : 1;
+    }
+    if (aValue > bValue) {
+      return sort.order === "asc" ? 1 : -1;
+    }
+    return 0;
+  });
+
   return (
     <>
       <label htmlFor="search">
@@ -89,8 +109,18 @@ function CoursesTable({ refresh, setRefresh }) {
           <tr>
             <th>Cohort</th>
             <th>Type</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th onClick={() => handleSort("startDate")}>
+              Start Date{" "}
+              {sort.key === "startDate"
+                ? sort.order === "asc"
+                  ? "▲"
+                  : "▼"
+                : ""}
+            </th>
+            <th onClick={() => handleSort("endDate")}>
+              End Date{" "}
+              {sort.key === "endDate" ? (sort.order === "asc" ? "▲" : "▼") : ""}
+            </th>
             <th>Days</th>
             <th>Start Time</th>
             <th>End Time</th>
@@ -102,7 +132,7 @@ function CoursesTable({ refresh, setRefresh }) {
         </thead>
         <tbody>
           {/* {courses.map((course, i) => ( */}
-          {filteredCourses
+          {sortedFilteredCourses
             .filter(
               (course) =>
                 selectedClassRoom === "" ||
@@ -116,6 +146,7 @@ function CoursesTable({ refresh, setRefresh }) {
             .map((course, i) => (
               <>
                 {" "}
+                {console.log("Sorted ", sortedFilteredCourses)}
                 {console.log("Filtered ", filteredCourses)}
                 {console.log("Filter and map", courses)}
                 {console.log("course.classRoom", course.classRoom)}
