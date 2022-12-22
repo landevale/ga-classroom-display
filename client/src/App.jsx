@@ -29,7 +29,7 @@ function App() {
       .plus({ days: 0 })
       .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
   );
-  const [occupiedFinalArray,setOccupiedFinalArray] = useState([]);
+  const [occupiedFinalArray, setOccupiedFinalArray] = useState([]);
   //===========================================================
   const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE (future feature)
   //===========================================================
@@ -66,7 +66,6 @@ function App() {
               <Route path="/test" element={<Testing />} />
             </Route>
             {/* Banner */}
-
             <Route path="/" element={<LogLayout />}>
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout setUser={setUser} />} />

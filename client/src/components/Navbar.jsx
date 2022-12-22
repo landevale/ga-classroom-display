@@ -7,13 +7,7 @@ import UserInfo from "./UserInfo";
 function Navbar() {
   const navigate = useNavigate();
 
-  const {
-    user,
-    setUser,
-
-    isLoggedIn,
-    setIsLoggedIn,
-  } = useContext(DataContext);
+  const { setUser, isLoggedIn, setIsLoggedIn } = useContext(DataContext);
   // console.log(user);
 
   useEffect(() => {

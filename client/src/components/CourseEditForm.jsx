@@ -271,7 +271,7 @@ function CourseEditForm({ id }) {
             <br />
 
             <br />
-            <button type="submit">Create Course</button>
+            <button type="submit">Edit Course</button>
             <p>{msg}</p>
           </form>
         </fieldset>
