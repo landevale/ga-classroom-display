@@ -24,7 +24,7 @@ export default function CalendarDisplay() {
         .toLocaleString(DateTime.DATE_MED)
     );
   }
-  // console.log(selectedDateState);
+
   const dayHeaderRow = [];
   for (let i = 0; i < daysToShow; i++) {
     dayHeaderRow.push(

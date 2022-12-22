@@ -19,7 +19,6 @@ const useCalDisplayLogic = () => {
       .then((response) => response.json())
       .then((data) => setCohortState(data));
   }, []);
-  // console.log("COHORTSTATE", cohortState);
 
   const [bookingsState, setBookingsState] = useState([]);
   useEffect(() => {
@@ -28,19 +27,13 @@ const useCalDisplayLogic = () => {
       .then((data) => setBookingsState(data));
   }, []);
 
-  // console.log("BOOKINGSSTATE", bookingsState);
   useEffect(() => {
     //Changing selectedDateState to working ISO date
     const selectedISODate = DateTime.fromFormat(
       selectedDateState.slice(5),
       "d MMM yyyy"
     ).toISO();
-    //===========================================================
-    // const daysToShow = 7; //EDIT DAYS TO SHOW IN CALENDAR HERE (future feature)
-    //===========================================================
-    //===========================================================
-    // const numberOfClassRooms = 6; //EDIT Number of Classrooms HERE (future feature)
-    //===========================================================
+
     //==========================================
     // Logic for creating empty array (to be appended later) then mapped onto table
 
@@ -286,7 +279,6 @@ const useCalDisplayLogic = () => {
     //Logic for Sundays (to be made the 2nd highest priority (aka 2nd lowest/2nd last to be run) apart from Holidays)
     for (let m = 0; m < numberOfClassRooms; m++) {
       for (let p = 0; p < weekDayArray.length; p++) {
-        console.log("289", weekDayArray.length);
         if (weekDayArray[p] === "Sun") {
           occupiedBy[m][p] = "SUN";
         }
@@ -305,24 +297,13 @@ const useCalDisplayLogic = () => {
       let currDate = "";
       let currBookingStartDate = "";
       let currBookingEndDate = "";
-      // currBookingStartDate = new Date(bookingsState[i].bookingStart);
-      // currBookingEndDate = new Date(bookingsState[i].bookingEnd);
 
-      // console.log("BOOKSTART Van = ", bookingsState[i].bookingStart);
       currBookingStartDate = new Date(
         DateTime.fromISO(bookingsState[i].bookingStart).toISO()
       );
       currBookingEndDate = new Date(
         DateTime.fromISO(bookingsState[i].bookingEnd).toISO()
       );
-
-      // console.log("SELDATESTATE in booking = ", selectedDateState);
-      // console.log("CurrBookStart", new Date(
-      //     DateTime.fromISO(currBookingStartDate).toISO()))
-      // console.log(
-      //   "CurrBookEnd",
-      //   new Date(DateTime.fromISO(currBookingEndDate).toISO())
-      // );
 
       if (bookingsState[i].holiday === true) {
         //IF holiday === true, loop through all the classRooms and through every displayed day, check whether displayDate intersects with holiday period, replace holiday's name in the cell
@@ -336,7 +317,6 @@ const useCalDisplayLogic = () => {
             currDate = new Date(
               DateTime.fromISO(selectedISODate).plus({ days: k }).toISO()
             );
-            // console.log("booking compare Curr Date = ", currDate);
             if (
               currBookingStartDate <= currDate &&
               currBookingEndDate >= currDate
@@ -387,15 +367,10 @@ const useCalDisplayLogic = () => {
           m < occupiedBy[bookingsState[i].classRoom - 1].length;
           m++
         ) {
-          console.log(bookingsState[i]);
-          console.log("389", occupiedBy[bookingsState[i].classRoom - 1].length);
           currDate = new Date(selectedDateState);
           currDate = new Date(
             DateTime.fromISO(selectedISODate).plus({ days: m }).toISO()
           );
-          // console.log("CurrDate non hol-1daybook = ", currDate);
-          // console.log("cbsd", currBookingStartDate);
-          // console.log("cbed", currBookingEndDate);
           if (
             // true
             currBookingStartDate <= currDate &&
@@ -405,7 +380,6 @@ const useCalDisplayLogic = () => {
             occupiedBy[bookingsState[i].classRoom - 1][m] !== "" &&
             occupiedBy[bookingsState[i].classRoom - 1][m] !== "SUN"
           ) {
-            console.log("booking detected + overwrite");
             occupiedBy[bookingsState[i].classRoom - 1][m] =
               "*" + bookingsState[i].roomUseBy;
           } else if (
@@ -419,30 +393,10 @@ const useCalDisplayLogic = () => {
         }
       }
     }
-    // console.log("OCCUPIEDBY", occupiedBy);
+
     setOccupiedFinalArray(occupiedBy);
-    // console.log("OCcFinArray", occupiedFinalArray);
   }, [selectedDateState, bookingsState, cohortState]);
-  // //============================================
-  // //Populating table with Headers (e.g. date, and day)
-  // const dateHeaderRow = [];
-  // for (let i = 0; i < daysToShow; i++) {
-  //   dateHeaderRow.push(
-  //     DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-  //       .plus({ days: i })
-  //       .toLocaleString(DateTime.DATE_MED)
-  //   );
-  // }
-  // const dayHeaderRow = [];
-  // for (let i = 0; i <; daysToShow; i++) {
-  //   dayHeaderRow.push(
-  //     DateTime.fromFormat(selectedDateState, "ccc, d LLL y")
-  //       .plus({ days: i })
-  //       .toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
-  //       .slice(0, 3)
-  //   );
-  // }
-  // return occupiedBy
+
   return occupiedFinalArray;
 };
 
