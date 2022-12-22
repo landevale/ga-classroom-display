@@ -19,7 +19,7 @@ const useCalDisplayLogic = () => {
       .then((response) => response.json())
       .then((data) => setCohortState(data));
   }, []);
-  console.log("COHORTSTATE", cohortState);
+  // console.log("COHORTSTATE", cohortState);
 
   const [bookingsState, setBookingsState] = useState([]);
   useEffect(() => {
@@ -28,7 +28,7 @@ const useCalDisplayLogic = () => {
       .then((data) => setBookingsState(data));
   }, []);
 
-  console.log("BOOKINGSSTATE", bookingsState);
+  // console.log("BOOKINGSSTATE", bookingsState);
   useEffect(() => {
     //Changing selectedDateState to working ISO date
     const selectedISODate = DateTime.fromFormat(
@@ -115,6 +115,12 @@ const useCalDisplayLogic = () => {
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
                   cohortState[i].courseCode;
+              } else if (
+                cohortState[i].daysOnCampus.monday === true &&
+                occupiedBy[cohortState[i].classRoom - 1][j] !== ""
+              ) {
+                occupiedBy[cohortState[i].classRoom - 1][j] =
+                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
               }
               break;
 
@@ -126,6 +132,12 @@ const useCalDisplayLogic = () => {
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
                   cohortState[i].courseCode;
+              } else if (
+                cohortState[i].daysOnCampus.tuesday === true &&
+                occupiedBy[cohortState[i].classRoom - 1][j] !== ""
+              ) {
+                occupiedBy[cohortState[i].classRoom - 1][j] =
+                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
               }
               break;
             case "Wed":
@@ -135,28 +147,42 @@ const useCalDisplayLogic = () => {
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
                   cohortState[i].courseCode;
+              } else if (
+                cohortState[i].daysOnCampus.wednesday === true &&
+                occupiedBy[cohortState[i].classRoom - 1][j] === ""
+              ) {
+                occupiedBy[cohortState[i].classRoom - 1][j] =
+                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
               }
               break;
             case "Thu":
               if (
                 cohortState[i].daysOnCampus.thursday === true &&
                 occupiedBy[cohortState[i].classRoom - 1][j] === ""
-                // cohortState[i].courseCode ===
-                //   occupiedBy[cohortState[i].classRoom - 1][k]
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
                   cohortState[i].courseCode;
+              } else if (
+                cohortState[i].daysOnCampus.thursday === true &&
+                occupiedBy[cohortState[i].classRoom - 1][j] !== ""
+              ) {
+                occupiedBy[cohortState[i].classRoom - 1][j] =
+                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
               }
               break;
             case "Fri":
               if (
                 cohortState[i].daysOnCampus.friday === true &&
                 occupiedBy[cohortState[i].classRoom - 1][j] === ""
-                // cohortState[i].courseCode ===
-                //   occupiedBy[cohortState[i].classRoom - 1][k]
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
                   cohortState[i].courseCode;
+              } else if (
+                cohortState[i].daysOnCampus.friday === true &&
+                occupiedBy[cohortState[i].classRoom - 1][j] !== ""
+              ) {
+                occupiedBy[cohortState[i].classRoom - 1][j] =
+                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
               }
               break;
             case "Sat":
@@ -205,6 +231,15 @@ const useCalDisplayLogic = () => {
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
                   cohortState[i].courseCode;
+              } else if (
+                cohortState[i].altSaturdays === "odd" &&
+                weekDateCompareArray.filter((value) =>
+                  oddSaturdays.includes(value)
+                ).length !== 0 &&
+                occupiedBy[cohortState[i].classRoom - 1][j] !== ""
+              ) {
+                occupiedBy[cohortState[i].classRoom - 1][j] =
+                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
               }
 
               if (
@@ -217,6 +252,15 @@ const useCalDisplayLogic = () => {
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
                   cohortState[i].courseCode;
+              } else if (
+                cohortState[i].altSaturdays === "even" &&
+                weekDateCompareArray.filter((value) =>
+                  evenSaturdays.includes(value)
+                ).length !== 0 &&
+                occupiedBy[cohortState[i].classRoom - 1][j] !== ""
+              ) {
+                occupiedBy[cohortState[i].classRoom - 1][j] =
+                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
               }
 
               if (
@@ -226,6 +270,12 @@ const useCalDisplayLogic = () => {
               ) {
                 occupiedBy[cohortState[i].classRoom - 1][j] =
                   cohortState[i].courseCode;
+              } else if (
+                cohortState[i].altSaturdays === "all" &&
+                occupiedBy[cohortState[i].classRoom - 1][j] !== ""
+              ) {
+                occupiedBy[cohortState[i].classRoom - 1][j] =
+                  "*:" + occupiedBy[cohortState[i].classRoom - 1][j];
               }
               break;
           }
@@ -257,7 +307,7 @@ const useCalDisplayLogic = () => {
       // currBookingStartDate = new Date(bookingsState[i].bookingStart);
       // currBookingEndDate = new Date(bookingsState[i].bookingEnd);
 
-      console.log("BOOKSTART Van = ", bookingsState[i].bookingStart);
+      // console.log("BOOKSTART Van = ", bookingsState[i].bookingStart);
       currBookingStartDate = new Date(
         DateTime.fromISO(bookingsState[i].bookingStart).toISO()
       );
@@ -265,7 +315,7 @@ const useCalDisplayLogic = () => {
         DateTime.fromISO(bookingsState[i].bookingEnd).toISO()
       );
 
-      console.log("SELDATESTATE in booking = ", selectedDateState);
+      // console.log("SELDATESTATE in booking = ", selectedDateState);
       // console.log("CurrBookStart", new Date(
       //     DateTime.fromISO(currBookingStartDate).toISO()))
       // console.log(
@@ -285,7 +335,7 @@ const useCalDisplayLogic = () => {
             currDate = new Date(
               DateTime.fromISO(selectedISODate).plus({ days: k }).toISO()
             );
-            console.log("booking compare Curr Date = ", currDate);
+            // console.log("booking compare Curr Date = ", currDate);
             if (
               currBookingStartDate <= currDate &&
               currBookingEndDate >= currDate
@@ -313,6 +363,14 @@ const useCalDisplayLogic = () => {
             if (
               currBookingStartDate <= currDate &&
               currBookingEndDate >= currDate &&
+              occupiedBy[j][k].slice(0, 2) !== "H:" &&
+              occupiedBy[j][k] !== "" &&
+              occupiedBy[j][k] !== "SUN"
+            ) {
+              occupiedBy[j][k] = "*:" + bookingsState[i].roomUseBy;
+            } else if (
+              currBookingStartDate <= currDate &&
+              currBookingEndDate >= currDate &&
               occupiedBy[j][k].slice(0, 2) !== "H:"
             ) {
               occupiedBy[j][k] = bookingsState[i].roomUseBy;
@@ -332,25 +390,35 @@ const useCalDisplayLogic = () => {
           currDate = new Date(
             DateTime.fromISO(selectedISODate).plus({ days: m }).toISO()
           );
-          console.log("CurrDate non hol-1daybook = ", currDate);
-          console.log("cbsd", currBookingStartDate);
-          console.log("cbed", currBookingEndDate);
+          // console.log("CurrDate non hol-1daybook = ", currDate);
+          // console.log("cbsd", currBookingStartDate);
+          // console.log("cbed", currBookingEndDate);
           if (
             // true
             currBookingStartDate <= currDate &&
             currBookingEndDate >= currDate &&
+            occupiedBy[bookingsState[i].classRoom - 1][m].slice(0, 2) !==
+              "H:" &&
+            occupiedBy[bookingsState[i].classRoom - 1][m] !== "" &&
+            occupiedBy[bookingsState[i].classRoom - 1][m] !== "SUN"
+          ) {
+            console.log("booking detected + overwrite");
+            occupiedBy[bookingsState[i].classRoom - 1][m] =
+              "*:" + bookingsState[i].roomUseBy;
+          } else if (
+            currBookingStartDate <= currDate &&
+            currBookingEndDate >= currDate &&
             occupiedBy[bookingsState[i].classRoom - 1][m].slice(0, 2) !== "H:"
           ) {
-            console.log("booking detected");
             occupiedBy[bookingsState[i].classRoom - 1][m] =
               bookingsState[i].roomUseBy;
           }
         }
       }
     }
-    console.log("OCCUPIEDBY", occupiedBy);
+    // console.log("OCCUPIEDBY", occupiedBy);
     setOccupiedFinalArray(occupiedBy);
-    console.log("OCcFinArray", occupiedFinalArray);
+    // console.log("OCcFinArray", occupiedFinalArray);
   }, [selectedDateState, bookingsState, cohortState]);
   // //============================================
   // //Populating table with Headers (e.g. date, and day)
