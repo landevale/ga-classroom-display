@@ -21,25 +21,6 @@ const seed = async (req, res) => {
       studentSuccess: "Kerin",
       altSaturdays: "none", //none, odd, even, ALL
     },
-    {
-      courseCode: "Ovr-onTue",
-      courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-27",
-      endDate: "2023-01-05",
-      daysOnCampus: {
-        monday: false,
-        tuesday: true,
-        wednesday: true,
-        thursday: false,
-        friday: false,
-      },
-      startTime: "09:00",
-      endTime: "17:00",
-      classRoom: 4,
-      weeks: 2,
-      studentSuccess: "Kerin",
-      altSaturdays: "none", //none, odd, even, ALL
-    },
 
     {
       courseCode: "SEI41",
@@ -231,26 +212,6 @@ const seed = async (req, res) => {
       startTime: "09:00",
       endTime: "17:00",
       classRoom: 5,
-      weeks: 2,
-      studentSuccess: "Kerin",
-      altSaturdays: "none", //none, odd, even, ALL
-    },
-
-    {
-      courseCode: "SEi41",
-      courseSchedule: "FullTime", //PartTime or FullTime
-      startDate: "2022-12-05",
-      endDate: "2023-03-10",
-      daysOnCampus: {
-        monday: true,
-        tuesday: true,
-        wednesday: true,
-        thursday: true,
-        friday: false,
-      },
-      startTime: "09:00",
-      endTime: "17:00",
-      classRoom: 4,
       weeks: 2,
       studentSuccess: "Kerin",
       altSaturdays: "none", //none, odd, even, ALL
