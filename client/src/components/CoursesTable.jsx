@@ -79,9 +79,9 @@ function CoursesTable({ refresh, setRefresh }) {
         {courses
           .filter(
             (course) =>
-              DateTime.fromISO(course.startDate).startOf("day") >=
+              DateTime.fromISO(course.endDate).startOf("day") >=
               DateTime.local().startOf("day")
-          ) //Filter courses based on start date
+          ) //Filter courses based on end date
           .filter(
             (course) =>
               selectedClassRoom === "" ||
@@ -90,7 +90,7 @@ function CoursesTable({ refresh, setRefresh }) {
           .map((course, i) => (
             <>
               {" "}
-              {console.log("Filter and map", course)}
+              {console.log("Filter and map", courses)}
               <tr key={i}>
                 <td>{course.courseCode}</td>
                 <td>{course.courseSchedule}</td>

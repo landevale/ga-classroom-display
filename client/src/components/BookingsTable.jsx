@@ -55,9 +55,9 @@ function BookingsTable({ refresh, setRefresh }) {
         {bookings
           .filter(
             (booking) =>
-              DateTime.fromISO(booking.bookingStart).startOf("day") >=
+              DateTime.fromISO(booking.bookingEnd).startOf("day") >=
               DateTime.local().startOf("day")
-          ) //Filter bookings based on start date
+          ) //Filter bookings based on end date
           .map((booking, i) => (
             <tr key={i}>
               <td>{booking.roomUseBy}</td>
