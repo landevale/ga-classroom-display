@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link as NavLink, Link, useNavigate } from "react-router-dom";
 import { DataContext } from "../App";
 import mainLogo from "../assets/CMYK-White-Red_Small_GeneralAssembly-Horizontal.png";
+import fallbackLogo from "../assets/General-Assembly-logo.png";
 import UserInfo from "./UserInfo";
 
 function Navbar() {
@@ -50,6 +51,10 @@ function Navbar() {
           <Link to="/">
             <img
               src={mainLogo}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = fallbackLogo;
+              }}
               style={{ width: 500, height: "auto", backgroundColor: "black" }}
               alt="GENERAL ASSEMBLY"
             />

@@ -9,7 +9,7 @@ import EditCourse from "./pages/EditCourse";
 import Bookings from "./pages/Bookings";
 import EditBooking from "./pages/EditBooking";
 import Display from "./pages/Display";
-import DisplayClassroom from "./pages/DisplayClassroom";
+import DisplayClassroom from "./display/DisplayClassroom";
 import Logout from "./pages/Logout";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
