@@ -28,6 +28,11 @@ router.get("/seed", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  // Check for the presence of session data
+  if (!req.session.username) {
+    res.status(401).send("Unauthorized");
+    return;
+  }
   try {
     const users = await User.find({}).exec();
     console.log(users);
