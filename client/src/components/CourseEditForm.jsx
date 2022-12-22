@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useFormik, Formik, Field, Form, FormikProvider } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useFormik, Field, FormikProvider } from "formik";
 import { DateTime } from "luxon";
 import { courseRegSchema } from "../schemas/courseRegSchema";
+import PropTypes from "prop-types";
 
 function CourseEditForm({ id }) {
+  CourseEditForm.propTypes = {
+    id: PropTypes.string,
+  };
+
   const [msg, setMsg] = useState("");
 
   const navigate = useNavigate();
   const [formState, setFormState] = useState({});
-
-  // useEffect(() => {
-  //   const fetchCourse = async () => {
-  //     const response = await fetch(`/api/cohorts/${id}`);
-  //     const data = await response.json();
-  //     console.log("From effect", data);
-  //     setFormState(data);
-  //   };
-  //   fetchCourse();
-  // }, [id]);
 
   const initialValues = {
     courseCode: "",
@@ -37,6 +32,16 @@ function CourseEditForm({ id }) {
     endTime: "",
     classRoom: "",
   };
+
+  // useEffect(() => {
+  //   const fetchCourse = async () => {
+  //     const response = await fetch(`/api/cohorts/${id}`);
+  //     const data = await response.json();
+  //     console.log("From effect", data);
+  //     setFormState(data);
+  //   };
+  //   fetchCourse();
+  // }, [id]);
 
   useEffect(() => {
     // Fetch form state data from the server
@@ -94,7 +99,7 @@ function CourseEditForm({ id }) {
     <FormikProvider value={formik}>
       <div>
         <fieldset>
-          <legend>Course Registration Form</legend>
+          <legend>Course Edit Form</legend>
           <form onSubmit={formik.handleSubmit}>
             <label>
               Course Code:
@@ -103,6 +108,7 @@ function CourseEditForm({ id }) {
                 name="courseCode"
                 value={formik.values.courseCode}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 required
               />
             </label>
@@ -151,9 +157,8 @@ function CourseEditForm({ id }) {
                 type="date"
                 name="startDate"
                 min={DateTime.now().toFormat("yyyy-MM-dd")}
-                //==================
-                //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
             </label>
             <p className="error">
@@ -168,9 +173,8 @@ function CourseEditForm({ id }) {
                 type="date"
                 name="endDate"
                 min={DateTime.now().toFormat("yyyy-MM-dd")}
-                //==================
-                //This confirms that when user is in Singapore, the input time is GMT+8, contrary to seeded data
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
             </label>
             <p className="error">
@@ -216,6 +220,7 @@ function CourseEditForm({ id }) {
                 as="select"
                 name="altSaturdays"
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               >
                 <option value="none">None</option>
                 <option value="odd">Odd</option>
@@ -264,71 +269,7 @@ function CourseEditForm({ id }) {
               <option value="">None</option>
             </Field>
             <br />
-            {/* <fieldset>
-              <legend>Classroom:</legend>
-              <label>
-                Classroom 1
-                <Field
-                  type="radio"
-                  name="classRoom"
-                  value="1"
-                  className="form-check-input"
-                  onChange={formik.handleChange}
-                />
-              </label>
 
-              <label>
-                Classroom 2
-                <Field
-                  type="radio"
-                  name="classRoom"
-                  value="2"
-                  className="form-check-input"
-                  onChange={formik.handleChange}
-                />
-              </label>
-              <label>
-                Classroom 3
-                <Field
-                  type="radio"
-                  name="classRoom"
-                  value="3"
-                  className="form-check-input"
-                  onChange={formik.handleChange}
-                />
-              </label>
-              <br />
-              <label>
-                Classroom 4
-                <Field
-                  type="radio"
-                  name="classRoom"
-                  value="4"
-                  className="form-check-input"
-                  onChange={formik.handleChange}
-                />
-              </label>
-              <label>
-                Classroom 5
-                <Field
-                  type="radio"
-                  name="classRoom"
-                  value="5"
-                  className="form-check-input"
-                  onChange={formik.handleChange}
-                />
-              </label>
-              <label>
-                Classroom 6
-                <Field
-                  type="radio"
-                  name="classRoom"
-                  value="6"
-                  className="form-check-input"
-                  onChange={formik.handleChange}
-                />
-              </label>
-            </fieldset> */}
             <br />
             <button type="submit">Create Course</button>
             <p>{msg}</p>

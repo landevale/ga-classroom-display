@@ -2,8 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { DateTime } from "luxon";
 import { DataContext } from "../App";
+import PropTypes from "prop-types";
 
 function CoursesTable({ refresh, setRefresh }) {
+  CoursesTable.propTypes = {
+    refresh: PropTypes.bool,
+    setRefresh: PropTypes.func,
+  };
   const [courses, setCourses] = useState([]);
   const { isLoggedIn } = useContext(DataContext);
 
@@ -16,7 +21,7 @@ function CoursesTable({ refresh, setRefresh }) {
       });
   }, [refresh]);
 
-  const handleDelete = (id, i) => () => {
+  const handleDelete = (id) => () => {
     fetch(`/api/cohorts/${id}`, {
       method: "DELETE",
       headers: {
@@ -24,6 +29,7 @@ function CoursesTable({ refresh, setRefresh }) {
       },
     })
       .then((response) => response.json())
+      // eslint-disable-next-line
       .then((data) => {
         setCourses(courses.filter((h) => h._id !== id));
       });

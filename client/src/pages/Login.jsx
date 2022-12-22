@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import { DataContext } from "../App";
+import { userSchema } from "../schemas/userSchema";
 // import LoginForm from "../components/LoginForm";
 
 function Login() {
@@ -11,15 +11,6 @@ function Login() {
   const [userId, setUserId] = useState("");
 
   const { setUser, isLoggedIn, setIsLoggedIn } = useContext(DataContext);
-
-  const schema = Yup.object().shape({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    password: Yup.string()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters"),
-  });
 
   const handleLogin = async (info) => {
     console.log(info);
@@ -63,7 +54,7 @@ function Login() {
     <>
       {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
       <Formik
-        validationSchema={schema}
+        validationSchema={userSchema}
         initialValues={{ email: "", password: "" }}
         // onSubmit={(values) => {
         //   // Alert the input values of the form that we filled
@@ -129,20 +120,6 @@ function Login() {
           </div>
         )}
       </Formik>
-      {/* <div>
-      <fieldset>
-        <legend>LOG IN</legend>
-        <label>
-          Username: <input name="username" />
-        </label>
-        {"   "}
-        <label>
-          Password: <input name="password" />
-        </label>
-        <button onClick={handleLogin}>Log In</button>
-        <LoginForm />
-      </fieldset>
-    </div> */}
     </>
   );
 }

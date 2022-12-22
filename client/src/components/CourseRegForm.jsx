@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFormik, Formik, Field, Form } from "formik";
+import { useFormik } from "formik";
 import { DateTime } from "luxon";
 import { courseRegSchema } from "../schemas/courseRegSchema";
+import PropTypes from "prop-types";
 
 function CourseRegForm({ setRefresh }) {
+  CourseRegForm.propTypes = {
+    setRefresh: PropTypes.func,
+  };
+
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
@@ -72,6 +77,7 @@ function CourseRegForm({ setRefresh }) {
               name="courseCode"
               value={values.courseCode}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
             />
           </label>
@@ -119,6 +125,7 @@ function CourseRegForm({ setRefresh }) {
               name="startDate"
               min={DateTime.now().toFormat("yyyy-MM-dd")}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
           </label>
           <p className="error">
@@ -132,6 +139,7 @@ function CourseRegForm({ setRefresh }) {
               name="endDate"
               min={DateTime.now().toFormat("yyyy-MM-dd")}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
           </label>
           <p className="error">
@@ -171,7 +179,11 @@ function CourseRegForm({ setRefresh }) {
             Friday
             <br />
             <label htmlFor="altSaturdays">Saturdays: </label>
-            <select name="altSaturdays" onChange={handleChange}>
+            <select
+              name="altSaturdays"
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
               <option value="none">None</option>
               <option value="odd">Odd</option>
               <option value="even">Even</option>

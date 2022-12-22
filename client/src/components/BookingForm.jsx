@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFormik, Formik, Field, Form } from "formik";
+import { useFormik } from "formik";
 import { DateTime } from "luxon";
 import { bookingSchema } from "../schemas/bookingSchema";
 
@@ -62,6 +62,7 @@ function BookingForm() {
               name="roomUseBy"
               value={values.roomUseBy}
               onChange={handleChange}
+              onBlur={handleBlur}
               required
             />
           </label>
@@ -77,6 +78,7 @@ function BookingForm() {
               name="bookingStart"
               min={DateTime.now().toFormat("yyyy-MM-dd")}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
           </label>
           <p className="error">
@@ -90,6 +92,7 @@ function BookingForm() {
               name="bookingEnd"
               min={DateTime.now().toFormat("yyyy-MM-dd")}
               onChange={handleChange}
+              onBlur={handleBlur}
             />
           </label>
           <p className="error">
