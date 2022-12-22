@@ -286,6 +286,7 @@ const useCalDisplayLogic = () => {
     //Logic for Sundays (to be made the 2nd highest priority (aka 2nd lowest/2nd last to be run) apart from Holidays)
     for (let m = 0; m < numberOfClassRooms; m++) {
       for (let p = 0; p < weekDayArray.length; p++) {
+        console.log("289", weekDayArray.length);
         if (weekDayArray[p] === "Sun") {
           occupiedBy[m][p] = "SUN";
         }
@@ -345,11 +346,11 @@ const useCalDisplayLogic = () => {
           }
         }
 
-        //If not holiday, but is institution-wide event (occupies all classrooms),
+        //If not holiday, but is institution-wide event (occupies null classrooms),
         //loop through all classrooms and every day in the classroom
       } else if (
         bookingsState[i].holiday === false &&
-        bookingsState[i].classRoom === undefined
+        bookingsState[i].classRoom === null
       ) {
         //loop through all the classrooms
         for (let j = 0; j < occupiedBy.length; j++) {
@@ -386,6 +387,8 @@ const useCalDisplayLogic = () => {
           m < occupiedBy[bookingsState[i].classRoom - 1].length;
           m++
         ) {
+          console.log(bookingsState[i]);
+          console.log("389", occupiedBy[bookingsState[i].classRoom - 1].length);
           currDate = new Date(selectedDateState);
           currDate = new Date(
             DateTime.fromISO(selectedISODate).plus({ days: m }).toISO()

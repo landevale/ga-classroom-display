@@ -461,7 +461,6 @@ export default function CalendarDisplay() {
 
         <tr>
           <td>Classroom 2</td>
-          {/* {currentCalendarArray[1]?.map((ele, i) => ( */}
           {calDisplayLogic[1]?.map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}
@@ -471,7 +470,6 @@ export default function CalendarDisplay() {
 
         <tr>
           <td>Classroom 3</td>
-          {/* {currentCalendarArray[2]?.map((ele, i) => ( */}
           {calDisplayLogic[2]?.map((ele, i) => (
             <td className={ele} key={`${ele}+${i}`}>
               {ele}
@@ -511,4 +509,3 @@ export default function CalendarDisplay() {
     </table>
   );
 }
-
