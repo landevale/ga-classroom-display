@@ -3,7 +3,8 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const session = require("express-session");
-const MemoryStore = require("memorystore")(session);
+// const MemoryStore = require("memorystore")(session);
+// const MongoStore = require("connect-mongo")(session);
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -19,10 +20,10 @@ const sessionsController = require("./controllers/sessionsController.js");
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
-// Create a new MemoryStore instance
-const store = new MemoryStore({
-  checkPeriod: 86400000, // prune expired entries every 24h
-});
+// // Create a new MemoryStore instance
+// const store = new MemoryStore({
+//   checkPeriod: 86400000, // prune expired entries every 24h
+// });
 
 // MIDDLEWARE
 // session
@@ -30,7 +31,11 @@ const store = new MemoryStore({
 app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
-    store: store,
+    // store: store,
+    // store: new MongoStore({
+    //   url: process.env.SECRET_SESSION,
+    //   collection: "sessions",
+    // }),
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
