@@ -5,7 +5,9 @@ export const courseRegSchema = Yup.object().shape({
   courseSchedule: Yup.string()
     .oneOf(["FullTime", "PartTime"])
     .required("Course type is required"),
-  startDate: Yup.date().required("Start date is required"),
+  startDate: Yup.date()
+    .max(Yup.ref("endDate"), "Start date must be on or before End date")
+    .required("Start date is required"),
   endDate: Yup.date()
     .min(Yup.ref("startDate"), "End date can't be before Start date")
     .required("End Date is required"),
