@@ -14,6 +14,7 @@ function CoursesTable({ refresh, setRefresh }) {
   const [selectedClassRoom, setSelectedClassRoom] = useState("");
   const [sort, setSort] = useState({ key: "startDate", order: "asc" });
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   // Search
   const handleSearch = (event) => {
@@ -30,6 +31,7 @@ function CoursesTable({ refresh, setRefresh }) {
       .then((data) => {
         setCourses(data);
         setRefresh(false); // Reset refresh to false
+        setIsLoading(false);
       });
   }, [refresh]);
 
@@ -84,110 +86,118 @@ function CoursesTable({ refresh, setRefresh }) {
           onChange={handleSearch}
         />
       </label>
+      {isLoading ? (
+        // Show a loading placeholder or message while the data is being fetched
+        <div>Loading...</div>
+      ) : (
+        <table border="1">
+          <div>
+            <select
+              value={selectedClassRoom}
+              onChange={(event) => setSelectedClassRoom(event.target.value)}
+            >
+              Show Classrooms:
+              <option value="">Show all</option>
+              <option value="1">Classroom 1</option>
+              <option value="2">Classroom 2</option>
+              <option value="3">Classroom 3</option>
+              <option value="4">Classroom 4</option>
+              <option value="5">Classroom 5</option>
+              <option value="6">Classroom 6</option>
+            </select>
+          </div>
 
-      <table border="1">
-        <div>
-          <select
-            value={selectedClassRoom}
-            onChange={(event) => setSelectedClassRoom(event.target.value)}
-          >
-            Show Classrooms:
-            <option value="">Show all</option>
-            <option value="1">Classroom 1</option>
-            <option value="2">Classroom 2</option>
-            <option value="3">Classroom 3</option>
-            <option value="4">Classroom 4</option>
-            <option value="5">Classroom 5</option>
-            <option value="6">Classroom 6</option>
-          </select>
-        </div>
+          {/* <caption>Courses</caption> */}
 
-        {/* <caption>Courses</caption> */}
-
-        <thead>
-          <tr>
-            <th>Cohort</th>
-            <th>Type</th>
-            <th onClick={() => handleSort("startDate")}>
-              Start Date{" "}
-              {sort.key === "startDate"
-                ? sort.order === "asc"
-                  ? "▲"
-                  : "▼"
-                : ""}
-            </th>
-            <th onClick={() => handleSort("endDate")}>
-              End Date{" "}
-              {sort.key === "endDate" ? (sort.order === "asc" ? "▲" : "▼") : ""}
-            </th>
-            <th>Days</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Sat on Campus</th>
-            <th>Classroom</th>
-            {/* <th>Weeks</th> */}
-            {isLoggedIn ? <th>Edit / Delete</th> : null}
-          </tr>
-        </thead>
-        <tbody>
-          {/* {courses.map((course, i) => ( */}
-          {sortedFilteredCourses
-            .filter(
-              (course) =>
-                selectedClassRoom === "" ||
-                (course.classRoom && course.classRoom == selectedClassRoom)
-            ) //Filter courses based on classroom
-            .filter(
-              (course) =>
-                DateTime.fromISO(course.endDate).startOf("day") >=
-                DateTime.local().startOf("day")
-            ) //Filter courses based on end date
-            .map((course, i) => (
-              <>
-                {" "}
-                {console.log("Sorted ", sortedFilteredCourses)}
-                {console.log("Filtered ", filteredCourses)}
-                {console.log("Filter and map", courses)}
-                {console.log("course.classRoom", course.classRoom)}
-                <tr key={i}>
-                  <td>{course.courseCode}</td>
-                  <td>{course.courseSchedule}</td>
-                  <td>
-                    {DateTime.fromISO(course.startDate).toLocaleString(
-                      DateTime.DATE_MED_WITH_WEEKDAY
-                    )}
-                  </td>
-                  <td>
-                    {DateTime.fromISO(course.endDate).toLocaleString(
-                      DateTime.DATE_MED_WITH_WEEKDAY
-                    )}
-                  </td>
-                  <td>
-                    {Object.entries(course.daysOnCampus)
-                      .map(([day, isOnCampus]) =>
-                        isOnCampus
-                          ? day.slice(0, 1).toUpperCase() + day.slice(1, 3)
-                          : null
-                      )
-                      .filter((day) => day !== null)
-                      .join(", ")}
-                  </td>
-                  <td>{course.startTime}</td>
-                  <td>{course.endTime}</td>
-                  <td>{course.altSaturdays}</td>
-                  <td>{course.classRoom}</td>
-                  {/* <td>{course.weeks}</td> */}
-                  {isLoggedIn ? (
+          <thead>
+            <tr>
+              <th>Cohort</th>
+              <th>Type</th>
+              <th onClick={() => handleSort("startDate")}>
+                Start Date{" "}
+                {sort.key === "startDate"
+                  ? sort.order === "asc"
+                    ? "▲"
+                    : "▼"
+                  : ""}
+              </th>
+              <th onClick={() => handleSort("endDate")}>
+                End Date{" "}
+                {sort.key === "endDate"
+                  ? sort.order === "asc"
+                    ? "▲"
+                    : "▼"
+                  : ""}
+              </th>
+              <th>Days</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Sat on Campus</th>
+              <th>Classroom</th>
+              {/* <th>Weeks</th> */}
+              {isLoggedIn ? <th>Edit / Delete</th> : null}
+            </tr>
+          </thead>
+          <tbody>
+            {/* {courses.map((course, i) => ( */}
+            {sortedFilteredCourses
+              .filter(
+                (course) =>
+                  selectedClassRoom === "" ||
+                  (course.classRoom && course.classRoom == selectedClassRoom)
+              ) //Filter courses based on classroom
+              .filter(
+                (course) =>
+                  DateTime.fromISO(course.endDate).startOf("day") >=
+                  DateTime.local().startOf("day")
+              ) //Filter courses based on end date
+              .map((course, i) => (
+                <>
+                  {" "}
+                  {console.log("Sorted ", sortedFilteredCourses)}
+                  {console.log("Filtered ", filteredCourses)}
+                  {console.log("Filter and map", courses)}
+                  {console.log("course.classRoom", course.classRoom)}
+                  <tr key={i}>
+                    <td>{course.courseCode}</td>
+                    <td>{course.courseSchedule}</td>
                     <td>
-                      <Link to={`/editcourse/${course._id}`}>📝</Link>
-                      <button onClick={handleDelete(course._id, i)}>X</button>
+                      {DateTime.fromISO(course.startDate).toLocaleString(
+                        DateTime.DATE_MED_WITH_WEEKDAY
+                      )}
                     </td>
-                  ) : null}
-                </tr>
-              </>
-            ))}
-        </tbody>
-      </table>
+                    <td>
+                      {DateTime.fromISO(course.endDate).toLocaleString(
+                        DateTime.DATE_MED_WITH_WEEKDAY
+                      )}
+                    </td>
+                    <td>
+                      {Object.entries(course.daysOnCampus)
+                        .map(([day, isOnCampus]) =>
+                          isOnCampus
+                            ? day.slice(0, 1).toUpperCase() + day.slice(1, 3)
+                            : null
+                        )
+                        .filter((day) => day !== null)
+                        .join(", ")}
+                    </td>
+                    <td>{course.startTime}</td>
+                    <td>{course.endTime}</td>
+                    <td>{course.altSaturdays}</td>
+                    <td>{course.classRoom}</td>
+                    {/* <td>{course.weeks}</td> */}
+                    {isLoggedIn ? (
+                      <td>
+                        <Link to={`/editcourse/${course._id}`}>📝</Link>
+                        <button onClick={handleDelete(course._id, i)}>X</button>
+                      </td>
+                    ) : null}
+                  </tr>
+                </>
+              ))}
+          </tbody>
+        </table>
+      )}
     </>
   );
 }
