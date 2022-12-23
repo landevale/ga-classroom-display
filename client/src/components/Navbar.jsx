@@ -9,21 +9,12 @@ function Navbar() {
   const navigate = useNavigate();
 
   const { setUser, isLoggedIn, setIsLoggedIn } = useContext(DataContext);
-  // console.log(user);
 
   useEffect(() => {
     async function checkLogin() {
       const response = await fetch("/api/login-status");
       const data = await response.json();
       setIsLoggedIn(data.loggedIn);
-    }
-    checkLogin();
-  }, []);
-
-  useEffect(() => {
-    async function checkLogin() {
-      const response = await fetch("/api/username");
-      const data = await response.json();
       setUser(data.username);
     }
     checkLogin();

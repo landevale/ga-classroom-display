@@ -93,36 +93,13 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/login-status", (req, res) => {
-  res.json({ loggedIn: req.session.loggedIn });
-});
-
-app.get("/api/username", (req, res) => {
-  res.json({ username: req.session.username });
+  res.json({ loggedIn: req.session.loggedIn, username: req.session.username });
 });
 
 app.get("/api/logout", function (req, res) {
   req.session.destroy(() => {
     res.json({ msg: "Logout success" });
   });
-});
-
-const checkLogin = (req, res, next) => {
-  // const { email } = req.body;
-  // if (req.session.userid !== email) {
-  if (!req.session.userid) {
-    //? matches login -> check
-    res.status(401).json({ msg: "Cannot see" });
-  } else {
-    next();
-  }
-};
-
-app.get("/api/secret", [checkLogin], (req, res) => {
-  res.json({ msg: "Need more milo" });
-});
-
-app.get("/api/secret2", [checkLogin], (req, res) => {
-  res.json({ msg: "Need more snacks" });
 });
 
 app.get("*", (req, res) => {
