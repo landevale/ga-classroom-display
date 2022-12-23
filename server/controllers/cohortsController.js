@@ -1,19 +1,19 @@
 const express = require("express");
-const session = require("express-session");
+// const session = require("express-session");
 const router = express.Router();
 const Cohort = require("../models/cohort");
 const seed = require("../seed/seedCohort");
 
 // session
 
-router.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true,
-    // cookie: { secure: true },
-  })
-);
+// router.use(
+//   session({
+//     secret: process.env.SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     // cookie: { secure: true },
+//   })
+// );
 
 router.get("/seed", seed); // DELETE!
 
