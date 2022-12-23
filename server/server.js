@@ -34,6 +34,9 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      maxAge: 604800000,
+    }, // expires in 1 week
     // cookie: { secure: true },
   })
 );
