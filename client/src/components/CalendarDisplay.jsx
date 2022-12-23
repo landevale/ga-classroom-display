@@ -14,7 +14,6 @@ export default function CalendarDisplay() {
   };
 
   const calDisplayLogic = useCalDisplayLogic();
-  console.log(calDisplayLogic);
 
   const dateHeaderRow = [];
   for (let i = 0; i < daysToShow; i++) {
