@@ -1,6 +1,13 @@
 <a name="readme-top"></a>
 # General Assembly's classroom-display iPads
 
+<div id="header" align="center">
+  <a href="https://good-jade-snail-gear.cyclic.app/">
+    <img src="https://i.imgur.com/SfamRbc.jpg"/>
+  </a>
+</div>
+
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
