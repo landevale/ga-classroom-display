@@ -1,4 +1,5 @@
 <a name="readme-top"></a>
+
 # General Assembly's classroom-display iPads
 
 <div id="header" align="center">
@@ -6,7 +7,6 @@
     <img src="https://i.imgur.com/SfamRbc.jpg"/>
   </a>
 </div>
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -41,7 +41,7 @@
 
 ## Project Overview
 
-The project aimed to fulfill the real-life requirement of GA for a classroom display app. Similar to working in team projects in the industry, the group got to meet up with the stakeholders involved and discussions/briefs/updates were communicated throughout the project's duration. The team worked closely with stakeholders to ensure the app met their needs. 
+The project aimed to fulfill the real-life requirement of GA for a classroom display app. Similar to working in team projects in the industry, the group got to meet up with the stakeholders involved and discussions/briefs/updates were communicated throughout the project's duration. The team worked closely with stakeholders to ensure the app met their needs.
 
 The project scope evolved throughout the process; initially from a "simple" read-and-display app with CRUD functions, to a more funtional room booking app that also does the display for classrooms use/users.
 
@@ -90,10 +90,6 @@ Link: [Project-3 GA Classroom Display](https://miro.com/welcomeonboard/NGhoZ1NjM
    <img src="https://i.imgur.com/uJ0ymOp.png" width="400"/>
 </div>
 
-
-
-
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Development Steps
@@ -109,10 +105,10 @@ Link: [Project-3 GA Classroom Display](https://miro.com/welcomeonboard/NGhoZ1NjM
 
 ## Deployment
 
-The app is deployed on Cyclic, and you can view the app here: https://good-jade-snail-gear.cyclic.app/
+The app is deployed on Cyclic, and you can view the app here: https://ga-classroom-display.cyclic.app//
 
 <div align="center">
-  <a href="https://good-jade-snail-gear.cyclic.app/">
+  <a href="https://ga-classroom-display.cyclic.app/">
     <img src="https://i.imgur.com/Xx1dcfy.png" width="400"/>
     <img src="https://i.imgur.com/UbLY8ys.png" width="400"/>
   </a>
@@ -147,8 +143,6 @@ Ambrose Heng:
 <a href = "https://github.com/landevale"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
 <a href = "https://linkedin.com/in/ambroseheng"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 <a href = "mailto:ambroseheng@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
-
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

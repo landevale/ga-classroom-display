@@ -1,5 +1,6 @@
-import { DateTime } from "luxon";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { DateTime } from "luxon";
 import { useSelectedDate } from "../../context/SelectedDateContext";
 import calendarDisplayLogic from "./DisplayLogic";
 
@@ -118,7 +119,7 @@ export default function CalendarDisplay() {
                         className="divide-x divide-gray-300"
                       >
                         <td className="text-left text-sm font-semibold bg-gray-200 text-gray-900 sm:pl-6">
-                          Room {element}
+                          <Link to={`/display/${element}`}>Room {element}</Link>
                         </td>
                         {calDisplayLogic[element - 1].map((ele, i) => (
                           <td
