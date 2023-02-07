@@ -1,26 +1,21 @@
-import React, { useContext, useState } from "react";
-import { DataContext } from "../App";
-import CourseRegForm from "../components/CourseRegForm";
-import CoursesTable from "../components/CoursesTable";
+import CourseRegForm from "../components/courses/CourseRegForm";
+import CourseTable from "../components/courses/CourseTable";
+import { UserAuth } from "../context/AuthContext";
 
-function Courses() {
-  const { isLoggedIn } = useContext(DataContext);
-  const [refresh, setRefresh] = useState(false);
+export default function Courses() {
+  const [user, setUser] = UserAuth();
 
   return (
     <>
-      <div>
-        <h1>Courses</h1>
-        <CoursesTable refresh={refresh} setRefresh={setRefresh} />
-      </div>
-      {isLoggedIn ? (
-        <div>
-          <h1>Course Registration</h1>
-          <CourseRegForm setRefresh={setRefresh} />
+      <CourseTable />
+      {user.data ? (
+        <div className="px-4 mt-4 sm:px-6 lg:px-8">
+          <div className="pt-4 px-4 border">
+          
+            <CourseRegForm />
+          </div>
         </div>
       ) : null}
     </>
   );
 }
-
-export default Courses;

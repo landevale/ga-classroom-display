@@ -1,23 +1,13 @@
 {
-<<<<<<< HEAD
-  "name": "project3",
-  "version": "1.0.0",
-  "description": "Server cannot crash or return nothing Document all the endpoints + responses + http status codes",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd client && npm run build",
-    "start": "cd server && npm run start"
-=======
   "name": "ga-proj3-personal",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "server": "cd server && npm run start",
     "client": "cd client && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd client && npm run build"
->>>>>>> 1b8a445 (Init in root directory, preparing for deployment)
+    "build": "cd client && npm run build",
+    "start": "cd server && npm run start"
   },
   "workspaces": [
     "client",
@@ -25,27 +15,13 @@
   ],
   "repository": {
     "type": "git",
-<<<<<<< HEAD
-    "url": "git+https://github.com/landevale/project3.git"
-=======
     "url": "git+https://github.com/paulngch/ga-classroom-display.git"
->>>>>>> 1b8a445 (Init in root directory, preparing for deployment)
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-<<<<<<< HEAD
-    "url": "https://github.com/landevale/project3/issues"
-  },
-  "homepage": "https://github.com/landevale/project3#readme",
-  "devDependencies": {
-    "eslint": "^8.30.0",
-    "eslint-plugin-react": "^7.31.11"
-  }
-=======
     "url": "https://github.com/paulngch/ga-classroom-display/issues"
   },
   "homepage": "https://github.com/paulngch/ga-classroom-display#readme"
->>>>>>> 1b8a445 (Init in root directory, preparing for deployment)
 }

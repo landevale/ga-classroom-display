@@ -1,40 +1,31 @@
 {
-  "name": "project3",
+  "name": "server",
   "version": "1.0.0",
-  "description": "First edit - Paul",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node .",
+    "start": "node server.js",
     "dev": "nodemon ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/landevale/project3.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/landevale/project3/issues"
-  },
-  "homepage": "https://github.com/landevale/project3#readme",
   "dependencies": {
+    "axios": "^1.2.6",
     "bcrypt": "^5.1.0",
-<<<<<<< HEAD
-    "connect-mongo": "^4.6.0",
-=======
->>>>>>> 1b8a445 (Init in root directory, preparing for deployment)
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "memorystore": "^1.6.7",
-    "mongodb": "^4.13.0",
-    "mongoose": "^6.8.0",
-    "morgan": "^1.10.0"
+    "jsonwebtoken": "^9.0.0",
+    "luxon": "^3.2.1",
+    "mongoose": "^6.9.0",
+    "morgan": "^1.10.0",
+    "react-router-dom": "^6.8.0"
   },
   "devDependencies": {
-    "eslint": "^8.29.0",
+    "eslint": "^8.33.0",
     "nodemon": "^2.0.20"
   }
 }

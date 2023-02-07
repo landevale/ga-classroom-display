@@ -15,7 +15,7 @@ const seed = require("../seed/seedBooking");
 //   })
 // );
 
-router.get("/seed", seed); // DELETE!
+// router.get("/seed", seed); // DELETE!
 
 router.get("/", async (req, res) => {
   //? return [ list of bookings]
@@ -29,10 +29,10 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   // Check for the presence of session data
-  if (!req.session.username) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
+  // if (!req.session.username) {
+  //   res.status(401).send("Unauthorized");
+  //   return;
+  // }
   try {
     const booking = await Booking.create(req.body);
     res.status(201).json(booking);
@@ -43,10 +43,10 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   // Check for the presence of session data
-  if (!req.session.username) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
+  // if (!req.session.username) {
+  //   res.status(401).send("Unauthorized");
+  //   return;
+  // }
   const { id } = req.params;
   try {
     const deletedBooking = await Booking.findByIdAndRemove(id);
@@ -68,10 +68,10 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   // Check for the presence of session data
-  if (!req.session.username) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
+  // if (!req.session.username) {
+  //   res.status(401).send("Unauthorized");
+  //   return;
+  // }
   const { id } = req.params;
   try {
     const updatedBooking = await Booking.findByIdAndUpdate(id, req.body, {

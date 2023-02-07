@@ -1,14 +1,13 @@
 import * as Yup from "yup";
 
-const placeHolderDate = "2022-01-01"
 
-export const courseRegSchema = Yup.object().shape({
+export const courseEditSchema = Yup.object().shape({
   courseCode: Yup.string().required("Course code is required"),
   courseSchedule: Yup.string()
     .oneOf(["FullTime", "PartTime"])
     .required("Course type is required"),
   startDate: Yup.date()
-    .max(Yup.ref("endDate"), "Start date must be on or before End date")
+    .max(new Date(), "Future date not allowed")
     .required("Start date is required"),
   endDate: Yup.date()
     .min(Yup.ref("startDate"), "End date can't be before Start date")

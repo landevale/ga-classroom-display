@@ -15,11 +15,12 @@ const seed = require("../seed/seedCohort");
 //   })
 // );
 
-router.get("/seed", seed); // DELETE!
+// router.get("/seed", seed); // DELETE!
 
 router.get("/", async (req, res) => {
   //? return [ list of cohorts]
   try {
+    console.log(req)
     const cohorts = await Cohort.find().exec();
     res.json(cohorts);
   } catch (error) {
@@ -29,10 +30,10 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   // Check for the presence of session data
-  if (!req.session.username) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
+  // if (!user.data) {
+  //   res.status(401).send("Unauthorized");
+  //   return;
+  // }
   try {
     const cohort = await Cohort.create(req.body);
     res.status(201).json(cohort);
@@ -43,10 +44,10 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   // Check for the presence of session data
-  if (!req.session.username) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
+  // if (!req.session.username) {
+  //   res.status(401).send("Unauthorized");
+  //   return;
+  // }
   const { id } = req.params;
   try {
     const deletedCohort = await Cohort.findByIdAndRemove(id);
@@ -68,10 +69,10 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   // Check for the presence of session data
-  if (!req.session.username) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
+  // if (!user.data) {
+  //   res.status(401).send("Unauthorized");
+  //   return;
+  // }
   const { id } = req.params;
   try {
     const updatedCohort = await Cohort.findByIdAndUpdate(id, req.body, {

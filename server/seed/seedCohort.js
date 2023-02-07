@@ -237,11 +237,19 @@ const seed = async (req, res) => {
       altSaturdays: "all", //none, odd, even, ALL
     },
   ];
-  await Cohort.deleteMany({});
-
-  const cohorts = await Cohort.insertMany(seedCohorts);
-
-  res.json(cohorts);
+  try {
+    
+    await Cohort.deleteMany({});
+    
+    const cohorts = await Cohort.insertMany(seedCohorts);
+    
+    res.status(200).json(cohorts);
+  } catch (error) {
+    return res.status(500).json({
+      data: "",
+      error: error.message,
+    });
+  }
 };
 
 module.exports = seed;
