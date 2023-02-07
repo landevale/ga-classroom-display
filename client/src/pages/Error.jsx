@@ -4,7 +4,7 @@ function ErrorPage() {
   return (
     <>
       <main>
-        <h1>OOPS!</h1>
+        <h1>OOPS!!</h1>
       </main>
     </>
   );
