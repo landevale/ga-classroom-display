@@ -63,16 +63,12 @@ mongoose.set("debug", true);
 mongoose.connect(mongoURI);
 
 // Connection Error/Success
-<<<<<<< HEAD
 // Define callback functions for various events
-=======
->>>>>>> 1b8a445 (Init in root directory, preparing for deployment)
 db.on("error", (err) => console.log(err.message + " is mongod not running?"));
 db.on("connected", () => console.log("mongo connected: ", mongoURI));
 db.on("disconnected", () => console.log("mongo disconnected"));
 
 app.get("/api/", (req, res) => {
-<<<<<<< HEAD
   res.json({ msg: "Hello World!" });
 });
 
@@ -111,16 +107,6 @@ app.get("*", (req, res) => {
 });
 
 // Listener
-=======
-  res.json({ msg: "Hello World! It's the beginning of GA Classroom Display!" });
-});
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve("..", "client", "dist", "index.html"));
-// });
-
-//Listener
->>>>>>> 1b8a445 (Init in root directory, preparing for deployment)
 db.once("open", () => {
   console.log("connected to mongo", mongoURI);
   app.listen(PORT, () => {

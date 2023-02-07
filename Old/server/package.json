@@ -21,10 +21,7 @@
   "homepage": "https://github.com/landevale/project3#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
-<<<<<<< HEAD
     "connect-mongo": "^4.6.0",
-=======
->>>>>>> 1b8a445 (Init in root directory, preparing for deployment)
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
