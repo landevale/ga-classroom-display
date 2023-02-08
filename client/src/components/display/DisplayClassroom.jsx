@@ -83,12 +83,12 @@ export default function DisplayClassroom() {
 
   return (
     <div className=" h-screen w-screen bg-black py-[5vh] flex flex-col">
-      <div className=" h-[40vh] flex">
+      <div className=" h-[40vh] min-w-[50%] flex">
         <h1 className=" text-6xl text text-white m-auto">CLASSROOM {id}</h1>
       </div>
       <hr className=" border-white border-2 w-[70vw] m-auto" />
       <br />
-      <div className="m-auto">
+      <div className="m-auto flex flex-col items-center">
         <h2 className="text-7xl text-center text-white ">
           {calDisplayLogic[id - 1]?.[0]}
         </h2>
