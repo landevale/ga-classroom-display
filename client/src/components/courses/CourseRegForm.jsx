@@ -280,7 +280,7 @@ export default function CourseRegForm() {
               id="startTime"
               name="startTime"
               min="09:00"
-              max="18:00"
+              max="19:00"
               value={values.startTime}
               onChange={handleChange}
               className="rounded-md bg-slate-200"
