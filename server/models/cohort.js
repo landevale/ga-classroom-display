@@ -5,7 +5,6 @@ const cohortSchema = new mongoose.Schema(
     courseCode: {
       type: String,
       // uppercase: true,
-      unique: true,
       required: [true, "can't be blank"],
       index: true,
       trim: true,
