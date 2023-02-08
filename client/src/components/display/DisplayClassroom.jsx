@@ -12,7 +12,7 @@ export default function DisplayClassroom() {
   //==================================
   const calDisplayLogic = calendarDisplayLogic();
   //   useEffect(() => {
-  console.log(calDisplayLogic);
+  // console.log(calDisplayLogic);
   //   }, []);
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export default function DisplayClassroom() {
   useEffect(() => {
     fetchCohort();
   }, []);
-  console.log(cohortState);
+  // console.log(cohortState);
   const [bookingsState, setBookingsState] = useState([]);
 
   const fetchBooking = async () => {
@@ -74,24 +74,29 @@ export default function DisplayClassroom() {
   let cohortStateFilter = Array.isArray(cohortState.data)
     ? cohortState.data.filter((ele) => ele.courseCode === classRoomUser)
     : [];
-  console.log(cohortStateFilter);
+  // console.log(cohortStateFilter);
   let cohortStartTime = cohortStateFilter[0]?.startTime;
   let cohortEndTime = cohortStateFilter[0]?.endTime;
 
-  console.log(cohortStartTime);
-  console.log(cohortEndTime);
+  const splitCurrUserArray = calDisplayLogic[id - 1]?.[0].split("/")
+console.log("SPLIT", splitCurrUserArray)
+  // console.log(cohortStartTime);
+  // console.log(cohortEndTime);
 
   return (
     <div className=" h-screen w-screen bg-black py-[5vh] flex flex-col">
-      <div className=" h-[40vh] min-w-[50%] flex">
+      <div className=" h-[40vh] min-w-[50%] flex whitespace-nowrap">
         <h1 className=" text-6xl text text-white m-auto">CLASSROOM {id}</h1>
       </div>
-      <hr className=" border-white border-2 w-[70vw] m-auto" />
-      <br />
-      <div className="m-auto flex flex-col items-center">
-        <h2 className="text-7xl text-center text-white ">
+      {/* <hr className=" border-white border-2 w-[70vw] m-auto" /> */}
+      <div className=" flex flex-col items-center">
+        {/* <h2 className="text-7xl text-center text-white ">
           {calDisplayLogic[id - 1]?.[0]}
-        </h2>
+        </h2> */}
+        {splitCurrUserArray.map((ele,index)=>(
+        <h2 className="text-7xl text-center text-white px-10 my-2 ">
+          {ele}
+        </h2>))}
         {cohortStartTime && cohortEndTime && (
           <p className="text-white text-5xl text-center pt-6">
             {cohortStartTime} - {cohortEndTime}
@@ -101,6 +106,7 @@ export default function DisplayClassroom() {
           Placeholder: {countdown} seconds remaining until refresh.
         </p> */}
         <br />
+        <hr className=" border-white border-2 w-[70vw] m-auto mt-20 mb-20" />
         <br />
         <a>
           <Link to="/">
