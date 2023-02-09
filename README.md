@@ -118,9 +118,10 @@ The app is deployed on Cyclic, and you can view the app here: https://ga-classro
 
 ## Future Development
 
-- Finding a suitable calendar library, in the limited time, proved to be much harder that imagined, as many could not fit the requirements for displaying in the format envisioned (and which was also communicated to the "clients") The group ended up hard-coding a table for that purpose. It in future to refactor code or to find a suitable library.
+- [x] Update CSS.
+- [ ] Finding a suitable calendar library, in the limited time, proved to be much harder that imagined, as many could not fit the requirements for displaying in the format envisioned (and which was also communicated to the "clients") The group ended up hard-coding a table for that purpose. It in future to refactor code or to find a suitable library.
 
-- CSS of the app is not a 100% due to time constraints, but the main purpose of the app (Classroom Display) is functioning and would only need some minor tweaks if any at all (if required by GA).
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
