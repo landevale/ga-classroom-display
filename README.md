@@ -110,7 +110,7 @@ The app is deployed on Cyclic, and you can view the app here: https://ga-classro
 <div align="center">
   <a href="https://ga-classroom-display.cyclic.app/">
     <img src="https://i.imgur.com/XYQtinR.png" width="400"/>
-    <img src="https://i.imgur.com/gywti9I.png" width="400"/>
+    <img src="https://i.imgur.com/KNQy9n3.png" width="400"/>
   </a>
 </div>
 
